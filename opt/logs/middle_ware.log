@@ -1,0 +1,67 @@
+2024-12-04 10:47:00.349|WARN ||||||[http-nio-8009-exec-5]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 10:47:00.354|WARN ||||||[http-nio-8009-exec-5]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 12:37:13.288|WARN ||||||[main]|o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - [refresh,635] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2024-12-04 12:37:13.313|ERROR||||||[main]|o.s.b.d.LoggingFailureAnalysisReporter - [report,40] - 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8009 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8009 or configure this application to listen on another port.
+
+2024-12-04 15:38:19.923|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 15:38:19.929|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 15:43:06.284|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 15:43:06.289|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 15:46:50.140|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 15:46:50.141|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 15:48:00.516|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 15:48:00.521|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 15:52:23.529|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 15:52:23.533|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 15:56:23.468|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 15:56:23.472|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 15:57:37.037|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 15:57:37.041|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 16:03:22.457|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 16:03:22.461|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 16:05:22.841|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 16:05:22.846|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 16:08:39.246|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 16:08:39.250|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 16:10:03.814|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 16:10:03.817|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 16:54:58.203|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 16:54:58.207|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 16:59:12.891|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 16:59:12.895|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:00:03.813|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:00:03.828|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:02:11.948|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:02:11.954|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:04:38.585|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:04:38.589|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:06:48.888|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:06:48.893|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:08:42.592|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:08:42.596|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:17:02.387|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:17:02.392|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:19:25.744|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:19:25.748|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 17:21:26.647|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 17:21:26.651|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 19:39:49.134|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 19:39:49.136|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 20:37:09.581|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 20:37:09.586|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-04 20:39:36.787|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-04 20:39:36.791|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.
+2024-12-05 00:55:37.307|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'startTime'.
+2024-12-05 00:55:37.311|WARN ||||||[main]|o.s.d.e.c.m.SimpleElasticsearchPersistentProperty - [initPropertyValueConverter,202] - Unsupported type 'class java.lang.Long' for date property 'deadline'.

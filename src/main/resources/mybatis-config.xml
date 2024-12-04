@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+    <!--INFO 设定统一的类型转换-->
+    <typeHandlers>
+        <typeHandler javaType="java.time.Duration" jdbcType="VARCHAR" handler="com.catface_task.common.mapper.handler.DurationTypeHandler"/>
+        <typeHandler javaType="java.lang.String[]" jdbcType="VARCHAR" handler="com.catface_task.common.mapper.handler.StringsTypeHandler"/>
+    </typeHandlers>
+</configuration>

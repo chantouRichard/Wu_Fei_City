@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.catface_task.common.mapper.TaskMapper">
+    <resultMap id="taskMap" type="com.catface_task.common.model.Task">
+        <id property="taskId" column="task_id" jdbcType="INTEGER"/>
+
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="userAcceptedId" column="user_accepted_id" jdbcType="INTEGER"/>
+
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="description" column="description" jdbcType="VARCHAR"/>
+        <result property="position" column="position" jdbcType="VARCHAR"/>
+
+        <result property="status" column="status" jdbcType="VARCHAR" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <result property="level" column="level" jdbcType="VARCHAR" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <result property="tags" column="tags" jdbcType="VARCHAR" typeHandler="com.catface_task.common.mapper.handler.StringsTypeHandler"/>
+
+        <result property="createdAt" column="created_at" jdbcType="TIMESTAMP"/>
+
+        <result property="department" column="department" jdbcType="VARCHAR" typeHandler="org.apache.ibatis.type.EnumTypeHandler"/>
+        <!-- Assuming the POI fields are stored in separate columns -->
+        <association property="poi" javaType="com.catface_task.common.model.Poi">
+            <result property="latitude" column="latitude" jdbcType="FLOAT"/>
+            <result property="longitude" column="longitude" jdbcType="FLOAT"/>
+        </association>
+
+        <association property="time" javaType="com.catface_task.common.model.TaskTime">
+            <result property="startTime" column="start_time" jdbcType="TIMESTAMP"/>
+            <result property="deadline" column="deadline" jdbcType="TIMESTAMP"/>
+            <result property="estimatedMinDuration" column="estimated_min_duration" jdbcType="VARCHAR"/>
+            <result property="estimatedMaxDuration" column="estimated_max_duration" jdbcType="VARCHAR"/>
+        </association>
+
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        user_id,
+        title,
+        description,
+        position,
+        status,
+        level,
+        tags,
+        latitude,
+        longitude,
+        department,
+        start_time,
+        deadline,
+        estimated_min_duration,
+        estimated_max_duration
+    </sql>
+
+    <sql id="Other_Column_List">
+        task_id,
+        created_at,
+        user_accepted_id
+    </sql>
+
+    <sql id="All_Column_List">
+        <include refid="Base_Column_List"/>
+        ,
+        <include refid="Other_Column_List"/>
+    </sql>
+
+    <insert id="insertTask" parameterType="com.catface_task.common.model.Task"
+            useGeneratedKeys="true" keyProperty="taskId">
+       INSERT INTO tasks (
+           <include refid="Base_Column_List"/>
+       ) VALUES (
+            #{userId},
+            #{title},
+            #{description},
+            #{position},
+            #{status},
+            #{level},
+            #{tags, typeHandler=com.catface_task.common.mapper.handler.StringsTypeHandler},
+            #{poi.latitude},
+            #{poi.longitude},
+            #{department},
+<!--            #{createdAt, jdbcType=TIMESTAMP},-->
+            #{time.startTime},
+            #{time.deadline},
+            #{time.estimatedMinDuration},
+            #{time.estimatedMaxDuration}
+       )
+    </insert>
+
+    <!--@description: 根据 POI 获取 DDL之前 & “等待接取”的任务。-->
+    <select id="selectByPOI" resultMap="taskMap">
+        SELECT <include refid="All_Column_List"/>
+        FROM tasks
+        WHERE status = 'WAITING'
+            AND (6371 * acos(
+                cos(radians(#{latitude})) * cos(radians(latitude)) *
+                cos(radians(longitude) - radians(#{longitude})) +
+                sin(radians(#{latitude})) * sin(radians(latitude))
+            )) &lt;= #{radius}
+            AND NOW() &lt;= deadline
+        LIMIT #{skip}, #{num};
+    </select> <!--UPDATE 后续这个 status 最好也可以自行设定。-->
+
+    <!--TODO 如何方便的加入复杂多变的条件过滤？-->
+    <select id="selectRecentTasks" resultMap="taskMap">
+        SELECT <include refid="All_Column_List"/>
+        FROM tasks
+        WHERE NOW() &lt;= deadline
+        ORDER BY created_at DESC
+        LIMIT #{skip}, #{num};
+    </select>
+
+    <select id="selectByDepartment" resultMap="taskMap">
+        SELECT <include refid="All_Column_List"/>
+        FROM tasks
+        WHERE department = #{department}
+            AND NOW() &lt;= deadline
+        ORDER BY created_at DESC
+        LIMIT #{skip}, #{num};
+    </select>
+
+    <select id="selectByIds" parameterType="java.util.List" resultMap="taskMap">
+        SELECT *
+        FROM tasks
+        WHERE task_id IN
+        <foreach item="id" index="index" collection="list" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </select>
+
+</mapper>

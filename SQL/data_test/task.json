@@ -1,0 +1,99 @@
+[{
+    "user_id": 1,
+    "title": "转移笼子",
+    "description": "工学部 x 舍楼下，送到信部·活动室。为11号领养日，需要先把笼子转移到方便的位置。",
+    "position": "工学部 x 舍楼下，送到信部·活动室。",
+    "status": "WAITING",
+    "level": "MEDIUM",
+    "tags": ["搬运笼子", "小电驴"],
+    "time": {
+      "start_time": "2024-12-03T10:00:00",
+      "deadline": "2024-12-10T16:00:00",
+      "estimated_min_duration": "PT1H",
+      "estimated_max_duration": "PT2H"
+    },
+    "poi": {
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  },
+  {
+    "user_id": 2,
+    "title": "喂食流浪猫",
+    "description": "在图书馆后门设立临时喂食点，每天定时投喂。",
+    "position": "图书馆后门",
+    "status": "COMPLETED",
+    "level": "MEDIUM",
+    "tags": ["喂食", "定时"],
+    "time": {
+      "start_time": "2024-12-01T08:00:00",
+      "deadline": "2024-12-31T18:00:00",
+      "estimated_min_duration": "PT30M",
+      "estimated_max_duration": "PT1H"
+    },
+    "poi": {
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  },
+  {
+    "user_id": 3,
+    "title": "搭建临时避难所",
+    "description": "在校园北侧空地搭建简易避难所，为流浪猫提供庇护。",
+    "position": "校园北侧空地",
+    "department": "IT",
+    "status": "ACCEPTED",
+    "level": "HIGH",
+    "tags": ["搭建", "避难所"],
+    "time": {
+      "start_time": "2024-12-05T09:00:00",
+      "deadline": "2024-12-15T17:00:00",
+      "estimated_min_duration": "PT4H",
+      "estimated_max_duration": "PT6H"
+    },
+    "poi": {
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  },
+  {
+    "user_id": 4,
+    "title": "组织领养活动",
+    "description": "在学生中心广场举办领养活动，宣传流浪猫领养的重要性。",
+    "position": "学生中心广场",
+    "department": "IT",
+    "status": "WAITING",
+    "level": "HIGH",
+    "tags": ["领养", "宣传活动"],
+    "time": {
+      "start_time": "2024-12-10T14:00:00",
+      "deadline": "2024-12-10T18:00:00",
+      "estimated_min_duration": "PT3H",
+      "estimated_max_duration": "PT4H"
+    },
+    "poi": {
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  },
+  {
+    "user_id": 5,
+    "title": "清理猫窝",
+    "description": "定期清理校园内的猫窝，保持环境卫生。",
+    "department": "ART",
+    "position": "校园各处",
+    "status": "WAITING",
+    "level": "LOW",
+    "tags": ["清理", "环保"],
+    "time": {
+      "start_time": "2024-12-02T10:00:00",
+      "deadline": "2024-12-02T12:00:00",
+      "estimated_min_duration": "PT1H",
+      "estimated_max_duration": "PT2H"
+    },
+    "poi": {
+      "latitude": 40.7128,
+      "longitude": -74.0060
+    }
+  }
+]
