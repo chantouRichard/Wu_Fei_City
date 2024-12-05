@@ -5,14 +5,14 @@ import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.catface_task.annotation.EmbeddingExplain;
+import com.catface_task.common.model.taskEnums.DepartmentWHU;
+import com.catface_task.common.model.taskEnums.TaskLevel;
+import com.catface_task.common.model.taskEnums.TaskStatus;
 import lombok.Data;
-import org.apache.ibatis.annotations.Result;
 
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Date;
 
 /**
  * @className: Task

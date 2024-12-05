@@ -1,6 +1,7 @@
 package com.catface_task.utils;
 
 import com.catface_task.annotation.EmbeddingExplain;
+import com.catface_task.common.model.taskEnums.Describable;
 
 import java.lang.reflect.Field;
 
@@ -30,6 +31,9 @@ public class EmbeddingToStringUtil {
                         String[] arrayValue = (String[]) value;
                         String arrayStr = String.join(", ", arrayValue);
                         sb.append(fieldName).append("：").append(arrayStr).append(", ");
+                    } else if (value instanceof Describable) {
+                        Describable describable = (Describable) value;
+                        sb.append(fieldName).append("：").append(describable.getDescription()).append(", ");
                     } else {
                         sb.append(fieldName).append("：").append(value).append(", ");
                     }

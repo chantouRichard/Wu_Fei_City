@@ -1,4 +1,4 @@
-package com.catface_task.common.model;
+package com.catface_task.common.model.taskEnums;
 
 
 import lombok.Getter;
@@ -11,7 +11,7 @@ import lombok.Getter;
  * @description:
  */
 @Getter
-public enum TaskStatus {
+public enum TaskStatus implements Describable {
     WAITING("等待中"),
     COMPLETED("已完成"),
     ACCEPTED("已接取");

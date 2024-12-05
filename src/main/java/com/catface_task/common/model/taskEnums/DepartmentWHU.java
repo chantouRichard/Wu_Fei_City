@@ -1,9 +1,9 @@
-package com.catface_task.common.model;
+package com.catface_task.common.model.taskEnums;
 
 import lombok.Getter;
 
 @Getter
-public enum DepartmentWHU {
+public enum DepartmentWHU implements Describable {
     IT("信部"),
     MEDICAL("医学部"),
     ENGINE("工部"),
