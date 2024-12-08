@@ -20,4 +20,11 @@ CREATE TABLE tasks (
 
     -- 任务接取人
     user_accepted_id INTEGER, -- 初始为 NULL
+
+    -- 特化：delete 软删除
+    is_deleted BOOLEAN DEFAULT 0,
 );
+
+
+-- others
+ALTER TABLE tasks ADD COLUMN is_deleted BOOLEAN DEFAULT 0;

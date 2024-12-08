@@ -58,5 +58,8 @@ public class Task implements Serializable {
 
     private LocalDateTime createdAt;  // MySQL 默认插入时间；
 
-    private Integer userAcceptedId;
+    //
+    private Boolean isDeleted;  // 单独一个字段，方便 MyBatis 快速过滤。
+    private Integer userAcceptedId;  // TODO 之后肯定需要更多的 “沟通” 处理。
+
 }

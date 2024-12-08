@@ -1,6 +1,6 @@
 package com.catface_task.controller;
 
-import com.catface_task.common.model_es.TaskES;
+import com.catface_task.common.vo.request.TaskAcceptRequest;
 import com.catface_task.common.vo.request.TaskSelectRecentVo;
 import com.catface_task.common.vo.request.TaskTopKRequest;
 import com.catface_task.common.vo.response.ResponseBean;
@@ -10,11 +10,8 @@ import com.catface_task.common.model.Task;
 
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.elasticsearch.annotations.Query;
-import org.springframework.data.elasticsearch.core.SearchHits;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -28,6 +25,7 @@ import java.util.Objects;
 @RestController
 @RequestMapping("/task")
 public class TaskController {
+
     @Autowired
     private TasksService tasksService;
 
@@ -56,7 +54,7 @@ public class TaskController {
 //            List<Task>
             result = switch (params.getMode()) {
                 case "poi" -> {
-                    if (params.getRadius() < 500)
+                    if (params.getRadius() < 500)  // UPDATE 最好不要硬编码。
                         params.setRadius(500);
                     yield tasksService.selectByPOI(params);
                 }
@@ -72,4 +70,21 @@ public class TaskController {
         List<TaskTopKResponse> result = tasksService.TopK(params);
         return ResponseBean.success(result);
     }
+
+    // Simple 取消 && 恢复 && 接受任务
+    @DeleteMapping
+    public ResponseBean cancelTask(@RequestParam(value = "task_id") int taskId) {
+        return tasksService.deleteTask(taskId) > 0 ? ResponseBean.success() : ResponseBean.fail("删除任务失败");
+    }
+
+    @PutMapping
+    public ResponseBean recoverTask(@RequestParam(value = "task_id") int taskId) {
+        return tasksService.recoverTask(taskId) > 0 ? ResponseBean.success() : ResponseBean.fail("恢复任务失败");
+    }
+
+    @PostMapping("/accept")
+    public ResponseBean acceptTask(@RequestBody TaskAcceptRequest params) {
+        return tasksService.acceptTask(params) > 0 ? ResponseBean.success() : ResponseBean.fail("接受任务失败");
+    }
+    
 }

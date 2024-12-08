@@ -3,7 +3,9 @@ package com.catface_task.service.impl;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.catface_task.common.dao_es.TaskES_DAO;
 import com.catface_task.common.dao_es.TaskRepository;
+import com.catface_task.common.model.taskEnums.TaskStatus;
 import com.catface_task.common.model_es.TaskES;
+import com.catface_task.common.vo.request.TaskAcceptRequest;
 import com.catface_task.common.vo.request.TaskSelectRecentVo;
 import com.catface_task.common.vo.request.TaskTopKRequest;
 import com.catface_task.common.vo.response.TaskTopKResponse;
@@ -49,6 +51,8 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     @Override
     @Transactional
     public boolean addTask(Task task) {
+        task.setStatus(TaskStatus.WAITING);
+
         boolean rc = true;
         // STAGE 1. MySQL
         rc = taskMapper.insertTask(task) > 0;
@@ -94,8 +98,9 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         List<TaskES> res = taskESDAO.searchTasksByKeywords(params.getNum(), params.getSkip(), params.getKeywords());
         List<Integer> taskIds = res.stream().map(TaskES::getId).collect(Collectors.toList());
 
-        logger.info("Search results: {}", taskIds);
-
+        if (taskIds.isEmpty()) {
+            return null;
+        }
         // 使用 taskIds 查询 Task 对象
         return taskMapper.selectByIds(taskIds);
     }
@@ -105,7 +110,7 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
         // Stage 1. embedding
         float[] embedding = textEmbeddingService.getEmbedding(params.getQuery());
 
-        // Stage 2. search & sort
+        // Stage 2. doc search & sort
         List<TaskES> res = taskESDAO.vectorSearch(embedding, params.getNum()); // TODO K ~ num
         List<Integer> taskIds = res.stream().map(TaskES::getId).collect(Collectors.toList());
 
@@ -141,5 +146,32 @@ public class TaskServiceImpl extends ServiceImpl<TaskMapper, Task> implements Ta
     public List<TaskES> test(TaskSelectRecentVo params) {
         return taskRepository.findByTitleOrDescriptionOrPosition(params.getKeywords(),
                 params.getKeywords(), params.getKeywords());
+    }
+
+    @Override
+    public int deleteTask(int taskId) {
+        Task task = new Task();
+        task.setTaskId(taskId);
+        task.setIsDeleted(true);
+        task.setStatus(TaskStatus.CANCELED);
+        return taskMapper.updateById(task);
+    }
+
+    @Override
+    public int recoverTask(int taskId) {
+        Task task = new Task();
+        task.setTaskId(taskId);
+        task.setStatus(TaskStatus.WAITING);
+        task.setIsDeleted(false);
+        return taskMapper.updateById(task);
+    }
+
+    @Override
+    public int acceptTask(TaskAcceptRequest params) {
+        Task task = new Task();
+        task.setTaskId(params.getTaskId());
+        task.setUserAcceptedId(params.getUserId());
+        task.setStatus(TaskStatus.ACCEPTED);
+        return taskMapper.updateById(task);
     }
 }

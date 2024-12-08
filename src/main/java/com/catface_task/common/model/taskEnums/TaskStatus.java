@@ -14,7 +14,8 @@ import lombok.Getter;
 public enum TaskStatus implements Describable {
     WAITING("等待中"),
     COMPLETED("已完成"),
-    ACCEPTED("已接取");
+    ACCEPTED("已接取"),
+    CANCELED("已取消");
 
     private final String description;
 
