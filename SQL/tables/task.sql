@@ -27,4 +27,4 @@ CREATE TABLE tasks (
 
 
 -- others
-ALTER TABLE tasks ADD COLUMN is_deleted BOOLEAN DEFAULT 0;
+--ALTER TABLE tasks ADD COLUMN is_deleted BOOLEAN DEFAULT 0;
