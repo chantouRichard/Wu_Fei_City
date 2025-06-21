@@ -1,9 +1,39 @@
 {
-	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+	"pages": [
 		{
 			"path": "pages/index/index",
 			"style": {
-				"navigationBarTitleText": "uni-app"
+				"navigationBarTitleText": "主页"
+			}
+		},
+		{
+			"path": "pages/chat/chat",
+			"style": {
+				"navigationBarTitleText": "对话"
+			}
+		},
+		{
+			"path": "pages/community/community",
+			"style": {
+				"navigationBarTitleText": "社区"
+			}
+		},
+		{
+			"path": "pages/my/my",
+			"style": {
+				"navigationBarTitleText": "我的"
+			}
+		},
+		{
+			"path": "pages/knowledge-detail/knowledge-detail",
+			"style": {
+				"navigationBarTitleText": "知识详情"
+			}
+		},
+		{
+			"path": "pages/activities/activities",
+			"style": {
+				"navigationBarTitleText": "活动中心"
 			}
 		}
 	],
@@ -12,5 +42,38 @@
 		"navigationBarTitleText": "uni-app",
 		"navigationBarBackgroundColor": "#F8F8F8",
 		"backgroundColor": "#F8F8F8"
-	}
+	},
+	"tabBar": {
+		"color": "#7A7E83",
+		"selectedColor": "#3cc51f",
+		"borderStyle": "black",
+		"backgroundColor": "#ffffff",
+		"list": [
+			{
+				"pagePath": "pages/index/index",
+				"iconPath": "static/tabbar/home.png",
+				"selectedIconPath": "static/tabbar/home_selected.png",
+				"text": "主页"
+			},
+			{
+				"pagePath": "pages/chat/chat",
+				"iconPath": "static/tabbar/chat.png",
+				"selectedIconPath": "static/tabbar/chat_seleced.png",
+				"text": "对话"
+			},
+			{
+				"pagePath": "pages/community/community",
+				"iconPath": "static/tabbar/community.png",
+				"selectedIconPath": "static/tabbar/community_selected.png",
+				"text": "社区"
+			},
+			{
+				"pagePath": "pages/my/my",
+				"iconPath": "static/tabbar/my.png",
+				"selectedIconPath": "static/tabbar/my_selected.png",
+				"text": "我的"
+			}
+		]
+	},
+	"uniIdRouter": {}
 }
