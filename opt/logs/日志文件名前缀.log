@@ -488,3 +488,267 @@ java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" bec
 2025-06-22 21:57:06.447|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
 2025-06-22 21:57:36.462|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
 2025-06-22 21:57:36.462|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 22:24:47.607|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 35696 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-22 22:24:47.612|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-22 22:24:47.613|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-22 22:24:48.237|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-22 22:24:48.241|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-22 22:24:48.242|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-22 22:24:48.243|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,476] - Identified candidate component class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\TaskMapper.class]
+2025-06-22 22:24:48.244|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Creating MapperFactoryBean with name 'taskMapper' and 'com.catface_task.common.mapper.TaskMapper' mapperInterface
+2025-06-22 22:24:48.248|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Enabling autowire by type for MapperFactoryBean with name 'taskMapper'.
+2025-06-22 22:24:48.641|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-22 22:24:48.643|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-22 22:24:48.644|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-22 22:24:48.704|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-22 22:24:48.774|WARN ||||||[main]|o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - [refresh,635] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'AIController' defined in file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\controller\AIController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'AIServiceImpl': Injection of autowired dependencies failed
+2025-06-22 22:24:48.779|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+2025-06-22 22:24:48.814|ERROR||||||[main]|o.s.b.SpringApplication - [reportFailure,857] - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'AIController' defined in file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\controller\AIController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'AIServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1371)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.catface_task.CatfaceTaskApplication.main(CatfaceTaskApplication.java:12)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'AIServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1626)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 21 common frames omitted
+Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'qianfan.api.secret' in value "${qianfan.api.secret}"
+	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81)
+	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:416)
+	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:128)
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:118)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:255)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:226)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:201)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:963)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1536)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	... 33 common frames omitted
+2025-06-22 22:26:31.259|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 36524 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-22 22:26:31.260|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-22 22:26:31.261|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-22 22:26:31.759|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-22 22:26:31.760|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-22 22:26:31.762|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-22 22:26:31.762|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,476] - Identified candidate component class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\TaskMapper.class]
+2025-06-22 22:26:31.763|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Creating MapperFactoryBean with name 'taskMapper' and 'com.catface_task.common.mapper.TaskMapper' mapperInterface
+2025-06-22 22:26:31.764|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Enabling autowire by type for MapperFactoryBean with name 'taskMapper'.
+2025-06-22 22:26:32.061|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-22 22:26:32.063|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-22 22:26:32.064|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-22 22:26:32.108|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-22 22:26:32.165|WARN ||||||[main]|o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - [refresh,635] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'AIController' defined in file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\controller\AIController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'AIServiceImpl': Injection of autowired dependencies failed
+2025-06-22 22:26:32.171|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+2025-06-22 22:26:32.194|ERROR||||||[main]|o.s.b.SpringApplication - [reportFailure,857] - Application run failed
+org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'AIController' defined in file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\controller\AIController.class]: Unsatisfied dependency expressed through constructor parameter 0: Error creating bean with name 'AIServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:804)
+	at org.springframework.beans.factory.support.ConstructorResolver.autowireConstructor(ConstructorResolver.java:240)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.autowireConstructor(AbstractAutowireCapableBeanFactory.java:1371)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1208)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.catface_task.CatfaceTaskApplication.main(CatfaceTaskApplication.java:12)
+Caused by: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'AIServiceImpl': Injection of autowired dependencies failed
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:515)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.populateBean(AbstractAutowireCapableBeanFactory.java:1435)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:600)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.config.DependencyDescriptor.resolveCandidate(DependencyDescriptor.java:254)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1626)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+	at org.springframework.beans.factory.support.ConstructorResolver.resolveAutowiredArgument(ConstructorResolver.java:913)
+	at org.springframework.beans.factory.support.ConstructorResolver.createArgumentArray(ConstructorResolver.java:791)
+	... 21 common frames omitted
+Caused by: org.springframework.util.PlaceholderResolutionException: Could not resolve placeholder 'qianfan.api.chat-url' in value "${qianfan.api.chat-url}"
+	at org.springframework.util.PlaceholderResolutionException.withValue(PlaceholderResolutionException.java:81)
+	at org.springframework.util.PlaceholderParser$ParsedValue.resolve(PlaceholderParser.java:416)
+	at org.springframework.util.PlaceholderParser.replacePlaceholders(PlaceholderParser.java:128)
+	at org.springframework.util.PropertyPlaceholderHelper.parseStringValue(PropertyPlaceholderHelper.java:118)
+	at org.springframework.util.PropertyPlaceholderHelper.replacePlaceholders(PropertyPlaceholderHelper.java:114)
+	at org.springframework.core.env.AbstractPropertyResolver.doResolvePlaceholders(AbstractPropertyResolver.java:255)
+	at org.springframework.core.env.AbstractPropertyResolver.resolveRequiredPlaceholders(AbstractPropertyResolver.java:226)
+	at org.springframework.context.support.PropertySourcesPlaceholderConfigurer.lambda$processProperties$0(PropertySourcesPlaceholderConfigurer.java:201)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.resolveEmbeddedValue(AbstractBeanFactory.java:963)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.doResolveDependency(DefaultListableBeanFactory.java:1536)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.resolveDependency(DefaultListableBeanFactory.java:1514)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.resolveFieldValue(AutowiredAnnotationBeanPostProcessor.java:785)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor$AutowiredFieldElement.inject(AutowiredAnnotationBeanPostProcessor.java:768)
+	at org.springframework.beans.factory.annotation.InjectionMetadata.inject(InjectionMetadata.java:146)
+	at org.springframework.beans.factory.annotation.AutowiredAnnotationBeanPostProcessor.postProcessProperties(AutowiredAnnotationBeanPostProcessor.java:509)
+	... 33 common frames omitted
+2025-06-22 22:29:33.981|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 39036 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-22 22:29:33.983|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-22 22:29:33.984|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-22 22:29:34.633|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-22 22:29:34.636|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-22 22:29:34.637|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-22 22:29:34.637|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,476] - Identified candidate component class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\TaskMapper.class]
+2025-06-22 22:29:34.638|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Creating MapperFactoryBean with name 'taskMapper' and 'com.catface_task.common.mapper.TaskMapper' mapperInterface
+2025-06-22 22:29:34.642|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Enabling autowire by type for MapperFactoryBean with name 'taskMapper'.
+2025-06-22 22:29:35.001|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-22 22:29:35.003|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-22 22:29:35.003|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-22 22:29:35.048|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-22 22:29:35.152|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6bc7c054
+2025-06-22 22:29:35.382|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Parsed mapper file: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+2025-06-22 22:29:35.387|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.133.130.53 network interface 
+2025-06-22 22:29:35.388|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wireless_32768 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-22 22:29:35.398|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:6 workerId:23
+2025-06-22 22:29:35.551|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-22 22:29:35.554|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-22 22:29:35.555|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.TaskController:
+	{POST [/task]}: addTask(Task)
+	{GET [/task]}: getRecentTasks(TaskSelectRecentVo)
+	{GET [/task/topk]}: getTaskTopK(TaskTopKRequest)
+	{PUT [/task]}: recoverTask(int)
+	{POST [/task/accept]}: acceptTask(TaskAcceptRequest)
+	{DELETE [/task]}: cancelTask(int)
+2025-06-22 22:29:35.558|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-22 22:29:35.564|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-22 22:29:35.629|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-22 22:29:35.757|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-22 22:29:35.780|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 2.294 seconds (process running for 2.578)
+2025-06-23 00:49:09.436|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 26992 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-23 00:49:09.448|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 00:49:09.448|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 00:49:09.944|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 00:49:09.946|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 00:49:09.946|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 00:49:09.946|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,476] - Identified candidate component class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\TaskMapper.class]
+2025-06-23 00:49:09.947|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Creating MapperFactoryBean with name 'taskMapper' and 'com.catface_task.common.mapper.TaskMapper' mapperInterface
+2025-06-23 00:49:09.949|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Enabling autowire by type for MapperFactoryBean with name 'taskMapper'.
+2025-06-23 00:49:10.261|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 00:49:10.262|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 00:49:10.263|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 00:49:10.315|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 00:49:10.402|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6bc7c054
+2025-06-23 00:49:10.596|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Parsed mapper file: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+2025-06-23 00:49:10.599|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.133.130.53 network interface 
+2025-06-23 00:49:10.600|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wireless_32768 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-23 00:49:10.607|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:6 workerId:24
+2025-06-23 00:49:10.727|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 00:49:10.729|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 00:49:10.731|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.TaskController:
+	{DELETE [/task]}: cancelTask(int)
+	{POST [/task]}: addTask(Task)
+	{POST [/task/accept]}: acceptTask(TaskAcceptRequest)
+	{GET [/task]}: getRecentTasks(TaskSelectRecentVo)
+	{PUT [/task]}: recoverTask(int)
+	{GET [/task/topk]}: getTaskTopK(TaskTopKRequest)
+2025-06-23 00:49:10.733|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 00:49:10.738|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 00:49:10.788|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 00:49:10.916|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-23 00:49:10.939|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 2.005 seconds (process running for 2.286)
+2025-06-23 00:59:51.861|INFO ||||||[http-nio-12420-exec-3]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 01:03:34.176|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 14856 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-23 01:03:34.177|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 01:03:34.178|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 01:03:34.596|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 01:03:34.598|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 01:03:34.598|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 01:03:34.598|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,476] - Identified candidate component class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\TaskMapper.class]
+2025-06-23 01:03:34.598|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Creating MapperFactoryBean with name 'taskMapper' and 'com.catface_task.common.mapper.TaskMapper' mapperInterface
+2025-06-23 01:03:34.602|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Enabling autowire by type for MapperFactoryBean with name 'taskMapper'.
+2025-06-23 01:03:34.885|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 01:03:34.887|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 01:03:34.888|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 01:03:34.931|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 01:03:35.009|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6bc7c054
+2025-06-23 01:03:35.157|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Parsed mapper file: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+2025-06-23 01:03:35.161|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.133.130.53 network interface 
+2025-06-23 01:03:35.162|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wireless_32768 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-23 01:03:35.170|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:6 workerId:0
+2025-06-23 01:03:35.270|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 01:03:35.272|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 01:03:35.273|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.TaskController:
+	{GET [/task]}: getRecentTasks(TaskSelectRecentVo)
+	{PUT [/task]}: recoverTask(int)
+	{GET [/task/topk]}: getTaskTopK(TaskTopKRequest)
+	{POST [/task/accept]}: acceptTask(TaskAcceptRequest)
+	{DELETE [/task]}: cancelTask(int)
+	{POST [/task]}: addTask(Task)
+2025-06-23 01:03:35.276|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 01:03:35.281|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 01:03:35.324|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 01:03:35.422|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-23 01:03:35.447|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.665 seconds (process running for 1.889)
+2025-06-23 01:03:42.861|INFO ||||||[http-nio-12420-exec-3]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'

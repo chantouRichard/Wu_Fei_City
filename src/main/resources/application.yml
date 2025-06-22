@@ -53,3 +53,9 @@ baidu:
     secret-key: your-speech-secret-key
     asr-url: https://vop.baidu.com/server_api
     tts-url: https://tsn.baidu.com/text2audio
+
+# 阿里云百炼通义千问VL配置
+aliyun:
+  dashscope:
+    api-key: sk-f7bb8aaa0a854cdfbde85d673d97a465
+    base-url: https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation
