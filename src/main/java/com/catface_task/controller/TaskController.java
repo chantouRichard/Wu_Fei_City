@@ -31,7 +31,7 @@ public class TaskController {
 
     /**
      * 发布任务
-     * @brief 先调用 MySQL，然后处理到 ES 中。// INFO 利用事务传递概念。
+     * @brief 添加任务到数据库
      * @param task
      * @return
      */
@@ -47,11 +47,8 @@ public class TaskController {
         // TIP 这样就是默认绑定 Query 类型的数据。
         Object result;
         if (Objects.equals(params.getMode(), "keywords")) {
-//            SearchHits<TaskES>
             result = tasksService.searchByKeywords(params);
-//            result = tasksService.test(params);
         } else {
-//            List<Task>
             result = switch (params.getMode()) {
                 case "poi" -> {
                     if (params.getRadius() < 500)  // UPDATE 最好不要硬编码。

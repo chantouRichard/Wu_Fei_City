@@ -15,5 +15,4 @@ import lombok.Data;
 public class TaskTopKResponse {
     private Task taskRaw;  // 原始基本信息
     private String explain; // 提供给 LLM 的中文综合描述
-
 }

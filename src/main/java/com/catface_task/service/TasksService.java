@@ -3,7 +3,6 @@ package com.catface_task.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.catface_task.common.model.Task;
-import com.catface_task.common.model_es.TaskES;
 import com.catface_task.common.vo.request.TaskAcceptRequest;
 import com.catface_task.common.vo.request.TaskSelectRecentVo;
 import com.catface_task.common.vo.request.TaskTopKRequest;
@@ -31,8 +30,6 @@ public interface TasksService extends IService<Task> {
     List<Task> searchByKeywords(TaskSelectRecentVo params);
 
     List<TaskTopKResponse> TopK(TaskTopKRequest params);
-
-    List<TaskES> test(TaskSelectRecentVo params);
 
     // 横向业务
     int deleteTask(int taskId);

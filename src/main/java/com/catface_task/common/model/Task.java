@@ -4,7 +4,6 @@ package com.catface_task.common.model;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.catface_task.annotation.EmbeddingExplain;
 import com.catface_task.common.model.taskEnums.DepartmentWHU;
 import com.catface_task.common.model.taskEnums.TaskLevel;
 import com.catface_task.common.model.taskEnums.TaskStatus;
@@ -32,27 +31,20 @@ public class Task implements Serializable {
     private Integer taskId;
     private Integer userId;
 
-    @EmbeddingExplain("任务标题")
     private String title;
 
-    @EmbeddingExplain("任务内容细节描述")
     private String description;
 
-    @EmbeddingExplain("任务位置描述")
     private String position; // TODO 之后也换成 enum
 
-    @EmbeddingExplain("任务状态")
     private TaskStatus status;
 
-    @EmbeddingExplain("任务急迫程度")
     private TaskLevel level;
 
-    @EmbeddingExplain("任务特点标签")
     private String[] tags;
 
     private TaskTime time;
 
-    @EmbeddingExplain("任务所在学部")
     private DepartmentWHU department;
     private Poi poi;
 
@@ -60,6 +52,6 @@ public class Task implements Serializable {
 
     //
     private Boolean isDeleted;  // 单独一个字段，方便 MyBatis 快速过滤。
-    private Integer userAcceptedId;  // TODO 之后肯定需要更多的 “沟通” 处理。
+    private Integer userAcceptedId;  // TODO 之后肯定需要更多的 "沟通" 处理。
 
 }
