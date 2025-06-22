@@ -1,0 +1,1 @@
+2025-06-22 14:39:09.047|WARN ||||||[http-nio-12420-exec-2]|o.s.w.s.m.s.DefaultHandlerExceptionResolver - [logException,254] - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.Integer` from String "string": not a valid `java.lang.Integer` value]

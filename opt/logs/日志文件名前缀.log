@@ -1,0 +1,490 @@
+2025-06-22 14:38:57.290|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 17.0.15 with PID 10880 (D:\projects\javaprojects\hav-spring-demo\target\classes started by Anny in D:\projects\javaprojects\hav-spring-demo)
+2025-06-22 14:38:57.291|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-22 14:38:57.293|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-22 14:38:57.706|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-22 14:38:57.710|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-22 14:38:57.710|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-22 14:38:57.710|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,476] - Identified candidate component class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\TaskMapper.class]
+2025-06-22 14:38:57.711|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Creating MapperFactoryBean with name 'taskMapper' and 'com.catface_task.common.mapper.TaskMapper' mapperInterface
+2025-06-22 14:38:57.712|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Enabling autowire by type for MapperFactoryBean with name 'taskMapper'.
+2025-06-22 14:38:57.949|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-22 14:38:57.950|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-22 14:38:57.950|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-22 14:38:57.994|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-22 14:38:58.052|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e
+2025-06-22 14:38:58.181|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Parsed mapper file: 'file [D:\projects\javaprojects\hav-spring-demo\target\classes\mapper\TaskMapper.xml]'
+2025-06-22 14:38:58.250|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.137.130.34 network interface 
+2025-06-22 14:38:58.256|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wlan2 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-22 14:38:58.264|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:4 workerId:29
+2025-06-22 14:38:58.379|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-22 14:38:58.383|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.TaskController:
+	{PUT [/task]}: recoverTask(int)
+	{GET [/task]}: getRecentTasks(TaskSelectRecentVo)
+	{POST [/task]}: addTask(Task)
+	{GET [/task/topk]}: getTaskTopK(TaskTopKRequest)
+	{DELETE [/task]}: cancelTask(int)
+	{POST [/task/accept]}: acceptTask(TaskAcceptRequest)
+2025-06-22 14:38:58.387|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-22 14:38:58.393|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-22 14:38:58.445|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-22 14:38:58.519|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-22 14:38:58.534|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.585 seconds (process running for 1.786)
+2025-06-22 14:39:08.949|INFO ||||||[http-nio-12420-exec-2]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-22 14:39:09.047|WARN ||||||[http-nio-12420-exec-2]|o.s.w.s.m.s.DefaultHandlerExceptionResolver - [logException,254] - Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `java.lang.Integer` from String "string": not a valid `java.lang.Integer` value]
+2025-06-22 14:40:04.102|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1106] - HikariPool-1 - configuration:
+2025-06-22 14:40:04.105|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - allowPoolSuspension.............false
+2025-06-22 14:40:04.105|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - autoCommit......................true
+2025-06-22 14:40:04.105|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - catalog.........................none
+2025-06-22 14:40:04.105|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - connectionInitSql...............none
+2025-06-22 14:40:04.105|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - connectionTestQuery.............none
+2025-06-22 14:40:04.105|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - connectionTimeout...............30000
+2025-06-22 14:40:04.105|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSource......................none
+2025-06-22 14:40:04.106|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSourceClassName.............none
+2025-06-22 14:40:04.106|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSourceJNDI..................none
+2025-06-22 14:40:04.106|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSourceProperties............{password=<masked>}
+2025-06-22 14:40:04.106|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - driverClassName................."com.mysql.cj.jdbc.Driver"
+2025-06-22 14:40:04.106|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - exceptionOverrideClassName......none
+2025-06-22 14:40:04.106|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - healthCheckProperties...........{}
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - healthCheckRegistry.............none
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - idleTimeout.....................600000
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - initializationFailTimeout.......1
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - isolateInternalQueries..........false
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - jdbcUrl.........................jdbc:mysql://101.201.61.151:3306/spring-didi?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - keepaliveTime...................0
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - leakDetectionThreshold..........0
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - maxLifetime.....................1800000
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - maximumPoolSize.................10
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - metricRegistry..................none
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - metricsTrackerFactory...........none
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - minimumIdle.....................10
+2025-06-22 14:40:04.107|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - password........................<masked>
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - poolName........................"HikariPool-1"
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - readOnly........................false
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - registerMbeans..................false
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - scheduledExecutor...............none
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - schema..........................none
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - threadFactory...................internal
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - transactionIsolation............default
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - username........................"didi"
+2025-06-22 14:40:04.108|DEBUG||||||[http-nio-12420-exec-5]|c.z.h.HikariConfig - [logConfiguration,1138] - validationTimeout...............5000
+2025-06-22 14:40:04.108|INFO ||||||[http-nio-12420-exec-5]|c.z.h.HikariDataSource - [getConnection,109] - HikariPool-1 - Starting...
+2025-06-22 14:40:04.492|INFO ||||||[http-nio-12420-exec-5]|c.z.h.p.HikariPool - [checkFailFast,554] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3db48853
+2025-06-22 14:40:04.494|INFO ||||||[http-nio-12420-exec-5]|c.z.h.HikariDataSource - [getConnection,122] - HikariPool-1 - Start completed.
+2025-06-22 14:40:04.529|DEBUG||||||[http-nio-12420-exec-5]|o.m.s.SqlSessionUtils - [debug,49] - Creating a new SqlSession
+2025-06-22 14:40:04.532|DEBUG||||||[http-nio-12420-exec-5]|o.m.s.SqlSessionUtils - [debug,49] - Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61c44dbd]
+2025-06-22 14:40:04.540|DEBUG||||||[http-nio-12420-exec-5]|o.m.s.t.SpringManagedTransaction - [debug,49] - JDBC Connection [HikariProxyConnection@1450723355 wrapping com.mysql.cj.jdbc.ConnectionImpl@3db48853] will be managed by Spring
+2025-06-22 14:40:04.542|DEBUG||||||[http-nio-12420-exec-5]|c.c.c.m.T.insertTask - [debug,135] - ==>  Preparing: INSERT INTO tasks ( user_id, title, description, position, status, level, tags, latitude, longitude, department, start_time, deadline, estimated_min_duration, estimated_max_duration ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+2025-06-22 14:40:04.560|DEBUG||||||[http-nio-12420-exec-5]|c.c.c.m.T.insertTask - [debug,135] - ==> Parameters: 5(Integer), 清理猫窝(String), 定期清理校园内的猫窝，保持环境卫生。(String), 校园各处(String), WAITING(String), LOW(String), 清理,环保(String), 40.7128(Float), -74.006(Float), null, 2024-12-02T10:00(LocalDateTime), 2024-12-02T12:00(LocalDateTime), PT1H(String), PT2H(String)
+2025-06-22 14:40:04.597|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2025-06-22 14:40:04.627|DEBUG||||||[http-nio-12420-exec-5]|c.c.c.m.T.insertTask - [debug,135] - <==    Updates: 1
+2025-06-22 14:40:04.636|DEBUG||||||[http-nio-12420-exec-5]|o.m.s.SqlSessionUtils - [debug,49] - Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61c44dbd]
+2025-06-22 14:40:04.638|DEBUG||||||[http-nio-12420-exec-5]|o.m.s.SqlSessionUtils - [debug,49] - Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61c44dbd]
+2025-06-22 14:40:04.638|DEBUG||||||[http-nio-12420-exec-5]|o.m.s.SqlSessionUtils - [debug,49] - Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61c44dbd]
+2025-06-22 14:40:04.638|DEBUG||||||[http-nio-12420-exec-5]|o.m.s.SqlSessionUtils - [debug,49] - Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@61c44dbd]
+2025-06-22 14:40:04.808|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4e96cab5
+2025-06-22 14:40:04.853|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=2, active=0, idle=2, waiting=0)
+2025-06-22 14:40:05.070|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@fabc08e
+2025-06-22 14:40:05.109|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=3, active=0, idle=3, waiting=0)
+2025-06-22 14:40:05.292|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@3e6e8bfd
+2025-06-22 14:40:05.337|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=4, active=0, idle=4, waiting=0)
+2025-06-22 14:40:05.525|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f843fc1
+2025-06-22 14:40:05.568|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=5, active=0, idle=5, waiting=0)
+2025-06-22 14:40:05.734|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ad210e8
+2025-06-22 14:40:05.767|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=6, active=0, idle=6, waiting=0)
+2025-06-22 14:40:05.963|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6bca24ec
+2025-06-22 14:40:05.997|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=7, active=0, idle=7, waiting=0)
+2025-06-22 14:40:06.161|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7b354823
+2025-06-22 14:40:06.200|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=8, active=0, idle=8, waiting=0)
+2025-06-22 14:40:06.361|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1727adb3
+2025-06-22 14:40:06.403|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=9, active=0, idle=9, waiting=0)
+2025-06-22 14:40:06.566|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@350649a5
+2025-06-22 14:40:06.606|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 14:40:06.606|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 14:40:34.607|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 14:40:34.607|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 14:41:04.622|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 14:41:04.622|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 14:41:34.624|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 14:41:34.625|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 14:41:39.367|ERROR||||||[http-nio-12420-exec-3]|o.a.c.c.C.[.[.[.[dispatcherServlet] - [log,175] - Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because the return value of "com.catface_task.common.vo.request.TaskSelectRecentVo.getNum()" is null] with root cause
+java.lang.NullPointerException: Cannot invoke "java.lang.Integer.intValue()" because the return value of "com.catface_task.common.vo.request.TaskSelectRecentVo.getNum()" is null
+	at com.catface_task.service.impl.TaskServiceImpl.getRecentTasks(TaskServiceImpl.java:52)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:723)
+	at com.catface_task.service.impl.TaskServiceImpl$$SpringCGLIB$$0.getRecentTasks(<generated>)
+	at com.catface_task.controller.TaskController.getRecentTasks(TaskController.java:59)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:77)
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:568)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:986)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:891)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1088)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:978)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:903)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:564)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:397)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:905)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:842)
+2025-06-22 14:42:04.633|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 14:42:04.633|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 14:42:34.639|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 14:42:34.639|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:13:27.546|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 17.0.15 with PID 20024 (D:\projects\javaprojects\hav-spring-demo\target\classes started by Anny in D:\projects\javaprojects\hav-spring-demo)
+2025-06-22 21:13:27.548|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-22 21:13:27.548|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-22 21:13:28.017|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-22 21:13:28.019|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-22 21:13:28.019|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-22 21:13:28.019|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,476] - Identified candidate component class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\TaskMapper.class]
+2025-06-22 21:13:28.020|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Creating MapperFactoryBean with name 'taskMapper' and 'com.catface_task.common.mapper.TaskMapper' mapperInterface
+2025-06-22 21:13:28.022|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [debug,49] - Enabling autowire by type for MapperFactoryBean with name 'taskMapper'.
+2025-06-22 21:13:28.330|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-22 21:13:28.332|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-22 21:13:28.332|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-22 21:13:28.383|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-22 21:13:28.473|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e
+2025-06-22 21:13:28.620|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Parsed mapper file: 'file [D:\projects\javaprojects\hav-spring-demo\target\classes\mapper\TaskMapper.xml]'
+2025-06-22 21:13:28.678|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.128.138.71 network interface 
+2025-06-22 21:13:28.684|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wlan2 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-22 21:13:28.694|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:4 workerId:0
+2025-06-22 21:13:28.813|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-22 21:13:28.817|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.TaskController:
+	{POST [/task]}: addTask(Task)
+	{POST [/task/accept]}: acceptTask(TaskAcceptRequest)
+	{GET [/task]}: getRecentTasks(TaskSelectRecentVo)
+	{DELETE [/task]}: cancelTask(int)
+	{PUT [/task]}: recoverTask(int)
+	{GET [/task/topk]}: getTaskTopK(TaskTopKRequest)
+2025-06-22 21:13:28.821|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-22 21:13:28.828|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-22 21:13:28.875|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-22 21:13:28.969|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-22 21:13:28.991|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.911 seconds (process running for 2.122)
+2025-06-22 21:13:36.465|INFO ||||||[http-nio-12420-exec-1]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-22 21:14:05.279|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1106] - HikariPool-1 - configuration:
+2025-06-22 21:14:05.281|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - allowPoolSuspension.............false
+2025-06-22 21:14:05.281|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - autoCommit......................true
+2025-06-22 21:14:05.282|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - catalog.........................none
+2025-06-22 21:14:05.282|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - connectionInitSql...............none
+2025-06-22 21:14:05.282|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - connectionTestQuery.............none
+2025-06-22 21:14:05.282|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - connectionTimeout...............30000
+2025-06-22 21:14:05.282|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSource......................none
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSourceClassName.............none
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSourceJNDI..................none
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - dataSourceProperties............{password=<masked>}
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - driverClassName................."com.mysql.cj.jdbc.Driver"
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - exceptionOverrideClassName......none
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - healthCheckProperties...........{}
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - healthCheckRegistry.............none
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - idleTimeout.....................600000
+2025-06-22 21:14:05.283|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - initializationFailTimeout.......1
+2025-06-22 21:14:05.284|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - isolateInternalQueries..........false
+2025-06-22 21:14:05.284|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - jdbcUrl.........................jdbc:mysql://101.201.61.151:3306/spring-didi?useUnicode=true&characterEncoding=utf-8&useSSL=false&allowPublicKeyRetrieval=true&zeroDateTimeBehavior=convertToNull&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - keepaliveTime...................0
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - leakDetectionThreshold..........0
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - maxLifetime.....................1800000
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - maximumPoolSize.................10
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - metricRegistry..................none
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - metricsTrackerFactory...........none
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - minimumIdle.....................10
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - password........................<masked>
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - poolName........................"HikariPool-1"
+2025-06-22 21:14:05.285|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - readOnly........................false
+2025-06-22 21:14:05.286|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - registerMbeans..................false
+2025-06-22 21:14:05.286|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - scheduledExecutor...............none
+2025-06-22 21:14:05.286|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - schema..........................none
+2025-06-22 21:14:05.286|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - threadFactory...................internal
+2025-06-22 21:14:05.286|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - transactionIsolation............default
+2025-06-22 21:14:05.286|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - username........................"didi"
+2025-06-22 21:14:05.286|DEBUG||||||[http-nio-12420-exec-10]|c.z.h.HikariConfig - [logConfiguration,1138] - validationTimeout...............5000
+2025-06-22 21:14:05.286|INFO ||||||[http-nio-12420-exec-10]|c.z.h.HikariDataSource - [getConnection,109] - HikariPool-1 - Starting...
+2025-06-22 21:14:05.597|INFO ||||||[http-nio-12420-exec-10]|c.z.h.p.HikariPool - [checkFailFast,554] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@635a4351
+2025-06-22 21:14:05.599|INFO ||||||[http-nio-12420-exec-10]|c.z.h.HikariDataSource - [getConnection,122] - HikariPool-1 - Start completed.
+2025-06-22 21:14:05.632|DEBUG||||||[http-nio-12420-exec-10]|o.m.s.SqlSessionUtils - [debug,49] - Creating a new SqlSession
+2025-06-22 21:14:05.639|DEBUG||||||[http-nio-12420-exec-10]|o.m.s.SqlSessionUtils - [debug,49] - Registering transaction synchronization for SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@279a9ae7]
+2025-06-22 21:14:05.646|DEBUG||||||[http-nio-12420-exec-10]|o.m.s.t.SpringManagedTransaction - [debug,49] - JDBC Connection [HikariProxyConnection@2069514405 wrapping com.mysql.cj.jdbc.ConnectionImpl@635a4351] will be managed by Spring
+2025-06-22 21:14:05.649|DEBUG||||||[http-nio-12420-exec-10]|c.c.c.m.T.insertTask - [debug,135] - ==>  Preparing: INSERT INTO tasks ( user_id, title, description, position, status, level, tags, latitude, longitude, department, start_time, deadline, estimated_min_duration, estimated_max_duration ) VALUES ( ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ? )
+2025-06-22 21:14:05.662|DEBUG||||||[http-nio-12420-exec-10]|c.c.c.m.T.insertTask - [debug,135] - ==> Parameters: 5(Integer), 清理猫窝(String), 定期清理校园内的猫窝，保持环境卫生。(String), 校园各处(String), WAITING(String), LOW(String), 清理,环保(String), 40.7128(Float), -74.006(Float), null, 2024-12-02T10:00(LocalDateTime), 2024-12-02T12:00(LocalDateTime), PT1H(String), PT2H(String)
+2025-06-22 21:14:05.705|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=1, active=1, idle=0, waiting=0)
+2025-06-22 21:14:05.722|DEBUG||||||[http-nio-12420-exec-10]|c.c.c.m.T.insertTask - [debug,135] - <==    Updates: 1
+2025-06-22 21:14:05.732|DEBUG||||||[http-nio-12420-exec-10]|o.m.s.SqlSessionUtils - [debug,49] - Releasing transactional SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@279a9ae7]
+2025-06-22 21:14:05.732|DEBUG||||||[http-nio-12420-exec-10]|o.m.s.SqlSessionUtils - [debug,49] - Transaction synchronization committing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@279a9ae7]
+2025-06-22 21:14:05.732|DEBUG||||||[http-nio-12420-exec-10]|o.m.s.SqlSessionUtils - [debug,49] - Transaction synchronization deregistering SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@279a9ae7]
+2025-06-22 21:14:05.733|DEBUG||||||[http-nio-12420-exec-10]|o.m.s.SqlSessionUtils - [debug,49] - Transaction synchronization closing SqlSession [org.apache.ibatis.session.defaults.DefaultSqlSession@279a9ae7]
+2025-06-22 21:14:05.898|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@69e262e2
+2025-06-22 21:14:05.939|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=2, active=0, idle=2, waiting=0)
+2025-06-22 21:14:06.110|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@28df68d9
+2025-06-22 21:14:06.142|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=3, active=0, idle=3, waiting=0)
+2025-06-22 21:14:06.330|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@193d6062
+2025-06-22 21:14:06.372|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=4, active=0, idle=4, waiting=0)
+2025-06-22 21:14:06.552|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@48f09796
+2025-06-22 21:14:06.590|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=5, active=0, idle=5, waiting=0)
+2025-06-22 21:14:06.768|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4ea662d8
+2025-06-22 21:14:06.805|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=6, active=0, idle=6, waiting=0)
+2025-06-22 21:14:06.991|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4cbeabdf
+2025-06-22 21:14:07.023|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=7, active=0, idle=7, waiting=0)
+2025-06-22 21:14:07.201|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5cae975a
+2025-06-22 21:14:07.240|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=8, active=0, idle=8, waiting=0)
+2025-06-22 21:14:07.413|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@13bc8fee
+2025-06-22 21:14:07.457|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=9, active=0, idle=9, waiting=0)
+2025-06-22 21:14:07.633|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@656d124
+2025-06-22 21:14:07.673|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - After adding stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:14:07.673|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:14:35.711|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:14:35.711|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:15:05.712|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:15:05.712|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:15:35.727|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:15:35.728|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:16:05.731|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:16:05.731|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:16:35.737|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:16:35.737|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:17:05.741|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:17:05.741|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:17:35.749|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:17:35.749|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:18:05.752|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:18:05.752|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:18:35.763|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:18:35.764|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:19:05.773|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:19:05.773|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:19:35.781|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:19:35.781|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:20:05.789|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:20:05.789|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:20:35.805|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:20:35.806|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:21:05.816|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:21:05.816|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:21:35.822|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:21:35.823|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:22:05.824|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:22:05.824|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:22:35.838|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:22:35.838|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:23:05.841|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:23:05.841|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:23:35.856|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:23:35.856|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:24:05.861|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:24:05.861|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:24:35.868|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:24:35.868|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:25:05.881|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:25:05.881|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:25:35.895|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:25:35.896|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:26:05.899|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:26:05.900|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:26:35.914|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:26:35.914|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:27:05.928|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:27:05.928|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:27:35.935|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:27:35.937|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:28:05.941|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:28:05.942|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:28:35.956|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:28:35.957|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:29:05.971|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:29:05.971|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:29:35.986|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:29:35.987|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:30:06.001|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:30:06.001|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:30:36.002|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:30:36.003|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:31:06.012|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:31:06.012|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:31:36.027|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:31:36.028|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:32:06.033|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:32:06.033|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:32:36.047|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:32:36.049|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:33:06.054|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:33:06.054|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:33:36.063|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:33:36.064|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:34:06.067|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:34:06.067|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:34:36.074|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:34:36.075|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:35:06.085|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:35:06.085|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:35:36.092|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:35:36.093|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:36:06.100|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:36:06.100|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:36:36.115|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:36:36.115|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:37:06.127|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:37:06.127|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:37:36.128|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:37:36.129|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:38:06.132|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:38:06.132|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:38:36.146|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:38:36.146|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:39:06.161|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:39:06.161|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:39:36.174|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:39:36.175|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:40:06.180|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:40:06.180|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:40:36.183|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:40:36.184|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:41:06.190|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:41:06.190|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:41:36.192|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:41:36.193|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:42:06.195|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:42:06.195|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:42:36.201|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:42:36.201|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:43:06.208|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:06.208|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:43:26.984|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@635a4351: (connection has passed maxLifetime)
+2025-06-22 21:43:27.167|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7a94d6a0
+2025-06-22 21:43:27.200|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:30.505|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4ea662d8: (connection has passed maxLifetime)
+2025-06-22 21:43:30.676|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@ad821e0
+2025-06-22 21:43:30.709|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:36.164|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@5cae975a: (connection has passed maxLifetime)
+2025-06-22 21:43:36.211|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=9, active=0, idle=9, waiting=0)
+2025-06-22 21:43:36.336|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@723682a7
+2025-06-22 21:43:36.366|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:36.366|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:38.562|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@656d124: (connection has passed maxLifetime)
+2025-06-22 21:43:38.727|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@330b889c
+2025-06-22 21:43:38.765|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:39.669|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@193d6062: (connection has passed maxLifetime)
+2025-06-22 21:43:39.843|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2f25f00
+2025-06-22 21:43:39.887|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:41.551|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@69e262e2: (connection has passed maxLifetime)
+2025-06-22 21:43:41.732|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@576a4846
+2025-06-22 21:43:41.770|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:49.573|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@13bc8fee: (connection has passed maxLifetime)
+2025-06-22 21:43:49.749|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@57415209
+2025-06-22 21:43:49.787|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:43:58.489|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@48f09796: (connection has passed maxLifetime)
+2025-06-22 21:43:58.671|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@5babda8f
+2025-06-22 21:43:58.708|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:44:02.867|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@4cbeabdf: (connection has passed maxLifetime)
+2025-06-22 21:44:03.039|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1a96d0b4
+2025-06-22 21:44:03.070|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:44:04.252|DEBUG||||||[HikariPool-1 connection closer]|c.z.h.pool.PoolBase - [quietlyCloseConnection,133] - HikariPool-1 - Closing connection com.mysql.cj.jdbc.ConnectionImpl@28df68d9: (connection has passed maxLifetime)
+2025-06-22 21:44:04.423|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [call,728] - HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@2bc62be0
+2025-06-22 21:44:04.455|DEBUG||||||[HikariPool-1 connection adder]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Connection not added, stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:44:06.227|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:44:06.227|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:44:36.229|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:44:36.231|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:45:06.243|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:45:06.243|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:45:36.245|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:45:36.245|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:46:06.254|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:46:06.254|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:46:36.263|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:46:36.263|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:47:06.273|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:47:06.275|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:47:36.287|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:47:36.289|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:48:06.305|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:48:06.305|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:48:36.307|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:48:36.308|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:49:06.309|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:49:06.309|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:49:36.310|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:49:36.311|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:50:06.326|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:50:06.326|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:50:36.336|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:50:36.336|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:51:06.344|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:51:06.344|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:51:36.350|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:51:36.351|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:52:06.354|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:52:06.354|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:52:36.365|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:52:36.365|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:53:06.374|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:53:06.374|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:53:36.387|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:53:36.389|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:54:06.392|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:54:06.392|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:54:36.404|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:54:36.404|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:55:06.420|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:55:06.420|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:55:36.434|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:55:36.435|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:56:06.439|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:56:06.439|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:56:36.444|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:56:36.444|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:57:06.447|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:57:06.447|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.
+2025-06-22 21:57:36.462|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [logPoolState,405] - HikariPool-1 - Pool stats (total=10, active=0, idle=10, waiting=0)
+2025-06-22 21:57:36.462|DEBUG||||||[HikariPool-1 housekeeper]|c.z.h.p.HikariPool - [fillPool,510] - HikariPool-1 - Fill pool skipped, pool has sufficient level or currently being filled.

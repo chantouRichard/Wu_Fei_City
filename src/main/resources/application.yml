@@ -37,3 +37,19 @@ mybatis-plus:
     #sql-Injector:   com.baomidou.mybatisplus.mapper.LogicSqlInjector
     logic-delete-value: 1
     logic-not-delete-value: 0
+
+# 文心一言配置
+wenxin:
+  api:
+    key: your-wenxin-api-key
+    secret: your-wenxin-api-secret
+    chat-url: https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/chat/completions
+    image-url: https://aip.baidubce.com/rpc/2.0/ai_custom/v1/wenxinworkshop/image_completions
+
+# 百度语音配置
+baidu:
+  speech:
+    api-key: your-speech-api-key
+    secret-key: your-speech-secret-key
+    asr-url: https://vop.baidu.com/server_api
+    tts-url: https://tsn.baidu.com/text2audio
