@@ -22,23 +22,28 @@ export const useUserStore = defineStore("user", () => {
     const rank = ref([
         {
             "title": "1",
-            "name": "user1",
-            "score": "100"
+            "nickname": "user1",
+            "green_score": "100"
         },
         {
             "title": "2",
-            "name": "user2",
-            "score": "90"
+            "nickname": "user2",
+            "scogreen_scorere": "90"
         },
         {
             "title": "3",
-            "name": "user3",
-            "score": "80"
+            "nickname": "user3",
+            "green_score": "80"
         },
         {
             "title": "4",
-            "name": "user4",
-            "score": "70"
+            "nickname": "user4",
+            "green_score": "70"
+        },
+        {
+            "title": "5",
+            "nickname": "user5",
+            "green_score": "60"
         }
     ]);
 

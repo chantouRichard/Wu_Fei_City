@@ -39,50 +39,51 @@
 	</view>
 </template>
 
-<script>
-	export default {
-		data() {
-			return {
-				rankList: [
-					{ medal: "/static/community/rk_1.png" },
-					{ medal: "/static/community/rk_2.png" },
-					{ medal: "/static/community/rk_3.png" },
-					{}, {}, // 4, 5名无奖牌
-				]
-			}
-		},
-		methods: {
-			goToMyPage() {
-				uni.switchTab({ url: '/pages/my/my' });
-			},
-			goToPhotoChat() {
-				uni.chooseImage({
-					count: 1,
-					sizeType: ['original', 'compressed'],
-					sourceType: ['album', 'camera'],
-					success: (res) => {
-						const filePath = res.tempFilePaths[0];
-						uni.getFileSystemManager().readFile({
-							filePath,
-							encoding: 'base64',
-							success: (fileRes) => {
-								// 存储到本地缓存
-								uni.setStorageSync('chat_photo_base64', fileRes.data);
-								// 跳转到 chat 页面并带 type=photo
-								uni.switchTab({ url: '/pages/chat/chat' });
-							},
-							fail: () => {
-								uni.showToast({ title: '图片读取失败', icon: 'none' });
-							}
-						});
-					},
-					fail: () => {
-						uni.showToast({ title: '未选择图片', icon: 'none' });
-					}
-				});
-			}
-		}
-	}
+<script setup>
+import { ref } from 'vue'
+import { useChatStore } from '../../stores/chat'
+
+// 获取全局状态
+const chatStore = useChatStore();
+
+// 响应式数据
+const rankList = ref([
+  { medal: "/static/community/rk_1.png" },
+  { medal: "/static/community/rk_2.png" },
+  { medal: "/static/community/rk_3.png" },
+  {}, {}, // 4, 5名无奖牌
+])
+
+// 方法
+const goToMyPage = () => {
+  uni.switchTab({ url: '/pages/my/my' })
+}
+
+const goToPhotoChat = () => {
+  uni.chooseImage({
+    count: 1,
+    sizeType: ['original', 'compressed'],
+    // sourceType: ['album', 'camera'],
+	sourceType: ['camera'],
+    success: (res) => {
+      const filePath = res.tempFilePaths[0]
+      uni.getFileSystemManager().readFile({
+        filePath,
+        encoding: 'base64',
+        success: (fileRes) => {
+		  chatStore.setImage("data:image/jpeg;base64," + fileRes.data);
+          uni.switchTab({ url: '/pages/chat/chat' })
+        },
+        fail: () => {
+          uni.showToast({ title: '图片读取失败', icon: 'none' })
+        }
+      })
+    },
+    fail: () => {
+      uni.showToast({ title: '未选择图片', icon: 'none' })
+    }
+  })
+}
 </script>
 
 <style scoped>
