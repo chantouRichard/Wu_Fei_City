@@ -8,7 +8,7 @@
           margin-top: 16px;
           width: 233px;
           display: flex;
-          flex-direction: column; /* 设置为列布局，实现上下排列 */
+          flex-direction: column;
         "
       >
         <div
@@ -18,7 +18,6 @@
             color: black;
             left: 110px;
             top: 124px;
-
             margin-bottom: 8px;
           "
         >
@@ -31,81 +30,81 @@
     </view>
 
     <!-- 消息列表 -->
-    <scroll-view
-      scroll-y
-      :scroll-into-view="scrollToView"
-      scroll-with-animation
-      ref="scrollView"
-      class="messages"
-      scroll-top="{{scrollTop}}"
+    <scroll-view 
+      scroll-y 
+      :scroll-into-view="scrollToView" 
+      scroll-with-animation 
+      class="messages" 
+      :scroll-top="scrollTop"
     >
-      <view
-        v-for="(msg, index) in messages"
-        :key="index"
-        :id="'msg' + index"
-        :class="['message', msg.from === 'user' ? 'user' : 'bot']"
+      <view 
+        v-for="(msg, index) in chatStore.history" 
+        :key="index" 
+        :id="'msg' + index" 
+        :class="['message', msg.role === 'user' ? 'user' : 'bot']"
       >
-        <view>{{ msg.text }}</view>
+        <view v-if="msg.content">{{ msg.content }}</view>
+        <image 
+          v-if="msg.image" 
+          :src="msg.image" 
+          mode="widthFix"
+          style="max-width: 200px; max-height: 200px; border-radius: 8px; margin-top: 5px;"
+        />
       </view>
     </scroll-view>
 
     <!-- 输入框和发送按钮 -->
     <view class="message-input">
       <div style="border: 1px solid #ccc;display: flex;border-radius: 8px;align-items: center;">
-        <textarea v-model="newMessage" placeholder="请输入消息..." class="input" ></textarea>
-        <div @click="sendMessage">
+        <textarea 
+          v-model="chatStore.inputMessage" 
+          placeholder="请输入消息..." 
+          class="input"
+          @confirm="chatStore.addUserMessage"
+        ></textarea>
+        <div @click="chatStore.addUserMessage">
           <image src="/static/chat/send.png" class="send-btn"></image>
         </div>
       </div>
-      <image class="pic" src="/src/static/chat/image.png" />
-
-      <image class="pic" src="/src/static/chat/speak.png" />
+      <image class="pic" src="/src/static/chat/image.png" @click="uploadImage"/>
     </view>
   </view>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      newMessage: "",
-      messages: [
-        {
-          from: "bot",
-          text: "你好呀，我是无聊AI助手·小绿，我会回答你提出的任何问题，解答各种疑惑～",
-        },
-      ],
-      scrollTop: 0,
-      scrollToView: "",
-    };
-  },
-  methods: {
-    sendMessage() {
-      if (this.newMessage.trim() !== "") {
-        this.messages.push({ from: "user", text: this.newMessage });
-        this.newMessage = "";
+<script setup>
+import { ref, watch } from 'vue'
+import { useChatStore } from '@/stores/chat'
 
-        // 模拟AI回复
-        setTimeout(() => {
-          this.messages.push({ from: "bot", text: "这是机器人给出的回答！" });
-          // 延迟后更新 scrollTop
-          this.scrollToBottom();
-        }, 1000);
-      }
-    },
-    // 自动滚动到底部
-    scrollToBottom() {
-      this.$nextTick(() => {
-        this.scrollToView = "msg" + (this.messages.length - 1);
-      });
-    },
-  },
-  watch: {
-    messages() {
-      this.scrollToBottom(); // 每次 messages 改变时自动滚动到底部
-    },
-  },
-};
+const chatStore = useChatStore()
+const scrollToView = ref('')
+const scrollTop = ref(0)
+
+const uploadImage = () => {
+  uni.chooseImage({
+    count: 1,
+    success: (res) => {
+      const tempFilePaths = res.tempFilePaths
+      uni.getFileSystemManager().readFile({
+        filePath: tempFilePaths[0],
+        encoding: 'base64',
+        success: (res) => {
+          chatStore.setImage('data:image/jpeg;base64,' + res.data)
+        }
+      })
+    }
+  })
+}
+
+const scrollToBottom = () => {
+  if (chatStore.history.length > 0) {
+    scrollToView.value = 'msg' + (chatStore.history.length - 1)
+    scrollTop.value = 999999 // 确保滚动到底部
+  }
+}
+
+watch(() => chatStore.history, () => {
+  scrollToBottom()
+}, { deep: true })
 </script>
 
 <style scoped>
