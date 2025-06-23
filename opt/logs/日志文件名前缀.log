@@ -752,3 +752,210 @@ Caused by: org.springframework.util.PlaceholderResolutionException: Could not re
 2025-06-23 01:03:35.422|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
 2025-06-23 01:03:35.447|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.665 seconds (process running for 1.889)
 2025-06-23 01:03:42.861|INFO ||||||[http-nio-12420-exec-3]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 08:03:51.582|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 20188 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-23 08:03:51.583|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 08:03:51.584|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 08:03:52.092|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 08:03:52.094|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 08:03:52.094|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 08:03:52.095|WARN ||||||[main]|o.m.s.m.ClassPathMapperScanner - [warn,44] - No MyBatis mapper was found in '[com.catface_task.common.mapper]' package. Please check your configuration.
+2025-06-23 08:03:52.479|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 08:03:52.481|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 08:03:52.481|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 08:03:52.542|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 08:03:52.698|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 08:03:52.701|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 08:03:52.705|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 08:03:52.711|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 08:03:52.769|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 08:03:52.844|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6bc7c054
+2025-06-23 08:03:53.054|WARN ||||||[main]|o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - [refresh,635] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+2025-06-23 08:03:53.057|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+2025-06-23 08:03:53.080|ERROR||||||[main]|o.s.b.SpringApplication - [reportFailure,857] - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1181)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.catface_task.CatfaceTaskApplication.main(CatfaceTaskApplication.java:12)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:199)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 21 common frames omitted
+Caused by: java.io.IOException: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.buildSqlSessionFactory(MybatisSqlSessionFactoryBean.java:680)
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.afterPropertiesSet(MybatisSqlSessionFactoryBean.java:553)
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.getObject(MybatisSqlSessionFactoryBean.java:711)
+	at com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration.sqlSessionFactory(MybatisPlusAutoConfiguration.java:221)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+	... 24 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.catface_task.common.model.Task'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.configurationElement(MybatisXMLMapperBuilder.java:129)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.parse(MybatisXMLMapperBuilder.java:102)
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.buildSqlSessionFactory(MybatisSqlSessionFactoryBean.java:678)
+	... 30 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.catface_task.common.model.Task'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:103)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.resultMapElement(MybatisXMLMapperBuilder.java:226)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.resultMapElement(MybatisXMLMapperBuilder.java:218)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.resultMapElements(MybatisXMLMapperBuilder.java:210)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.configurationElement(MybatisXMLMapperBuilder.java:125)
+	... 32 common frames omitted
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.catface_task.common.model.Task'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:128)
+	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:132)
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:101)
+	... 36 common frames omitted
+Caused by: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:226)
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:103)
+	at org.apache.ibatis.io.Resources.classForName(Resources.java:322)
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:124)
+	... 38 common frames omitted
+2025-06-23 08:04:44.784|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 3856 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-23 08:04:44.786|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 08:04:44.786|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 08:04:45.227|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 08:04:45.229|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 08:04:45.229|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 08:04:45.230|WARN ||||||[main]|o.m.s.m.ClassPathMapperScanner - [warn,44] - No MyBatis mapper was found in '[com.catface_task.common.mapper]' package. Please check your configuration.
+2025-06-23 08:04:45.509|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 08:04:45.510|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 08:04:45.510|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 08:04:45.554|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 08:04:45.664|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 08:04:45.666|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 08:04:45.668|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 08:04:45.674|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 08:04:45.722|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 08:04:45.780|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6bc7c054
+2025-06-23 08:04:45.875|WARN ||||||[main]|o.s.b.w.s.c.AnnotationConfigServletWebServerApplicationContext - [refresh,635] - Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+2025-06-23 08:04:45.877|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Stopping service [Tomcat]
+2025-06-23 08:04:45.892|ERROR||||||[main]|o.s.b.SpringApplication - [reportFailure,857] - Application run failed
+org.springframework.beans.factory.BeanCreationException: Error creating bean with name 'sqlSessionFactory' defined in class path resource [com/baomidou/mybatisplus/autoconfigure/MybatisPlusAutoConfiguration.class]: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:657)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiateUsingFactoryMethod(ConstructorResolver.java:645)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.instantiateUsingFactoryMethod(AbstractAutowireCapableBeanFactory.java:1351)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBeanInstance(AbstractAutowireCapableBeanFactory.java:1181)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.doCreateBean(AbstractAutowireCapableBeanFactory.java:563)
+	at org.springframework.beans.factory.support.AbstractAutowireCapableBeanFactory.createBean(AbstractAutowireCapableBeanFactory.java:523)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.lambda$doGetBean$0(AbstractBeanFactory.java:336)
+	at org.springframework.beans.factory.support.DefaultSingletonBeanRegistry.getSingleton(DefaultSingletonBeanRegistry.java:288)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.doGetBean(AbstractBeanFactory.java:334)
+	at org.springframework.beans.factory.support.AbstractBeanFactory.getBean(AbstractBeanFactory.java:199)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.instantiateSingleton(DefaultListableBeanFactory.java:1122)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingleton(DefaultListableBeanFactory.java:1093)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.preInstantiateSingletons(DefaultListableBeanFactory.java:1030)
+	at org.springframework.context.support.AbstractApplicationContext.finishBeanFactoryInitialization(AbstractApplicationContext.java:987)
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:627)
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:146)
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:752)
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:439)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:318)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1361)
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1350)
+	at com.catface_task.CatfaceTaskApplication.main(CatfaceTaskApplication.java:12)
+Caused by: org.springframework.beans.BeanInstantiationException: Failed to instantiate [org.apache.ibatis.session.SqlSessionFactory]: Factory method 'sqlSessionFactory' threw exception with message: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:199)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiateWithFactoryMethod(SimpleInstantiationStrategy.java:88)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.instantiate(SimpleInstantiationStrategy.java:168)
+	at org.springframework.beans.factory.support.ConstructorResolver.instantiate(ConstructorResolver.java:653)
+	... 21 common frames omitted
+Caused by: java.io.IOException: Failed to parse mapping resource: 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.buildSqlSessionFactory(MybatisSqlSessionFactoryBean.java:680)
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.afterPropertiesSet(MybatisSqlSessionFactoryBean.java:553)
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.getObject(MybatisSqlSessionFactoryBean.java:711)
+	at com.baomidou.mybatisplus.autoconfigure.MybatisPlusAutoConfiguration.sqlSessionFactory(MybatisPlusAutoConfiguration.java:221)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.beans.factory.support.SimpleInstantiationStrategy.lambda$instantiate$0(SimpleInstantiationStrategy.java:171)
+	... 24 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error parsing Mapper XML. The XML location is 'file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\mapper\TaskMapper.xml]'. Cause: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.catface_task.common.model.Task'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.configurationElement(MybatisXMLMapperBuilder.java:129)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.parse(MybatisXMLMapperBuilder.java:102)
+	at com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean.buildSqlSessionFactory(MybatisSqlSessionFactoryBean.java:678)
+	... 30 common frames omitted
+Caused by: org.apache.ibatis.builder.BuilderException: Error resolving class. Cause: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.catface_task.common.model.Task'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:103)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.resultMapElement(MybatisXMLMapperBuilder.java:226)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.resultMapElement(MybatisXMLMapperBuilder.java:218)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.resultMapElements(MybatisXMLMapperBuilder.java:210)
+	at com.baomidou.mybatisplus.core.MybatisXMLMapperBuilder.configurationElement(MybatisXMLMapperBuilder.java:125)
+	... 32 common frames omitted
+Caused by: org.apache.ibatis.type.TypeException: Could not resolve type alias 'com.catface_task.common.model.Task'.  Cause: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:128)
+	at org.apache.ibatis.builder.BaseBuilder.resolveAlias(BaseBuilder.java:132)
+	at org.apache.ibatis.builder.BaseBuilder.resolveClass(BaseBuilder.java:101)
+	... 36 common frames omitted
+Caused by: java.lang.ClassNotFoundException: Cannot find class: com.catface_task.common.model.Task
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:226)
+	at org.apache.ibatis.io.ClassLoaderWrapper.classForName(ClassLoaderWrapper.java:103)
+	at org.apache.ibatis.io.Resources.classForName(Resources.java:322)
+	at org.apache.ibatis.type.TypeAliasRegistry.resolveAlias(TypeAliasRegistry.java:124)
+	... 38 common frames omitted
+2025-06-23 08:05:03.256|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 21.0.5 with PID 18740 (D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes started by Havoc in D:\.FileData\.File Data\IdeaProjects\catface_task)
+2025-06-23 08:05:03.257|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 08:05:03.257|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 08:05:03.694|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 08:05:03.696|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 08:05:03.696|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\.FileData\.File Data\IdeaProjects\catface_task\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 08:05:03.697|WARN ||||||[main]|o.m.s.m.ClassPathMapperScanner - [warn,44] - No MyBatis mapper was found in '[com.catface_task.common.mapper]' package. Please check your configuration.
+2025-06-23 08:05:03.972|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 08:05:03.973|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 08:05:03.973|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 08:05:04.014|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 08:05:04.133|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 08:05:04.136|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 08:05:04.140|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 08:05:04.146|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 08:05:04.201|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 08:05:04.265|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@6bc7c054
+2025-06-23 08:05:04.323|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Property 'mapperLocations' was not specified.
+2025-06-23 08:05:04.327|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.133.130.53 network interface 
+2025-06-23 08:05:04.328|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wireless_32768 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-23 08:05:04.334|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:6 workerId:22
+2025-06-23 08:05:04.430|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-23 08:05:04.456|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.61 seconds (process running for 1.848)
+2025-06-23 08:05:11.224|INFO ||||||[http-nio-12420-exec-2]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
