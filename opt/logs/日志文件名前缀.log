@@ -959,3 +959,93 @@ Caused by: java.lang.ClassNotFoundException: Cannot find class: com.catface_task
 2025-06-23 08:05:04.430|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
 2025-06-23 08:05:04.456|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.61 seconds (process running for 1.848)
 2025-06-23 08:05:11.224|INFO ||||||[http-nio-12420-exec-2]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2025-06-23 11:49:07.422|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 17.0.15 with PID 31300 (D:\projects\javaprojects\hav-spring-demo\target\classes started by Anny in D:\projects\javaprojects\hav-spring-demo)
+2025-06-23 11:49:07.423|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 11:49:07.424|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 11:49:07.779|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 11:49:07.781|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 11:49:07.781|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 11:49:07.781|WARN ||||||[main]|o.m.s.m.ClassPathMapperScanner - [warn,44] - No MyBatis mapper was found in '[com.catface_task.common.mapper]' package. Please check your configuration.
+2025-06-23 11:49:08.047|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 11:49:08.048|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 11:49:08.048|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 11:49:08.095|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 11:49:08.198|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 11:49:08.200|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 11:49:08.201|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 11:49:08.206|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 11:49:08.241|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 11:49:08.292|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e
+2025-06-23 11:49:08.345|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Property 'mapperLocations' was not specified.
+2025-06-23 11:49:08.402|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.137.134.90 network interface 
+2025-06-23 11:49:08.406|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wlan2 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-23 11:49:08.412|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:4 workerId:1
+2025-06-23 11:49:08.469|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-23 11:49:08.487|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.388 seconds (process running for 1.576)
+2025-06-23 11:54:43.128|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 17.0.15 with PID 33512 (D:\projects\javaprojects\hav-spring-demo\target\classes started by Anny in D:\projects\javaprojects\hav-spring-demo)
+2025-06-23 11:54:43.129|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 11:54:43.129|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 11:54:43.438|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 11:54:43.439|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 11:54:43.440|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 11:54:43.440|WARN ||||||[main]|o.m.s.m.ClassPathMapperScanner - [warn,44] - No MyBatis mapper was found in '[com.catface_task.common.mapper]' package. Please check your configuration.
+2025-06-23 11:54:43.651|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 11:54:43.652|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 11:54:43.652|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 11:54:43.693|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 11:54:43.771|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 11:54:43.773|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 11:54:43.774|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 11:54:43.778|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 11:54:43.810|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 11:54:43.844|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e
+2025-06-23 11:54:43.884|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Property 'mapperLocations' was not specified.
+2025-06-23 11:54:43.935|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.137.134.90 network interface 
+2025-06-23 11:54:43.940|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wlan2 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-23 11:54:43.946|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:4 workerId:2
+2025-06-23 11:54:44.001|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-23 11:54:44.016|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.177 seconds (process running for 1.341)
+2025-06-23 11:55:25.502|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarting,53] - Starting CatfaceTaskApplication using Java 17.0.15 with PID 4944 (D:\projects\javaprojects\hav-spring-demo\target\classes started by Anny in D:\projects\javaprojects\hav-spring-demo)
+2025-06-23 11:55:25.503|DEBUG||||||[main]|c.c.CatfaceTaskApplication - [logStarting,54] - Running with Spring Boot v3.4.0, Spring v6.2.0
+2025-06-23 11:55:25.504|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStartupProfileInfo,658] - The following 1 profile is active: "dev"
+2025-06-23 11:55:25.815|DEBUG||||||[main]|o.a.i.l.LogFactory - [setImplementation,112] - Logging initialized using 'class org.apache.ibatis.logging.slf4j.Slf4jImpl' adapter.
+2025-06-23 11:55:25.817|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\DurationTypeHandler.class]
+2025-06-23 11:55:25.817|DEBUG||||||[main]|o.m.s.m.ClassPathMapperScanner - [scanCandidateComponents,482] - Ignored because not a concrete top-level class: file [D:\projects\javaprojects\hav-spring-demo\target\classes\com\catface_task\common\mapper\handler\StringsTypeHandler.class]
+2025-06-23 11:55:25.817|WARN ||||||[main]|o.m.s.m.ClassPathMapperScanner - [warn,44] - No MyBatis mapper was found in '[com.catface_task.common.mapper]' package. Please check your configuration.
+2025-06-23 11:55:26.027|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-12420"]
+2025-06-23 11:55:26.028|INFO ||||||[main]|o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2025-06-23 11:55:26.028|INFO ||||||[main]|o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/10.1.33]
+2025-06-23 11:55:26.070|INFO ||||||[main]|o.a.c.c.C.[.[.[/] - [log,173] - Initializing Spring embedded WebApplicationContext
+2025-06-23 11:55:26.146|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.AIController:
+	{POST [/api/ai/chat]}: handleChat(Map)
+2025-06-23 11:55:26.147|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	c.c.c.BaseController:
+	{GET [/link_try]}: linkTry()
+2025-06-23 11:55:26.148|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlerMethods,294] - 
+	o.s.b.a.w.s.e.BasicErrorController:
+	{ [/error]}: error(HttpServletRequest)
+	{ [/error], produces [text/html]}: errorHtml(HttpServletRequest,HttpServletResponse)
+2025-06-23 11:55:26.153|DEBUG||||||[main]|_.s.w.s.H.Mappings - [detectHandlers,86] - 'beanNameHandlerMapping' {}
+2025-06-23 11:55:26.188|DEBUG||||||[main]|_.s.w.s.H.Mappings - [logMappings,176] - 'resourceHandlerMapping' {/webjars/**=ResourceHttpRequestHandler [classpath [META-INF/resources/webjars/]], /**=ResourceHttpRequestHandler [classpath [META-INF/resources/], classpath [resources/], classpath [static/], classpath [public/], ServletContext [/]]}
+2025-06-23 11:55:26.221|DEBUG||||||[main]|c.z.h.HikariConfig - [attemptFromContextLoader,974] - Driver class com.mysql.cj.jdbc.Driver found in Thread context class loader jdk.internal.loader.ClassLoaders$AppClassLoader@70dea4e
+2025-06-23 11:55:26.260|DEBUG||||||[main]|c.b.m.e.s.MybatisSqlSessionFactoryBean - [debug,49] - Property 'mapperLocations' was not specified.
+2025-06-23 11:55:26.313|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,155] - Get /10.137.134.90 network interface 
+2025-06-23 11:55:26.317|DEBUG||||||[main]|c.b.m.c.t.Sequence - [getDatacenterId,159] - Get network interface info: name:wlan2 (Intel(R) Wi-Fi 6 AX201 160MHz)
+2025-06-23 11:55:26.323|DEBUG||||||[main]|c.b.m.c.t.Sequence - [initLog,103] - Initialization Sequence datacenterId:4 workerId:25
+2025-06-23 11:55:26.375|INFO ||||||[main]|o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-12420"]
+2025-06-23 11:55:26.389|INFO ||||||[main]|c.c.CatfaceTaskApplication - [logStarted,59] - Started CatfaceTaskApplication in 1.174 seconds (process running for 1.329)
