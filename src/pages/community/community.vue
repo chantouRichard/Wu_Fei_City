@@ -107,7 +107,7 @@ const goToPhotoChat = () => {
     width: 200px; 
     height: 100px;
     border-radius: 0 0 40px 0;
-    background: linear-gradient(-45deg, rgba(230,248,230,0) 0%, #e6f8e6 100%);
+    background: linear-gradient(-45deg, rgba(230,248,230,0) 0%, #F1FFDF 100%);
     z-index: 0;
 }
 .title, .plus-btn {
@@ -142,14 +142,15 @@ const goToPhotoChat = () => {
 .feature-label {
 	margin-top: 6px;
 	font-size: 14px;
-	color: #333;
+	color: #33333386;
 }
 .rank-card {
 	left: 0rpx; top: 60rpx;
 	position: relative;
-	background: linear-gradient(180deg, #e6f8e6 0%, #d2f8d2 100%);
-	border-radius: 30px;
-	margin: 0 8px;
+	background: linear-gradient(180deg, #C8ED93 0%, #E2F4CA 100%);
+	border-top-left-radius: 30px;
+	border-top-right-radius: 30px;
+	margin: 0 0px;
 	padding: 5px 0 10px 0;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.03);
 }
@@ -169,7 +170,8 @@ const goToPhotoChat = () => {
 .rank-title {
     position: relative;
     z-index: 10; 
-    font-size: 25px;
+    font-size: 30px;
+	letter-spacing: 10rpx;
     font-weight: bold;
     color: #222;
     margin-top: 28px;

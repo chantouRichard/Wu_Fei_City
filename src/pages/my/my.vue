@@ -95,10 +95,6 @@
           </view>
         </view>
       </view>
-
-      <view class="logout-section">
-        <button class="btn-logout" @tap="logout">退出登录</button>
-      </view>
     </view>
 
     <!-- 编辑资料弹窗（保持不变） -->
@@ -211,10 +207,6 @@ const onDayClick = (day, idx) => {
     console.log(`第${day}天，贡献:${userStore.userInfo.history[idx] || 0}`);
 };
 
-const logout = () => {
-    uni.removeStorageSync('userInfo');
-    userStore.resetUser();
-};
 </script>
 
 <style lang="scss" scoped>
@@ -227,8 +219,9 @@ const logout = () => {
 
 .header-section {
   position: relative;
-  height: 400rpx;
-  overflow: hidden;
+  box-sizing: border-box;
+  height: 350rpx;
+  margin-bottom: 20rpx;
 }
 
 .header-bg-img {
@@ -353,7 +346,7 @@ const logout = () => {
 
 .label-small {
   font-size: 22rpx;
-  color: #ccc;
+  color: white;
   line-height: 1;
 }
 
@@ -383,9 +376,10 @@ const logout = () => {
 }
 
 .panel-title {
-  font-size: 40rpx;
+  font-size: 45rpx;
+  letter-spacing: 5rpx;
   font-weight: bold;
-  color: #333;
+  color: #1B1B1B;
 }
 
 /* 日历容器，添加上下居中和空白 */
@@ -461,7 +455,7 @@ const logout = () => {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 44rpx;
+  font-size: 35rpx;
   border-radius: 8rpx;
   aspect-ratio: 1;
   min-height: 80rpx; /* 确保日期格子有最小高度 */
@@ -489,26 +483,6 @@ const logout = () => {
 .calendar-day.level-4 {
   background: #558b2f;
   color: #fff;
-}
-
-.logout-section {
-  display: flex;
-  justify-content: center;
-  margin-top: 32rpx;
-}
-
-.btn-logout {
-  background: #ff3b30;
-  color: #fff;
-  padding: 24rpx 72rpx;
-  border-radius: 44rpx;
-  font-size: 28rpx;
-  font-weight: bold;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: none;
-  outline: none;
 }
 
 /* 弹窗样式保持不变 */
