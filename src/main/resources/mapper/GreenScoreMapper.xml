@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.wufeibackend.mapper.GreenScoreMapper">
+
+    <!-- 绿色积分记录结果映射 -->
+    <resultMap id="GreenScoreRecordResultMap" type="com.whu.wufeibackend.entity.GreenScoreRecord">
+        <id column="id" property="id"/>
+        <result column="user_id" property="userId"/>
+        <result column="score" property="score"/>
+        <result column="action_type" property="actionType"/>
+        <result column="description" property="description"/>
+        <result column="record_date" property="recordDate"/>
+        <result column="created_at" property="createdAt"/>
+    </resultMap>
+
+    <!-- 用户排名结果映射 -->
+    <resultMap id="UserScoreRankingResultMap" type="com.whu.wufeibackend.entity.UserScoreRanking">
+        <id column="id" property="id"/>
+        <result column="nickname" property="nickname"/>
+        <result column="avatar" property="avatar"/>
+        <result column="total_score" property="totalScore"/>
+        <result column="rank" property="rank"/>
+    </resultMap>
+
+    <!-- 插入积分记录 -->
+    <insert id="insertScoreRecord" parameterType="com.whu.wufeibackend.entity.GreenScoreRecord" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO green_score_records (user_id, score, action_type, description, record_date)
+        VALUES (#{userId}, #{score}, #{actionType}, #{description}, #{recordDate})
+    </insert>
+
+    <!-- 根据用户ID查询积分记录 -->
+    <select id="findByUserId" resultMap="GreenScoreRecordResultMap">
+        SELECT id, user_id, score, action_type, description, record_date, created_at
+        FROM green_score_records
+        WHERE user_id = #{userId}
+        ORDER BY record_date DESC, created_at DESC
+    </select>
+
+    <!-- 根据用户ID和日期范围查询积分记录 -->
+    <select id="findByUserIdAndDateRange" resultMap="GreenScoreRecordResultMap">
+        <![CDATA[
+        SELECT id, user_id, score, action_type, description, record_date, created_at
+        FROM green_score_records
+        WHERE user_id = #{userId}
+        AND record_date BETWEEN #{startDate} AND #{endDate}
+        ORDER BY record_date DESC, created_at DESC
+        ]]>
+    </select>
+
+    <!-- 获取用户总积分 -->
+    <select id="getUserTotalScore" resultType="java.lang.Integer">
+        SELECT COALESCE(SUM(score), 0) AS total_score
+        FROM green_score_records
+        WHERE user_id = #{userId}
+    </select>
+
+    <!-- 获取排行榜（前N名） -->
+    <select id="getRankingList" resultMap="UserScoreRankingResultMap">
+        SELECT id, nickname, avatar, total_score, `rank`
+        FROM user_score_ranking
+        ORDER BY `rank`
+        LIMIT #{limit}
+    </select>
+
+    <!-- 获取用户在排行榜中的排名信息 -->
+    <select id="getUserRanking" resultMap="UserScoreRankingResultMap">
+        SELECT id, nickname, avatar, total_score, `rank`
+        FROM user_score_ranking
+        WHERE id = #{userId}
+    </select>
+
+    <!-- 获取用户最近N天的积分历史 -->
+    <select id="getUserScoreHistory" resultType="java.lang.Integer">
+        <![CDATA[
+        SELECT COALESCE(SUM(score), 0) AS daily_score
+        FROM green_score_records
+        WHERE user_id = #{userId}
+        AND record_date >= DATE_SUB(CURDATE(), INTERVAL #{days} DAY)
+        AND record_date <= CURDATE()
+        GROUP BY record_date
+        ORDER BY record_date ASC
+        ]]>
+    </select>
+
+    <!-- 获取用户参与活动的次数 -->
+    <select id="getUserActivityParticipationCount" resultType="java.lang.Integer">
+        SELECT COUNT(*) AS activity_count
+        FROM green_score_records
+        WHERE user_id = #{userId}
+        AND action_type = 'activity_participation'
+    </select>
+
+</mapper> 

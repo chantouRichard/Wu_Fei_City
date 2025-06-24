@@ -1,0 +1,180 @@
+package com.whu.wufeibackend.controller;
+
+import com.whu.wufeibackend.dto.ApiResponse;
+import com.whu.wufeibackend.dto.LoginResponse;
+import com.whu.wufeibackend.dto.SimpleLoginRequest;
+import com.whu.wufeibackend.entity.User;
+import com.whu.wufeibackend.service.UserService;
+import jakarta.validation.Valid;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.Map;
+
+/**
+ * 管理员控制器
+ * 处理管理员相关的功能：登录、审批居委会、系统管理等，需要JWT令牌验证
+ */
+@RestController
+@RequestMapping("/api/admin")
+@CrossOrigin(origins = "*")
+public class AdminController {
+    
+    private static final Logger logger = LoggerFactory.getLogger(AdminController.class);
+    
+    @Autowired
+    private UserService userService;
+    
+    /**
+     * 管理员登录
+     * 
+     * @param request 登录请求
+     * @return 登录结果
+     */
+    @PostMapping("/login")
+    public ApiResponse<LoginResponse> login(@Valid @RequestBody SimpleLoginRequest request) {
+        logger.info("【管理员登录】收到登录请求 - 用户名: {}, 用户类型: {}", 
+                   request.getUsername(), request.getUserType());
+        logger.debug("【管理员登录】请求详情: {}", request.toString());
+        
+        try {
+            // 确保只能管理员登录
+            if (!"admin".equals(request.getUserType())) {
+                logger.warn("【管理员登录】非管理员尝试访问管理员接口 - 用户名: {}, 用户类型: {}", 
+                           request.getUsername(), request.getUserType());
+                return ApiResponse.error(400, "此接口仅支持管理员登录");
+            }
+            
+            logger.info("【管理员登录】开始验证管理员身份 - 用户名: {}", request.getUsername());
+            LoginResponse response = userService.login(request);
+            
+            if (response.getSuccess()) {
+                logger.info("【管理员登录】管理员登录成功 - 用户名: {}, 用户ID: {}", 
+                           request.getUsername(), response.getId());
+                logger.debug("【管理员登录】登录响应详情: {}", response.toString());
+                return ApiResponse.success("管理员登录成功", response);
+            } else {
+                logger.warn("【管理员登录】管理员登录失败 - 用户名: {}, 错误原因: {}", 
+                           request.getUsername(), response.getReason());
+                return ApiResponse.error(400, response.getReason());
+            }
+        } catch (Exception e) {
+            logger.error("【管理员登录】管理员登录异常 - 用户名: {}, 错误: {}", 
+                        request.getUsername(), e.getMessage(), e);
+            return ApiResponse.error("管理员登录失败：" + e.getMessage());
+        }
+    }
+    
+    /**
+     * 获取待审批的居委会用户列表
+     * 
+     * @param token JWT令牌
+     * @return 待审批用户列表
+     */
+    @GetMapping("/pending-users")
+    public ApiResponse<List<User>> getPendingUsers(@RequestHeader("Authorization") String token) {
+        logger.info("【获取待审批列表】收到请求");
+        logger.debug("【获取待审批列表】收到前端token: {}", token);
+        
+        // 自动去掉Bearer前缀
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            logger.debug("【获取待审批列表】去前缀后token: {}", token);
+        }
+        
+        try {
+            // 验证JWT令牌
+            logger.info("【获取待审批列表】开始验证JWT令牌");
+            if (!userService.validateToken(token)) {
+                logger.warn("【获取待审批列表】JWT令牌验证失败");
+                return ApiResponse.error(401, "无效的令牌");
+            }
+            
+            // 验证是否为管理员
+            logger.info("【获取待审批列表】开始验证管理员权限");
+            String userType = userService.getUserTypeFromToken(token);
+            logger.debug("【获取待审批列表】从token中获取的用户类型: {}", userType);
+            
+            if (!"admin".equals(userType)) {
+                logger.warn("【获取待审批列表】非管理员尝试访问 - 用户类型: {}", userType);
+                return ApiResponse.error(403, "权限不足");
+            }
+            
+            logger.info("【获取待审批列表】开始查询待审批用户");
+            List<User> pendingUsers = userService.getPendingCommitteeUsers();
+            logger.info("【获取待审批列表】查询成功 - 待审批用户数量: {}", pendingUsers.size());
+            logger.debug("【获取待审批列表】待审批用户详情: {}", pendingUsers.toString());
+            
+            return ApiResponse.success("获取待审批用户列表成功", pendingUsers);
+        } catch (Exception e) {
+            logger.error("【获取待审批列表】操作异常 - 错误: {}", e.getMessage(), e);
+            return ApiResponse.error("获取待审批用户列表失败：" + e.getMessage());
+        }
+    }
+    
+    /**
+     * 审批居委会用户
+     * 
+     * @param token JWT令牌
+     * @param payload 审批请求
+     * @return 审批结果
+     */
+    @PostMapping("/approve")
+    public ApiResponse<?> approveUser(@RequestHeader("Authorization") String token, @RequestBody Map<String, Object> payload) {
+        logger.info("【用户审批】收到审批请求");
+        logger.debug("【用户审批】收到前端token: {}", token);
+        logger.debug("【用户审批】收到payload: {}", payload);
+        
+        if (token != null && token.startsWith("Bearer ")) {
+            token = token.substring(7);
+            logger.debug("【用户审批】去前缀后token: {}", token);
+        }
+        
+        try {
+            // 校验token
+            logger.info("【用户审批】开始验证JWT令牌");
+            boolean valid = userService.validateToken(token);
+            logger.debug("【用户审批】token校验结果: {}", valid);
+            
+            if (!valid) {
+                logger.warn("【用户审批】JWT令牌验证失败");
+                return ApiResponse.error(401, "无效的令牌");
+            }
+            
+            // 解析参数
+            Integer userId = null;
+            Boolean approved = null;
+            try {
+                userId = (payload.get("userId") instanceof Integer) ? 
+                        (Integer) payload.get("userId") : 
+                        Integer.parseInt(payload.get("userId").toString());
+                approved = (Boolean) payload.get("approved");
+                
+                logger.info("【用户审批】解析参数成功 - userId: {}, approved: {}", userId, approved);
+            } catch (Exception e) {
+                logger.error("【用户审批】参数解析异常 - 错误: {}", e.getMessage(), e);
+                return ApiResponse.error(400, "参数解析失败：" + e.getMessage());
+            }
+            
+            // 审批业务
+            logger.info("【用户审批】开始执行审批业务 - userId: {}, approved: {}", userId, approved);
+            boolean result = userService.approveCommitteeUser(userId, approved != null && approved);
+            logger.info("【用户审批】审批业务执行完成 - 结果: {}", result);
+            
+            if (result) {
+                String action = (approved != null && approved) ? "通过" : "拒绝";
+                logger.info("【用户审批】审批{}成功 - userId: {}", action, userId);
+                return ApiResponse.success("审批" + action + "成功");
+            } else {
+                logger.warn("【用户审批】审批失败 - userId: {}, 可能原因: 用户不存在或非居委会用户", userId);
+                return ApiResponse.error(500, "审批失败");
+            }
+        } catch (Exception e) {
+            logger.error("【用户审批】审批异常 - 错误: {}", e.getMessage(), e);
+            return ApiResponse.error(500, "审批失败：" + e.getMessage());
+        }
+    }
+} 
