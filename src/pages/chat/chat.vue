@@ -36,6 +36,7 @@
       scroll-with-animation
       class="messages"
       :scroll-top="scrollTop"
+      enable-flex
     >
       <view
         v-for="(msg, index) in chatStore.history"

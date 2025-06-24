@@ -3,8 +3,8 @@
     <!-- 头部背景 -->
     <view class="header-section">
       <image
-        v-if="userInfo.avatar"
-        :src="userInfo.avatar"
+        v-if="userStore.userInfo.avatar"
+        :src="userStore.userInfo.avatar"
         class="header-bg-img"
         mode="aspectFill"
       />
@@ -17,8 +17,8 @@
           <!-- 左侧头像 -->
           <view class="avatar-section">
             <image
-              v-if="userInfo.avatar"
-              :src="userInfo.avatar"
+              v-if="userStore.userInfo.avatar"
+              :src="userStore.userInfo.avatar"
               class="avatar-large"
               mode="aspectFill"
             />
@@ -27,8 +27,8 @@
           
           <!-- 右侧用户信息 -->
           <view class="user-info">
-            <text class="nickname-large">{{ userInfo.nickname }}</text>
-            <text class="intro-grey">{{ userInfo.introduction }}</text>
+            <text class="nickname-large">{{ userStore.userInfo.nickname }}</text>
+            <text class="intro-grey">{{ userStore.userInfo.introduction }}</text>
           </view>
         </view>
         
@@ -36,15 +36,14 @@
         <view class="stats-edit-row">
           <view class="stats-container">
             <view class="stat-item">
-              <text class="value-large">{{ userInfo.green_score }}</text>
+              <text class="value-large">{{ userStore.userInfo.green_score }}</text>
               <text class="label-small">绿植总分</text>
             </view>
             <view class="stat-item">
-              <text class="value-large">{{ userInfo.activity_participantion_num }}</text>
+              <text class="value-large">{{ userStore.userInfo.activity_participantion_num }}</text>
               <text class="label-small">参与活动</text>
             </view>
           </view>
-          <button class="btn-edit" @tap="openEditModal">编辑资料</button>
         </view>
       </view>
     </view>
@@ -54,10 +53,8 @@
       <view class="panel-header">
         <view class="panel-title-section">
           <text class="panel-title">绿植记录</text>
-          <text class="panel-subtitle">点击查看我的绿植记录～</text>
         </view>
         <!-- 扁平椭圆形加号，在右边 -->
-        <button class="btn-add oval" @tap="addContribution">+</button>
       </view>
 
       <!-- 日历容器，添加上下居中和空白 -->
@@ -65,9 +62,7 @@
         <view class="calendar-box">
           <view class="calendar-nav-section">
             <view class="month-nav-row">
-              <button class="nav-btn-simple" @tap="previousMonth">‹</button>
               <text class="month-year-grey">{{ currentMonthYear }}</text>
-              <button class="nav-btn-simple" @tap="nextMonth">›</button>
             </view>
             <view class="nav-divider"></view>
           </view>
@@ -135,87 +130,91 @@
   </view>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      userInfo: {
-        nickname: '',
-        introduction: '',
-        green_score: 0,
-        activity_participantion_num: 5,
-        avatar: '',
-        history: []
-      },
-      showEditModal: false,
-      editForm: { nickname: '', introduction: '' },
-      currentDate: new Date(),
-      weekdays: ['S','M','T','W','T','F','S']
-    }
-  },
-  computed: {
-    currentMonthYear() {
-      const y = this.currentDate.getFullYear()
-      const m = this.currentDate.getMonth()
-      const names = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER']
-      return `${names[m]} ${y}`
-    },
-    daysInMonth() {
-      const y = this.currentDate.getFullYear()
-      const m = this.currentDate.getMonth()
-      return new Date(y, m+1, 0).getDate()
-    },
-    emptyDays() {
-      const first = new Date(this.currentDate.getFullYear(), this.currentDate.getMonth(),1).getDay()
-      return Array(first).fill(0)
-    }
-  },
-  onLoad() {
-    const stored = uni.getStorageSync('userInfo')
-    if (stored) this.userInfo = stored
-  },
-  methods: {
-    openEditModal() {
-      this.editForm = { nickname: this.userInfo.nickname, introduction: this.userInfo.introduction }
-      this.showEditModal = true
-    },
-    closeEditModal() { this.showEditModal = false },
-    saveProfile() {
-      this.userInfo = { ...this.userInfo, ...this.editForm }
-      uni.setStorageSync('userInfo', this.userInfo)
-      this.closeEditModal()
-    },
-    chooseAvatar() {
-      uni.chooseImage({ count: 1, success: res => {
-        this.userInfo.avatar = res.tempFilePaths[0]
-        uni.setStorageSync('userInfo', this.userInfo)
-      } })
-    },
-    getDayClass(idx) {
-      const h = this.userInfo.history || []
-      if (idx >= h.length) return 'level-0'
-      return `level-${Math.min(Math.max(h[idx],0),4)}`
-    },
-    onDayClick(day, idx) {
-      console.log(`第${day}天，贡献:${this.userInfo.history[idx]||0}`)
-    },
-    addContribution() {
-      const idx = new Date().getDate() - 1
-      const h = this.userInfo.history || []
-      while (h.length <= idx) h.push(0)
-      h[idx] = Math.min(h[idx] + 1, 4)
-      this.userInfo.history = h
-      this.userInfo.green_score = (this.userInfo.green_score || 0) + 10
-      uni.setStorageSync('userInfo', this.userInfo)
-    },
-    previousMonth() { const d = new Date(this.currentDate); d.setMonth(d.getMonth()-1); this.currentDate = d },
-    nextMonth() { const d = new Date(this.currentDate); d.setMonth(d.getMonth()+1); this.currentDate = d },
-    logout() {
-      uni.removeStorageSync('userInfo')
-      this.userInfo = {}
-    }
-  }
-}
+<script setup>
+import { ref, computed, onMounted } from 'vue';
+import { useUserStore } from '@/stores/user';
+
+const userStore = useUserStore();
+const showEditModal = ref(false);
+const currentDate = ref(new Date());
+const weekdays = ['S','M','T','W','T','F','S'];
+
+// 编辑表单
+const editForm = ref({
+    nickname: '',
+    introduction: '',
+    avatar: null
+});
+
+// 计算属性
+const currentMonthYear = computed(() => {
+    const y = currentDate.value.getFullYear();
+    const m = currentDate.value.getMonth();
+    const names = ['JANUARY','FEBRUARY','MARCH','APRIL','MAY','JUNE','JULY','AUGUST','SEPTEMBER','OCTOBER','NOVEMBER','DECEMBER'];
+    return `${names[m]} ${y}`;
+});
+
+const daysInMonth = computed(() => {
+    const y = currentDate.value.getFullYear();
+    const m = currentDate.value.getMonth();
+    return new Date(y, m+1, 0).getDate();
+});
+
+const emptyDays = computed(() => {
+    const first = new Date(
+        currentDate.value.getFullYear(), 
+        currentDate.value.getMonth(),
+        1
+    ).getDay();
+    return Array(first).fill(0);
+});
+
+// 方法
+const openEditModal = () => {
+    editForm.value = { 
+        nickname: userStore.userInfo.nickname, 
+        introduction: userStore.userInfo.introduction 
+    };
+    showEditModal.value = true;
+};
+
+const closeEditModal = () => {
+    showEditModal.value = false;
+};
+
+const saveProfile = () => {
+    userStore.updateProfile(
+        editForm.value.nickname,
+        editForm.value.introduction,
+        editForm.value.avatar
+    );
+    uni.setStorageSync('userInfo', userStore.userInfo);
+    closeEditModal();
+};
+
+const chooseAvatar = () => {
+    uni.chooseImage({ 
+        count: 1, 
+        success: res => {
+            editForm.value.avatar = res.tempFilePaths[0];
+        } 
+    });
+};
+
+const getDayClass = (idx) => {
+    const h = userStore.userInfo.history || [];
+    if (idx >= h.length) return 'level-0';
+    return `level-${Math.min(Math.max(h[idx], 0), 4)}`;
+};
+
+const onDayClick = (day, idx) => {
+    console.log(`第${day}天，贡献:${userStore.userInfo.history[idx] || 0}`);
+};
+
+const logout = () => {
+    uni.removeStorageSync('userInfo');
+    userStore.resetUser();
+};
 </script>
 
 <style lang="scss" scoped>
@@ -255,6 +254,8 @@ export default {
 .header-mask {
   position: absolute;
   inset: 0;
+  height: 110%;
+  z-index: 0;
   background: rgba(0,0,0,0.4);
 }
 
@@ -327,6 +328,7 @@ export default {
   justify-content: space-between;
   width: 100%;
   margin-top: auto;
+  margin-bottom: 10rpx;
 }
 
 .stats-container {
@@ -355,17 +357,6 @@ export default {
   line-height: 1;
 }
 
-.btn-edit {
-  background: #000000;
-  color: #fff;
-  padding: 1rpx 12rpx;
-  border-radius: 30rpx;
-  font-size: 24rpx;
-  border: none;
-  outline: none;
-  flex-shrink: 0;
-}
-
 .content-panel {
   flex: 1;
   background: #fff;
@@ -392,33 +383,9 @@ export default {
 }
 
 .panel-title {
-  font-size: 36rpx;
+  font-size: 40rpx;
   font-weight: bold;
   color: #333;
-}
-
-.panel-subtitle {
-  font-size: 24rpx;
-  color: #999;
-}
-
-.btn-add {
-  background: #9ef267;
-  color: #000000;
-  border: 2rpx solid #000;
-  border-radius: 28rpx;
-  font-size: 40rpx;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  outline: none;
-  flex-shrink: 0;
-}
-
-/* 扁平椭圆 */
-.btn-add.oval {
-  width: 100rpx;
-  height: 56rpx;
 }
 
 /* 日历容器，添加上下居中和空白 */
@@ -464,22 +431,6 @@ export default {
   font-weight: 500;
 }
 
-/* 简化的导航按钮，移除圆圈 */
-.nav-btn-simple {
-  font-size: 36rpx;
-  color: #888;
-  background: transparent;
-  border: none;
-  padding: 8rpx 16rpx;
-  margin: 0;
-  outline: none;
-  cursor: pointer;
-}
-
-.nav-btn-simple:hover {
-  color: #333;
-}
-
 .calendar-grid {
   display: grid;
   grid-template-columns: repeat(7, 1fr);
@@ -510,8 +461,7 @@ export default {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 48rpx;
-  font-weight: bold;
+  font-size: 44rpx;
   border-radius: 8rpx;
   aspect-ratio: 1;
   min-height: 80rpx; /* 确保日期格子有最小高度 */
