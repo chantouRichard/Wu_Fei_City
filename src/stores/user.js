@@ -5,7 +5,7 @@ import { ref , reactive } from "vue";
 export const useUserStore = defineStore("user", () => {
     const userInfo = reactive({
         // 用户ID，用户的唯一标识
-        userId: "1234567890",
+        userId: "3",
         // 渲染我的界面的用户名，数据内容是当前用户名
         nickname: "默认用户名",
         // 渲染我的界面的简介，数据内容是当前用户简介
@@ -56,15 +56,50 @@ export const useUserStore = defineStore("user", () => {
         Object.assign(userInfo, {
             nickname: nickname || userInfo.nickname,
             introduction: introduction || userInfo.introduction,
-            ...(avatar && { avatar }) // 只有当avatar存在时才更新
+            avatar: avatar || userInfo.avatar
+        });
+
+        // 调用后端的更新用户信息的接口
+        wx.request({
+            url: 'http://localhost:8080/user/update',
+            method: 'Put',
+            data: {
+                userId: userInfo.userId,
+                nickname: nickname || userInfo.nickname,
+                introduction: introduction || userInfo.introduction,
+                avatar: avatar || userInfo.avatar
+            },
+            success(res) {
+                console.log("更新用户信息成功！", res.data);
+            },
+            fail(err) {
+                console.error("更新用户信息失败！", err);
+            }
         });
         
     };
 
     // 后续调用后端接口修改分数，现在前端本地修改渲染数据
-    const modifyGreenPlantScore = (score) => {
+    const modifyGreenPlantScore = async (score) => {
         userInfo.green_score += score;
         console.log("更新绿分:", userInfo.green_score);
+        // 调用后端的更新分数的接口
+       wx.request({
+        url: 'http://localhost:8080/score/add',
+        method: 'POST',
+        data: {
+            userId: userInfo.userId,
+            score: score,
+            description: '',
+            actionType: ''
+        },
+        success(res) {
+            console.log("更新分数成功！", res.data);
+        },
+        fail(err) {
+            console.error("更新分数失败！", err);
+        }
+    });
     };
 
     return { 
