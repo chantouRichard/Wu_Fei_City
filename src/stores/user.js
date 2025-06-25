@@ -51,23 +51,21 @@ export const useUserStore = defineStore("user", () => {
     // “我的”界面修改用户的用户名、个人介绍、头像
     // 后续调用后端提供的修改接口，现在前端本地修改渲染数据
     const modifyUserInfo = (nickname, introduction, avatar) => {
-        userInfo.value = {
-            ...userInfo.value,
-            nickname: nickname,
-            introduction: introduction,
-            avatar: avatar
-        }
-    }
+        
+        // 正确更新 reactive 对象的方式
+        Object.assign(userInfo, {
+            nickname: nickname || userInfo.nickname,
+            introduction: introduction || userInfo.introduction,
+            ...(avatar && { avatar }) // 只有当avatar存在时才更新
+        });
+        
+    };
 
-    // AI对话界面通过对话修改分数，每一次修改分数，总分数显示会改变，但是当天的热力图和总排行要等到用户重新进入小程序才能刷新（修改工作量大，优先级低）
     // 后续调用后端接口修改分数，现在前端本地修改渲染数据
     const modifyGreenPlantScore = (score) => {
-        userInfo.value = {
-            ...userInfo.value,
-            greenPlantScore: score + userInfo.value.greenPlantScore
-        }
-        // 接下来调用接口，向数据库中插入当前用户当天的分数（如果不存在）或者是增加当天分数（如果存在）
-    }
+        userInfo.green_score += score;
+        console.log("更新绿分:", userInfo.green_score);
+    };
 
     return { 
         userInfo,

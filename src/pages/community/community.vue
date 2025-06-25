@@ -4,7 +4,6 @@
 		<view class="header">
 			<view class="header-bg"></view>
 			<text class="title">社区</text>
-
 		</view>
 
 		<!-- 功能区 -->
@@ -30,9 +29,11 @@
 				<image class="crown" src="/static/community/huangguan1.png" mode="aspectFit"/>
 			</view>
 			<view class="rank-list">
-				<view class="rank-item" v-for="(item, idx) in rankList" :key="idx">
-					<image v-if="idx < 3" class="medal" :src="item.medal" mode="aspectFit"/>
-					<text v-else class="rank-num">{{ idx+1 < 10 ? '0'+(idx+1) : idx+1 }}</text>
+				<view class="rank-item" v-for="(item, index) in rankList" :key="index">
+					<image v-if="index < 3" class="medal" :src="getMedalImage(index)" mode="aspectFit"/>
+					<text v-else class="rank-num">{{ formatRankNumber(index + 1) }}</text>
+					<text class="user-name">{{ item.nickname }}</text>
+					<text class="user-score">{{ item.green_score }}绿值</text>
 				</view>
 			</view>
 		</view>
@@ -40,53 +41,64 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, computed } from 'vue'
 import { useChatStore } from '../../stores/chat'
+import { useUserStore } from '../../stores/user'
 
 // 获取全局状态
 const chatStore = useChatStore();
+const userStore = useUserStore();
 
-// 响应式数据
-const rankList = ref([
-  { medal: "/static/community/rk_1.png" },
-  { medal: "/static/community/rk_2.png" },
-  { medal: "/static/community/rk_3.png" },
-  {}, {}, // 4, 5名无奖牌
-])
+// 排行榜数据
+const rankList = computed(() => userStore.rank || [])
 
-// 方法
+// 获取奖牌图片
+const getMedalImage = (index) => {
+	return [
+		'/static/community/rk_1.png',
+		'/static/community/rk_2.png',
+		'/static/community/rk_3.png'
+	][index]
+}
+
+// 格式化排名数字
+const formatRankNumber = (num) => {
+	return num < 10 ? '0' + num : num
+}
+
+// 原有方法保持不变
 const goToMyPage = () => {
-  uni.switchTab({ url: '/pages/my/my' })
+	uni.switchTab({ url: '/pages/my/my' })
 }
 
 const goToPhotoChat = () => {
-  uni.chooseImage({
-    count: 1,
-    sizeType: ['original', 'compressed'],
-    // sourceType: ['album', 'camera'],
-	sourceType: ['camera'],
-    success: (res) => {
-      const filePath = res.tempFilePaths[0]
-      uni.getFileSystemManager().readFile({
-        filePath,
-        encoding: 'base64',
-        success: (fileRes) => {
-		  chatStore.setImage("data:image/jpeg;base64," + fileRes.data);
-          uni.switchTab({ url: '/pages/chat/chat' })
-        },
-        fail: () => {
-          uni.showToast({ title: '图片读取失败', icon: 'none' })
-        }
-      })
-    },
-    fail: () => {
-      uni.showToast({ title: '未选择图片', icon: 'none' })
-    }
-  })
+	uni.chooseImage({
+		count: 1,
+		sizeType: ['original', 'compressed'],
+		sourceType: ['camera'],
+		success: (res) => {
+			const filePath = res.tempFilePaths[0]
+			uni.getFileSystemManager().readFile({
+				filePath,
+				encoding: 'base64',
+				success: (fileRes) => {
+					chatStore.setImage("data:image/jpeg;base64," + fileRes.data);
+					uni.switchTab({ url: '/pages/chat/chat' })
+				},
+				fail: () => {
+					uni.showToast({ title: '图片读取失败', icon: 'none' })
+				}
+			})
+		},
+		fail: () => {
+			uni.showToast({ title: '未选择图片', icon: 'none' })
+		}
+	})
 }
 </script>
 
 <style scoped>
+/* 保持原有样式完全不变 */
 .community-container {
 	background: #f7f7f7;
 	min-height: 100vh;
@@ -216,4 +228,20 @@ const goToPhotoChat = () => {
 	margin-right: 10px;
 	text-align: center;
 }
-</style> 
+
+/* 新增的用户名和分数样式（保持与原有风格一致） */
+.user-name {
+	font-size: 18px;
+	font-weight: 700;
+	color: hsl(85, 59%, 66%);
+	flex: 1;
+	margin-left: 10px;
+}
+
+.user-score {
+	font-size: 16px;
+	color: #4CAF50;
+	font-weight: 600;
+	margin-right: 10px;
+}
+</style>
