@@ -139,7 +139,7 @@ public class ScoreController {
         
         try {
             logger.info("【获取排行榜】开始查询排行榜");
-            List<RankItem> ranking = greenScoreService.getTop10Ranking();
+            List<RankItem> ranking = greenScoreService.getTop5Ranking();
             
             logger.info("【获取排行榜】查询成功 - 排行榜条目数: {}", ranking.size());
             logger.debug("【获取排行榜】排行榜详情: {}", ranking);

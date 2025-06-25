@@ -62,8 +62,8 @@ public class GreenScoreService {
      * 
      * @return 排行榜列表
      */
-    public List<RankItem> getTop10Ranking() {
-        List<UserScoreRanking> rankings = greenScoreMapper.getRankingList(10);
+    public List<RankItem> getTop5Ranking() {
+        List<UserScoreRanking> rankings = greenScoreMapper.getRankingList(5);
         return rankings.stream()
                 .map(ranking -> {
                     RankItem item = new RankItem();
@@ -85,47 +85,55 @@ public class GreenScoreService {
      */
     public List<Integer> getUserScoreHistory(Integer userId) {
         try {
-            // 第1步：从green_score_records表查询原始数据
-            // 这里只是获取有积分记录的日期和对应的积分总和
-            List<Integer> rawHistory = greenScoreMapper.getUserScoreHistory(userId, 21);
-            
-            // 第2步：在Service层进行业务处理
-            // 将数据库查询结果处理成前端需要的格式
-            
-            // 获取最近21天的日期范围
-            LocalDate endDate = LocalDate.now();
-            LocalDate startDate = endDate.minusDays(20); // 包含今天共21天
-            
-            // 重新查询详细的每日积分记录
+            // 获取当前日期和当月第一天
+            LocalDate today = LocalDate.now();
+            LocalDate firstDayOfMonth = today.withDayOfMonth(1);
+
+            // 查询当月所有积分记录
             List<GreenScoreRecord> records = greenScoreMapper.findByUserIdAndDateRange(
-                userId, startDate, endDate);
-            
-            // 初始化21天的积分数组，默认为0
-            List<Integer> result = new ArrayList<>();
-            
-            // 按日期顺序处理每一天
-            for (int i = 0; i < 21; i++) {
-                LocalDate currentDate = startDate.plusDays(i);
-                
-                // 计算这一天的总积分
-                int dailyScore = records.stream()
-                    .filter(record -> record.getRecordDate().equals(currentDate))
-                    .mapToInt(GreenScoreRecord::getScore)
-                    .sum();
-                
-                result.add(dailyScore);
+                    userId, firstDayOfMonth, today);
+
+            // 获取当月总天数
+            int daysInMonth = today.lengthOfMonth();
+            List<Integer> scoreLevels = new ArrayList<>();
+
+            // 遍历每一天并填充档次
+            for (int i = 0; i < daysInMonth; i++) {
+                LocalDate currentDate = firstDayOfMonth.plusDays(i);
+                GreenScoreRecord record = records.stream()
+                        .filter(r -> r.getRecordDate().equals(currentDate))
+                        .findFirst()
+                        .orElse(null);
+
+                Integer score = (record != null) ? record.getScore() : 0;
+
+                // 划分档次
+                Integer level;
+                if(score >= 50){
+                    level = 4;
+                }
+                else if (score >= 15) {
+                    level = 3;
+                } else if (score >= 5) {
+                    level = 2;
+                } else {
+                    level = 1;
+                }
+
+                scoreLevels.add(level);
             }
-            
-            return result;
-            
+
+            return scoreLevels;
+
         } catch (Exception e) {
             e.printStackTrace();
-            // 异常情况下返回默认的21天数组（全为0）
-            List<Integer> defaultHistory = new ArrayList<>();
-            for (int i = 0; i < 21; i++) {
-                defaultHistory.add(0);
+            // 异常情况下返回默认档次数组（全为 low）
+            List<Integer> defaultLevels = new ArrayList<>();
+            int daysInMonth = LocalDate.now().lengthOfMonth();
+            for (int i = 0; i < daysInMonth; i++) {
+                defaultLevels.add(0);
             }
-            return defaultHistory;
+            return defaultLevels;
         }
     }
     

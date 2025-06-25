@@ -73,10 +73,9 @@ public interface GreenScoreMapper {
      * 获取用户最近N天的积分历史
      * 
      * @param userId 用户ID
-     * @param days 天数
      * @return 每日积分数组（按日期顺序）
      */
-    List<Integer> getUserScoreHistory(@Param("userId") Integer userId, @Param("days") Integer days);
+    List<Integer> getUserScoreHistory(@Param("userId") Integer userId);
     
     /**
      * 获取用户参与活动的次数

@@ -12,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -115,7 +116,7 @@ public class UserService {
                 Integer userTotalScore = greenScoreService.getUserTotalScore(user.getId());
                 response.setGreenScore(userTotalScore);
                 
-                // 设置历史数据（最近21天的积分记录）
+                // 设置历史分数档次数据，当月的热力图
                 List<Integer> history = greenScoreService.getUserScoreHistory(user.getId());
                 response.setHistory(history);
                 
@@ -123,15 +124,23 @@ public class UserService {
                 Integer activityCount = greenScoreService.getUserActivityParticipationCount(user.getId());
                 response.setActivityParticipationNum(activityCount);
                 
-                // 设置排行榜数据（前10名真实数据）
-                List<RankItem> rankList = greenScoreService.getTop10Ranking();
+                // 设置排行榜数据（前5名真实数据）
+                List<RankItem> rankList = greenScoreService.getTop5Ranking();
                 response.setRank(rankList);
                 
             } catch (Exception e) {
                 // 如果查询失败，使用默认值
                 e.printStackTrace();
+                int daysInMonth = getDaysInCurrentMonth();
                 response.setGreenScore(0);
-                response.setHistory(new ArrayList<>(Arrays.asList(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)));
+
+                // 构建与当月天数一致的默认 history 数组
+                List<Integer> defaultHistory = new ArrayList<>();
+                for (int i = 0; i < daysInMonth; i++) {
+                    defaultHistory.add(0);
+                }
+                response.setHistory(defaultHistory);
+
                 response.setActivityParticipationNum(0);
                 response.setRank(new ArrayList<>());
             }
@@ -247,10 +256,7 @@ public class UserService {
         return jwtUtil.getUserTypeFromToken(token);
     }
 
-    // 用于本地生成BCrypt哈希的main方法
-    public static void main(String[] args) {
-        String raw = "admin123";
-        String hash = new org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder().encode(raw);
-        System.out.println("admin123 的BCrypt哈希：" + hash);
+    private int getDaysInCurrentMonth() {
+        return LocalDate.now().lengthOfMonth();
     }
 } 
