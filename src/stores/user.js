@@ -11,7 +11,7 @@ export const useUserStore = defineStore("user", () => {
         // 渲染我的界面的简介，数据内容是当前用户简介
         introduction: "默认个人介绍",
         // 渲染我的界面的头像，数据内容是当前用户头像的Base64编码
-        avatar: "模拟Base64数据",
+        avatar: "",
         // 渲染我的界面的绿分，数据内容是当前用户总绿分
         green_score: 10,
         // 渲染我的界面的热力图，数据内容是当月的每日绿植分数档次
