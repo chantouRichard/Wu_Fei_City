@@ -110,7 +110,7 @@ src/main/java/com/whu/wufeibackend/
 ├── controller/             # 控制器
 │   ├── AuthController.java     # 认证控制器
 │   └── AdminController.java    # 管理员控制器
-├── dto/                   # 数据传输对象
+├── DTO/                   # 数据传输对象
 │   ├── ApiResponse.java        # 统一响应格式
 │   ├── LoginRequest.java       # 登录请求
 │   ├── LoginResponse.java      # 登录响应
@@ -137,7 +137,7 @@ src/main/java/com/whu/wufeibackend/
 3. 在 `resources/mapper` 目录下创建XML映射文件
 4. 在 `service` 包中创建服务类
 5. 在 `controller` 包中创建控制器
-6. 在 `dto` 包中创建请求/响应对象
+6. 在 `DTO` 包中创建请求/响应对象
 
 ### 代码规范
 

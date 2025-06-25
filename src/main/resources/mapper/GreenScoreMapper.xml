@@ -90,4 +90,16 @@
         AND action_type = 'activity_participation'
     </select>
 
+    <update id="updateGreenScoreById" parameterType="com.whu.wufeibackend.entity.GreenScoreRecord">
+        UPDATE green_score_records
+        SET
+            user_id = #{userId},
+            score = #{score},
+            action_type = #{actionType},
+            description = #{description},
+            record_date = #{recordDate},
+            created_at = #{createdAt}
+        WHERE id = #{id};
+    </update>
+
 </mapper> 

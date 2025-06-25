@@ -1,10 +1,10 @@
 package com.whu.wufeibackend.service;
 
-import com.whu.wufeibackend.dto.LoginResponse;
-import com.whu.wufeibackend.dto.SimpleLoginRequest;
-import com.whu.wufeibackend.dto.SimpleRegisterRequest;
-import com.whu.wufeibackend.dto.SimpleRegisterResponse;
-import com.whu.wufeibackend.dto.RankItem;
+import com.whu.wufeibackend.DTO.LoginResponse;
+import com.whu.wufeibackend.DTO.SimpleLoginRequest;
+import com.whu.wufeibackend.DTO.SimpleRegisterRequest;
+import com.whu.wufeibackend.DTO.SimpleRegisterResponse;
+import com.whu.wufeibackend.DTO.RankItem;
 import com.whu.wufeibackend.entity.User;
 import com.whu.wufeibackend.mapper.UserMapper;
 import com.whu.wufeibackend.util.JwtUtil;
@@ -254,6 +254,17 @@ public class UserService {
      */
     public String getUserTypeFromToken(String token) {
         return jwtUtil.getUserTypeFromToken(token);
+    }
+
+    public boolean updateUserInfo(int userId, String nickName, String introduction, String avatar){
+        User user = userMapper.findById(userId);
+
+        if (user == null) return false;
+        user.setNickname(nickName);
+        user.setIntroduction(introduction);
+        user.setAvatar(avatar);
+
+        return userMapper.updateUser(user) == 1;
     }
 
     private int getDaysInCurrentMonth() {

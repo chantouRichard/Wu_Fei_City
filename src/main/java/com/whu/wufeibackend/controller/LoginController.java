@@ -1,8 +1,8 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.dto.ApiResponse;
-import com.whu.wufeibackend.dto.LoginResponse;
-import com.whu.wufeibackend.dto.SimpleLoginRequest;
+import com.whu.wufeibackend.DTO.ApiResponse;
+import com.whu.wufeibackend.DTO.LoginResponse;
+import com.whu.wufeibackend.DTO.SimpleLoginRequest;
 import com.whu.wufeibackend.service.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
@@ -41,19 +41,12 @@ public class LoginController {
         
         try {
             // 执行登录逻辑
-            logger.info("【登录处理】开始处理用户登录 - 用户名: {}", request.getUsername());
             LoginResponse loginResponse = userService.login(request);
             
             if (loginResponse.getSuccess()) {
-                logger.info("【登录成功】用户登录成功 - 用户名: {}, 用户ID: {}", 
-                           request.getUsername(), loginResponse.getId());
-                logger.debug("【登录响应】成功响应详情: {}", loginResponse.toString());
                 
                 return ApiResponse.success("登录成功", loginResponse);
             } else {
-                logger.warn("【登录失败】用户登录失败 - 用户名: {}, 错误原因: {}", 
-                           request.getUsername(), loginResponse.getReason());
-                logger.debug("【登录响应】失败响应详情: {}", loginResponse.toString());
                 
                 return ApiResponse.error(400, loginResponse.getReason());
             }

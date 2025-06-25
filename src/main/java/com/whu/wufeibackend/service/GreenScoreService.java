@@ -1,6 +1,6 @@
 package com.whu.wufeibackend.service;
 
-import com.whu.wufeibackend.dto.RankItem;
+import com.whu.wufeibackend.DTO.RankItem;
 import com.whu.wufeibackend.entity.GreenScoreRecord;
 import com.whu.wufeibackend.entity.UserScoreRanking;
 import com.whu.wufeibackend.mapper.GreenScoreMapper;
@@ -36,12 +36,25 @@ public class GreenScoreService {
      */
     @Transactional
     public boolean addScoreRecord(Integer userId, Integer score, String actionType, String description) {
-        try {
-            GreenScoreRecord record = new GreenScoreRecord(userId, score, actionType, description, LocalDate.now());
-            int result = greenScoreMapper.insertScoreRecord(record);
-            return result > 0;
-        } catch (Exception e) {
-            e.printStackTrace();
+        try{
+            List<GreenScoreRecord> record = greenScoreMapper.findByUserIdAndDateRange(userId, LocalDate.now(), LocalDate.now());
+            if (!record.isEmpty()) {
+                // 获取第一条记录
+                GreenScoreRecord firstRecord = record.get(0);
+
+                // 更新score字段（假设score是要增加的值）
+                firstRecord.setScore(firstRecord.getScore() + score);
+
+                // 调用更新方法
+                return greenScoreMapper.updateGreenScoreById(firstRecord)==1;
+            }
+            else {
+                GreenScoreRecord temp = new GreenScoreRecord(userId, score, actionType, description, LocalDate.now());
+                int result = greenScoreMapper.insertScoreRecord(temp);
+                return result > 0;
+            }
+        }catch (Exception e){
+            System.out.println(e);
             return false;
         }
     }
@@ -200,7 +213,7 @@ public class GreenScoreService {
      * 积分值常量
      */
     public static class ScoreValue {
-        public static final int RECYCLING = 10;                    // 垃圾分类回收 +10分
+        public static final int LEARNING = 1;                    // 垃圾分类回收 +10分
         public static final int ENERGY_SAVING = 15;                // 节能减排 +15分
         public static final int ACTIVITY_PARTICIPATION = 20;       // 参与活动 +20分
         public static final int DAILY_CHECK_IN = 5;                // 每日签到 +5分

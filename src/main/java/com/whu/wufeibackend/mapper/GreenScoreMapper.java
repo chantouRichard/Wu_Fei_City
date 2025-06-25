@@ -41,7 +41,7 @@ public interface GreenScoreMapper {
      * @param endDate 结束日期
      * @return 积分记录列表
      */
-    List<GreenScoreRecord> findByUserIdAndDateRange(@Param("userId") Integer userId, 
+    List<GreenScoreRecord> findByUserIdAndDateRange(@Param("userId") Integer userId,
                                                     @Param("startDate") LocalDate startDate, 
                                                     @Param("endDate") LocalDate endDate);
     
@@ -84,4 +84,11 @@ public interface GreenScoreMapper {
      * @return 活动参与次数
      */
     Integer getUserActivityParticipationCount(@Param("userId") Integer userId);
+
+    /**
+     * 更新用户某天的绿植分数
+     *
+     * @return 修改结果
+     */
+    Integer updateGreenScoreById(GreenScoreRecord recore);
 } 

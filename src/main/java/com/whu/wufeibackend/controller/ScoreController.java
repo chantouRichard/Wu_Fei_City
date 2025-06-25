@@ -1,7 +1,7 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.dto.ApiResponse;
-import com.whu.wufeibackend.dto.RankItem;
+import com.whu.wufeibackend.DTO.ApiResponse;
+import com.whu.wufeibackend.DTO.RankItem;
 import com.whu.wufeibackend.entity.GreenScoreRecord;
 import com.whu.wufeibackend.service.GreenScoreService;
 import org.slf4j.Logger;
@@ -42,38 +42,31 @@ public class ScoreController {
         logger.debug("【积分添加】请求参数: {}", requestBody);
         
         try {
-            Integer userId = (Integer) requestBody.get("userId");
+            // 获取 userId 字符串
+            String userIdStr = (String) requestBody.get("userId");
+            Integer userId = Integer.parseInt(userIdStr);
             Integer score = (Integer) requestBody.get("score");
             String actionType = (String) requestBody.get("actionType");
             String description = (String) requestBody.get("description");
             
-            logger.info("【积分添加】解析参数 - userId: {}, score: {}, actionType: {}, description: {}", 
-                       userId, score, actionType, description);
-            
-            if (userId == null || score == null || actionType == null) {
-                logger.warn("【积分添加】参数不完整 - userId: {}, score: {}, actionType: {}", 
-                           userId, score, actionType);
+            if (userId == null || score == null) {
                 return ResponseEntity.badRequest()
                     .body(new ApiResponse<>(400, "参数不完整", null, false));
             }
-            
-            logger.info("【积分添加】开始添加积分记录 - userId: {}, score: {}, actionType: {}", 
-                       userId, score, actionType);
+
             boolean success = greenScoreService.addScoreRecord(userId, score, actionType, description);
             
             if (success) {
-                logger.info("【积分添加】积分记录添加成功 - userId: {}, score: {}, actionType: {}", 
-                           userId, score, actionType);
+
                 return ResponseEntity.ok(new ApiResponse<>(200, "积分记录添加成功", null, true));
             } else {
-                logger.warn("【积分添加】积分记录添加失败 - userId: {}, score: {}, actionType: {}", 
-                           userId, score, actionType);
+
                 return ResponseEntity.status(500)
                     .body(new ApiResponse<>(500, "积分记录添加失败", null, false));
             }
             
         } catch (Exception e) {
-            logger.error("【积分添加】积分添加异常 - 错误: {}", e.getMessage(), e);
+            logger.info("错误eeee：",e);
             return ResponseEntity.status(500)
                 .body(new ApiResponse<>(500, "服务器内部错误", null, false));
         }
@@ -156,7 +149,7 @@ public class ScoreController {
      * 获取用户积分历史
      * 
      * @param userId 用户ID
-     * @return 最近21天的积分历史
+     * @return 当月的积分历史
      */
     @GetMapping("/history/{userId}")
     public ResponseEntity<ApiResponse<List<Integer>>> getUserScoreHistory(@PathVariable Integer userId) {
@@ -176,72 +169,5 @@ public class ScoreController {
                 .body(new ApiResponse<>(500, "获取积分历史失败", null, false));
         }
     }
-    
-    /**
-     * 快速添加常见行为积分
-     * 
-     * @param userId 用户ID
-     * @param actionType 行为类型
-     * @return 添加结果
-     */
-    @PostMapping("/quick-add/{userId}/{actionType}")
-    public ResponseEntity<ApiResponse<String>> quickAddScore(@PathVariable Integer userId, @PathVariable String actionType) {
-        logger.info("【快速添加积分】收到请求 - userId: {}, actionType: {}", userId, actionType);
-        
-        try {
-            Integer score;
-            String description;
-            
-            // 根据行为类型设置积分和描述
-            logger.info("【快速添加积分】开始解析行为类型 - actionType: {}", actionType);
-            switch (actionType) {
-                case "recycling":
-                    score = GreenScoreService.ScoreValue.RECYCLING;
-                    description = "垃圾分类回收";
-                    break;
-                case "energy_saving":
-                    score = GreenScoreService.ScoreValue.ENERGY_SAVING;
-                    description = "节能减排行为";
-                    break;
-                case "activity_participation":
-                    score = GreenScoreService.ScoreValue.ACTIVITY_PARTICIPATION;
-                    description = "参与环保活动";
-                    break;
-                case "daily_check_in":
-                    score = GreenScoreService.ScoreValue.DAILY_CHECK_IN;
-                    description = "每日签到";
-                    break;
-                case "green_travel":
-                    score = GreenScoreService.ScoreValue.GREEN_TRAVEL;
-                    description = "绿色出行";
-                    break;
-                default:
-                    logger.warn("【快速添加积分】不支持的行为类型 - userId: {}, actionType: {}", userId, actionType);
-                    return ResponseEntity.badRequest()
-                        .body(new ApiResponse<>(400, "不支持的行为类型", null, false));
-            }
-            
-            logger.info("【快速添加积分】行为类型解析成功 - userId: {}, actionType: {}, score: {}, description: {}", 
-                       userId, actionType, score, description);
-            
-            boolean success = greenScoreService.addScoreRecord(userId, score, actionType, description);
-            
-            if (success) {
-                logger.info("【快速添加积分】积分添加成功 - userId: {}, actionType: {}, score: {}", 
-                           userId, actionType, score);
-                return ResponseEntity.ok(new ApiResponse<>(200, "积分添加成功，+" + score + "分", null, true));
-            } else {
-                logger.warn("【快速添加积分】积分添加失败 - userId: {}, actionType: {}, score: {}", 
-                           userId, actionType, score);
-                return ResponseEntity.status(500)
-                    .body(new ApiResponse<>(500, "积分添加失败", null, false));
-            }
-            
-        } catch (Exception e) {
-            logger.error("【快速添加积分】积分添加异常 - userId: {}, actionType: {}, 错误: {}", 
-                        userId, actionType, e.getMessage(), e);
-            return ResponseEntity.status(500)
-                .body(new ApiResponse<>(500, "服务器内部错误", null, false));
-        }
-    }
+
 } 

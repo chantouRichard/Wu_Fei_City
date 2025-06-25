@@ -1,4 +1,4 @@
-package com.whu.wufeibackend.dto;
+package com.whu.wufeibackend.DTO;
 
 /**
  * 排行榜项目DTO
