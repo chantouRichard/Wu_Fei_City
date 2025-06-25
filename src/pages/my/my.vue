@@ -44,6 +44,7 @@
               <text class="label-small">参与活动</text>
             </view>
           </view>
+          <button class="btn-edit" @tap="openEditModal">编辑资料</button>
         </view>
       </view>
     </view>
@@ -97,32 +98,67 @@
       </view>
     </view>
 
-    <!-- 编辑资料弹窗（保持不变） -->
-    <view v-if="showEditModal" class="modal-overlay" @tap="closeEditModal">
-      <view class="modal-content" @tap.stop>
-        <view class="modal-header">
-          <text>编辑资料</text>
+    <!-- 编辑资料弹窗 -->
+  <view v-if="showEditModal" class="modal-overlay" @tap="closeEditModal">
+    <view class="modal-content" @tap.stop>
+      <view class="modal-header">
+        <text class="modal-title">编辑个人资料</text>
+      </view>
+      
+      <view class="modal-body">
+        <!-- 昵称输入框 -->
+        <view class="form-group">
+          <text class="form-label">昵称</text>
+          <view class="input-container">
+            <input 
+              v-model="editForm.nickname" 
+              class="form-input" 
+              placeholder="输入你的昵称"
+              placeholder-class="placeholder"
+            />
+            <view class="input-decoration"></view>
+          </view>
         </view>
-        <view class="modal-body">
-          <view class="form-group">
-            <text>昵称</text>
-            <input v-model="editForm.nickname" class="form-input" />
-          </view>
-          <view class="form-group">
-            <text>个人介绍</text>
-            <textarea v-model="editForm.introduction" class="form-textarea" />
-          </view>
-          <view class="form-group">
-            <text>头像</text>
-            <button @tap="chooseAvatar">上传头像</button>
+        
+        <!-- 个人介绍输入框 -->
+        <view class="form-group">
+          <text class="form-label">个人介绍</text>
+          <view class="input-container">
+            <textarea 
+              v-model="editForm.introduction" 
+              class="form-textarea" 
+              placeholder="介绍一下自己吧~"
+              placeholder-class="placeholder"
+            />
+            <view class="input-decoration"></view>
           </view>
         </view>
-        <view class="modal-footer">
-          <button class="btn-cancel" @tap="closeEditModal">取消</button>
-          <button class="btn-save" @tap="saveProfile">保存</button>
+        
+        <!-- 头像上传 -->
+        <view class="form-group">
+          <text class="form-label">头像</text>
+          <view class="avatar-upload" @tap="chooseAvatar">
+            <image 
+              v-if="editForm.avatar" 
+              :src="editForm.avatar" 
+              class="avatar-preview"
+              mode="aspectFill"
+            />
+            <view v-else class="avatar-upload-placeholder">
+              <text class="icon">+</text>
+              <text class="hint">点击上传</text>
+            </view>
+          </view>
         </view>
       </view>
+      
+      <view class="modal-footer">
+        <button class="btn btn-cancel" @tap="closeEditModal">取消</button>
+        <button class="btn btn-confirm" @tap="saveProfile">保存更改</button>
+      </view>
     </view>
+  </view>
+
   </view>
 </template>
 
@@ -179,12 +215,11 @@ const closeEditModal = () => {
 };
 
 const saveProfile = () => {
-    userStore.updateProfile(
+    userStore.modifyUserInfo(
         editForm.value.nickname,
         editForm.value.introduction,
         editForm.value.avatar
     );
-    uni.setStorageSync('userInfo', userStore.userInfo);
     closeEditModal();
 };
 
@@ -193,6 +228,7 @@ const chooseAvatar = () => {
         count: 1, 
         success: res => {
             editForm.value.avatar = res.tempFilePaths[0];
+            console.log(editForm.value.avatar);
         } 
     });
 };
@@ -201,10 +237,6 @@ const getDayClass = (idx) => {
     const h = userStore.userInfo.history || [];
     if (idx >= h.length) return 'level-0';
     return `level-${Math.min(Math.max(h[idx], 0), 4)}`;
-};
-
-const onDayClick = (day, idx) => {
-    console.log(`第${day}天，贡献:${userStore.userInfo.history[idx] || 0}`);
 };
 
 </script>
@@ -229,7 +261,7 @@ const onDayClick = (day, idx) => {
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%;
+  height: 115%;
   object-fit: cover;
   filter: blur(8rpx) brightness(0.6);
   transform: scale(1.02);
@@ -350,10 +382,22 @@ const onDayClick = (day, idx) => {
   line-height: 1;
 }
 
+.btn-edit {
+  background: #000000;
+  color: #fff;
+  padding: 1rpx 12rpx;
+  border-radius: 30rpx;
+  font-size: 24rpx;
+  border: none;
+  outline: none;
+  flex-shrink: 0;
+}
+
 .content-panel {
   flex: 1;
+  z-index: 2;
   background: #fff;
-  border-radius: 24rpx 24rpx 0 0;
+  border-radius: 30rpx 30rpx 0 0;
   padding: 32rpx;
   display: flex;
   flex-direction: column;
@@ -485,14 +529,14 @@ const onDayClick = (day, idx) => {
   color: #fff;
 }
 
-/* 弹窗样式保持不变 */
+/* 修改后的 WXSS 样式 */
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -500,83 +544,146 @@ const onDayClick = (day, idx) => {
 }
 
 .modal-content {
+  width: 85%;
+  max-width: 650rpx;
   background: #fff;
-  border-radius: 16rpx;
-  width: 80%;
-  max-width: 600rpx;
-  max-height: 80%;
+  border-radius: 24rpx;
   overflow: hidden;
+  box-shadow: 0 10rpx 30rpx rgba(0, 0, 0, 0.1);
 }
 
 .modal-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
   padding: 32rpx;
-  border-bottom: 2rpx solid #e0e0e0;
-  font-size: 32rpx;
-  font-weight: bold;
+  background: #f8fff8;
+  border-bottom: 2rpx solid #e8f5e9;
 }
 
-.close-btn {
-  background: none;
-  border: none;
-  font-size: 40rpx;
-  color: #999;
+.modal-title {
+  font-size: 36rpx;
+  font-weight: 600;
+  color: #2e7d32;
+  text-align: center;
 }
 
 .modal-body {
-  padding: 32rpx;
+  padding: 0 32rpx 32rpx;
 }
 
 .form-group {
-  margin-bottom: 32rpx;
+  margin-bottom: 40rpx;
 }
 
-.form-group text {
+.form-label {
   display: block;
-  margin-bottom: 16rpx;
   font-size: 28rpx;
-  color: #333;
+  color: #4a6b57;
+  margin-bottom: 16rpx;
+  font-weight: 500;
+}
+
+.input-container {
+  position: relative;
 }
 
 .form-input, .form-textarea {
   width: 100%;
-  padding: 16rpx;
-  border: 2rpx solid #e0e0e0;
-  border-radius: 8rpx;
+  padding: 20rpx 24rpx;
   font-size: 28rpx;
+  color: #333;
+  background: #f8fff8;
+  border: 2rpx solid #e0e0e0;
+  border-radius: 12rpx;
+}
+
+.form-input:focus, 
+.form-textarea:focus {
+  border-color: #81c784;
 }
 
 .form-textarea {
+  height: 160rpx;
+}
+
+.placeholder {
+  color: #bdbdbd;
+  font-size: 28rpx;
+}
+
+/* 移除不支持的 ~ 选择器，改用相邻选择器 */
+.input-decoration {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 0;
+  height: 4rpx;
+  background: #81c784;
+}
+
+.form-input:focus + .input-decoration,
+.form-textarea:focus + .input-decoration {
+  width: 100%;
+}
+
+.avatar-upload {
+  width: 120rpx;
   height: 120rpx;
-  resize: none;
+  border-radius: 50%;
+  background: #f1f8e9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2rpx dashed #a5d6a7;
+}
+
+.avatar-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.avatar-upload-placeholder {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.avatar-upload .icon {
+  font-size: 40rpx;
+  color: #66bb6a;
+  margin-bottom: 8rpx;
+}
+
+.avatar-upload .hint {
+  font-size: 24rpx;
+  color: #81c784;
 }
 
 .modal-footer {
   display: flex;
-  gap: 16rpx;
-  padding: 32rpx;
-  border-top: 2rpx solid #e0e0e0;
+  padding: 24rpx 32rpx;
+  background: #f8fff8;
+  border-top: 2rpx solid #e8f5e9;
 }
 
-.btn-cancel, .btn-save {
+.btn {
   flex: 1;
-  padding: 24rpx;
-  border-radius: 8rpx;
-  font-size: 28rpx;
-  text-align: center;
-  border: none;
-  outline: none;
+  height: 80rpx;
+  line-height: 80rpx;
+  font-size: 30rpx;
+  font-weight: 500;
+  border-radius: 40rpx;
+  margin: 0 10rpx;
 }
 
 .btn-cancel {
   background: #f5f5f5;
-  color: #666;
+  color: #757575;
 }
 
-.btn-save {
-  background: #00b386;
-  color: #fff;
+.btn-confirm {
+  background: #66bb6a;
+  color: white;
 }
 </style>
