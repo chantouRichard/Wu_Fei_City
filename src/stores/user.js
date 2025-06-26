@@ -29,7 +29,7 @@ export const useUserStore = defineStore("user", () => {
         {
             "title": "2",
             "nickname": "user2",
-            "scogreen_scorere": "90"
+            "green_score": "90"
         },
         {
             "title": "3",

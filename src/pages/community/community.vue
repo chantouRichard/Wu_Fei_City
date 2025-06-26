@@ -9,15 +9,15 @@
 		<!-- 功能区 -->
 		<view class="features">
 			<view class="feature-item" @click="goToMyPage">
-				<image class="feature-img" src="/static/community/my_2.png" mode="aspectFit"/>
+				<image class="feature-img" src="../../static/community/my_2.png" mode="aspectFit"/>
 				<text class="feature-label">我的绿值</text>
 			</view>
 			<view class="feature-item" @click="goToPhotoChat">
-				<image class="feature-img" src="/static/community/camera_2.png" mode="aspectFit"/>
+				<image class="feature-img" src="../../static/community/camera_2.png" mode="aspectFit"/>
 				<text class="feature-label">拍照识别</text>
 			</view>
 			<view class="feature-item">
-				<image class="feature-img" src="/static/community/shop_2.png" mode="aspectFit"/>
+				<image class="feature-img" src="../../static/community/shop_2.png" mode="aspectFit"/>
 				<text class="feature-label">兑换商城</text>
 			</view>
 		</view>
@@ -26,7 +26,7 @@
 		<view class="rank-card">
 			<view class="rank-header">
 				<text class="rank-title">绿值排行</text>
-				<image class="crown" src="/static/community/huangguan1.png" mode="aspectFit"/>
+				<image class="crown" src="../../static/community/huangguan1.png" mode="aspectFit"/>
 			</view>
 			<view class="rank-list">
 				<view class="rank-item" v-for="(item, index) in rankList" :key="index">
