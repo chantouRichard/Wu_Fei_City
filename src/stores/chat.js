@@ -23,6 +23,9 @@ export const useChatStore = defineStore("chat", () => {
   };
 
   const addUserMessage = async () => {
+    if(!inputMessage.value) return;
+
+
     if (history.value.length >= 20) {
       history.value.shift();
       if (inputImages.value) {
@@ -53,6 +56,8 @@ export const useChatStore = defineStore("chat", () => {
     // 模拟AI回复（之后替换为API调用）
     if (!inputImages.value) {
       console.log("AI回复：第一阶段:",);
+      let temp = inputMessage.value;
+      inputMessage.value = "";
       try{
         let result = await uni.request({
           url: "https://dashscope.aliyuncs.com/api/v1/services/aigc/multimodal-generation/generation",
@@ -70,7 +75,7 @@ export const useChatStore = defineStore("chat", () => {
                   content: [
                     {
                       type: "text",
-                      text: inputMessage.value,
+                      text: temp,
                     },
                   ],
                 },
@@ -88,6 +93,11 @@ export const useChatStore = defineStore("chat", () => {
     }
     } else {
       console.log("AI回复：第二阶段:",inputImages.value);
+      let temp1 = inputImages.value;
+      inputImages.value = "";
+      let temp2 = inputMessage.value;
+      inputMessage.value = "";
+
       let result = await uni.request({
         url: "https://dashscope.aliyuncs.com/compatible-mode/v1/chat/completions",
         method: "POST",
@@ -113,12 +123,12 @@ export const useChatStore = defineStore("chat", () => {
                 {
                   type: "image_url",
                   image_url: {
-                    url: inputImages.value,
+                    url: temp1,
                   },
                 },
                 {
                   type: "text",
-                  text: inputMessage.value,
+                  text: temp2,
                 },
               ],
             },
@@ -134,8 +144,8 @@ export const useChatStore = defineStore("chat", () => {
     }
     console.log("AI回复：第三阶段");
     // 清空输入
-    inputMessage.value = "";
-    inputImages.value = "";
+    // inputMessage.value = "";
+    // inputImages.value = "";
 
     // setTimeout(() => {
     //   addAIMessage("这是AI的模拟回复，之后会替换为真实API返回");
