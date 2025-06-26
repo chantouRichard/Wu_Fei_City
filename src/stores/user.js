@@ -16,8 +16,12 @@ export const useUserStore = defineStore("user", () => {
         green_score: 10,
         // 渲染我的界面的热力图，数据内容是当月的每日绿植分数档次
         history: [0, 0, 0, 0, 0, 0, 0, 1, 2, 3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
-        // 
-        activity_participantion_num: 3
+        // 活动参与数量
+        activity_participantion_num: 3,
+        // 用户类型：normal(普通用户), committee(居委会), admin(管理员)
+        user_type: "normal",
+        // 登录状态
+        isLoggedIn: false
     })
 
     const rank = ref([
@@ -106,6 +110,12 @@ export const useUserStore = defineStore("user", () => {
         userInfo,
         rank,
         modifyUserInfo,
-        modifyGreenPlantScore
+        modifyGreenPlantScore,
+        loginUser,
+        logoutUser,
+        saveUserToStorage,
+        loadUserFromStorage,
+        checkUserPermission,
+        getUserTypeLabel
     }
 })

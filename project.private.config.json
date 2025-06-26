@@ -3,5 +3,6 @@
   "projectname": "Wu_Fei_City",
   "setting": {
     "compileHotReLoad": true
-  }
+  },
+  "libVersion": "3.8.3"
 }
