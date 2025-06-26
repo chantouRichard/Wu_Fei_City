@@ -125,12 +125,16 @@ public class GreenScoreService {
                 if(score >= 50){
                     level = 4;
                 }
-                else if (score >= 15) {
+                else if(score >= 25){
                     level = 3;
-                } else if (score >= 5) {
+
+                }
+                else if (score >= 15) {
                     level = 2;
-                } else {
+                } else if (score >= 5) {
                     level = 1;
+                } else {
+                    level = 0;
                 }
 
                 scoreLevels.add(level);

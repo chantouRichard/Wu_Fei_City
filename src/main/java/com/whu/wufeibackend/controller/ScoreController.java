@@ -43,8 +43,7 @@ public class ScoreController {
         
         try {
             // 获取 userId 字符串
-            String userIdStr = (String) requestBody.get("userId");
-            Integer userId = Integer.parseInt(userIdStr);
+            Integer userId = (Integer) requestBody.get("userId");
             Integer score = (Integer) requestBody.get("score");
             String actionType = (String) requestBody.get("actionType");
             String description = (String) requestBody.get("description");
