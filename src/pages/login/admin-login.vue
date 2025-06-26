@@ -47,11 +47,6 @@
         </view>
       </view>
       
-      <!-- 找回密码 -->
-      <view class="forgot-password" @click="forgotPassword">
-        <text class="forgot-text">找回密码</text>
-      </view>
-      
       <!-- 登录按钮 -->
       <view class="login-button" @click="handleLogin">
         <image src="/static/login/loginbutton.png" class="login-btn-bg" />
@@ -109,14 +104,7 @@ export default {
     togglePassword() {
       this.showPassword = !this.showPassword
     },
-    
-    // 找回密码
-    forgotPassword() {
-      uni.showToast({
-        title: '找回密码功能待开发',
-        icon: 'none'
-      })
-    },
+
     
     // 处理登录
     handleLogin() {
@@ -215,11 +203,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 重置页面默认样式 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 .login-container {
   position: relative;

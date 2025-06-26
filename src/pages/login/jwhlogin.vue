@@ -187,7 +187,7 @@ export default {
     // 跳转到注册页面
     goToRegister() {
       uni.navigateTo({
-        url: '/pages/register/register'
+        url: '/pages/register/jwhregister'
       })
     },
     
@@ -219,11 +219,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 重置页面默认样式 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 .login-container {
   position: relative;

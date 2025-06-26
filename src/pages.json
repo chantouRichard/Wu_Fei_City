@@ -1,16 +1,37 @@
 {
 	"pages": [
 		{
+			"path":"pages/login/roleSelect",
+			"style":{
+				"navigationBarTitleText": "角色选择",
+				"navigationStyle": "custom"
+			}
+		},
+		{
 			"path": "pages/login/login",
 			"style": {
-				"navigationBarTitleText": "登录",
+				"navigationBarTitleText": "普通用户登录",
 				"navigationStyle": "custom"
 			}
 		},
 		{
 			"path": "pages/register/register",
 			"style": {
-				"navigationBarTitleText": "注册",
+				"navigationBarTitleText": "普通用户注册",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/register/jwhregister",
+			"style": {
+				"navigationBarTitleText": "居委会注册",
+				"navigationStyle": "custom"
+			}
+		},
+		{
+			"path": "pages/login/jwhlogin",
+			"style": {
+				"navigationBarTitleText": "居委会登录",
 				"navigationStyle": "custom"
 			}
 		},
