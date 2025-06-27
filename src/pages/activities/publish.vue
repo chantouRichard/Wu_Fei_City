@@ -73,16 +73,17 @@
 					></textarea>
 					
 					<!-- 图片展示区域 -->
-					<view v-if="activityData.images.length > 0" class="image-list">
-						<view v-for="(image, index) in activityData.images" :key="index" class="image-item">
-							<image :src="image" class="preview-image" mode="aspectFill" @click="previewImage(index)"></image>
-							<view class="delete-btn" @click="deleteImage(index)">×</view>
+					<view class="image-container">
+						<view class="image-list">
+							<view v-for="(image, index) in activityData.images" :key="index" class="image-item">
+								<image :src="image" class="preview-image" mode="aspectFill" @click="previewImage(index)"></image>
+								<view class="delete-btn" @click="deleteImage(index)">X</view>
+							</view>
+							<view class="image-upload" @click="chooseImage">
+								<view class="upload-icon">+</view>
+							</view>
 						</view>
 					</view>
-					
-					<view class="image-upload" @click="chooseImage">
-				<view class="upload-icon">+</view>
-			</view>
 				</view>
 			</view>
 		</view>
@@ -521,7 +522,7 @@ export default {
 	margin: 10px;
 	border-radius: 10px;
 	width: 343px;
-	height: 292px;
+	min-height: 292px;
 	display: flex;
 	flex-direction: column;
 	box-sizing: border-box;
@@ -533,12 +534,11 @@ export default {
 	flex-direction: column;
 	padding: 10px;
 	position: relative;
-	height: 100%;
+	min-height: 100%;
 }
 
 .detail-textarea {
 	width: 100%;
-	flex: 1;
 	font-size: 16px;
 	color: #333;
 	border: none;
@@ -547,10 +547,11 @@ export default {
 	text-align: left;
 	padding: 0;
 	margin: 0;
-	padding-bottom: 140px;
+	margin-bottom: 20px;
 	line-height: 1.5;
 	resize: none;
 	box-sizing: border-box;
+	min-height: 100px;
 }
 
 .textarea-placeholder {
@@ -561,29 +562,27 @@ export default {
 .image-upload {
 	width: 121px;
 	height: 121px;
-	border-radius: 10px;
+	top: 305px;
+	left: 32px;
+	border-radius: 9px;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 	justify-content: center;
-	background-color: #f9f9f9;
-	position: absolute;
-	bottom: 10px;
-	left: 10px;
-	margin-top: auto;
+	background-color: #e6e6e6;
 	cursor: pointer;
-	z-index: 100;
-	pointer-events: auto;
 }
 
 .upload-icon {
-	font-size: 58px;
+	font-size: 72px;
 	color: #7F7F7F;
 	font-weight: 450;
 	display: flex;
-	border-radius: 32px;
 	align-items: center;
 	justify-content: center;
+	width: 100%;
+	height: 100%;
+	line-height: 1;
 }
 
 .upload-text {
@@ -593,12 +592,17 @@ export default {
 	text-align: center;
 }
 
+/* 图片容器样式 */
+.image-container {
+	margin-top: 20px;
+}
+
 /* 图片列表样式 */
 .image-list {
 	display: flex;
 	flex-wrap: wrap;
 	gap: 10px;
-	margin-bottom: 10px;
+	align-items: flex-start;
 }
 
 .image-item {
@@ -606,7 +610,7 @@ export default {
 	width: 80px;
 	height: 80px;
 	border-radius: 8px;
-	overflow: hidden;
+	overflow: visible;
 }
 
 .preview-image {
@@ -631,6 +635,7 @@ export default {
 	font-weight: bold;
 	line-height: 1;
 	cursor: pointer;
+	z-index: 10;
 }
 
 .delete-btn:active {
