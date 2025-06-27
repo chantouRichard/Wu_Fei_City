@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.wufeibackend.mapper.UserMapper">
+
+    <!-- 结果映射 -->
+    <resultMap id="UserResultMap" type="com.whu.wufeibackend.entity.User">
+        <id column="id" property="id" jdbcType="INTEGER"/>
+        <result column="username" property="username" jdbcType="VARCHAR"/>
+        <result column="password" property="password" jdbcType="VARCHAR"/>
+        <result column="user_type" property="userType" jdbcType="VARCHAR"/>
+        <result column="nickname" property="nickname" jdbcType="VARCHAR"/>
+        <result column="introduction" property="introduction" jdbcType="LONGVARCHAR"/>
+        <result column="avatar" property="avatar" jdbcType="LONGVARCHAR"/>
+        <result column="committee_desc" property="committeeDesc" jdbcType="VARCHAR"/>
+        <result column="contact" property="contact" jdbcType="VARCHAR"/>
+        <result column="pending" property="pending" jdbcType="TINYINT"/>
+        <result column="approved" property="approved" jdbcType="TINYINT"/>
+        <result column="created_at" property="createdAt" jdbcType="TIMESTAMP"/>
+        <result column="updated_at" property="updatedAt" jdbcType="TIMESTAMP"/>
+    </resultMap>
+
+    <!-- 基础字段 -->
+    <sql id="Base_Column_List">
+        id, username, password, user_type, nickname, introduction, avatar, 
+        committee_desc, contact, pending, approved, created_at, updated_at
+    </sql>
+
+    <!-- 根据用户名查询用户 -->
+    <select id="findByUsername" parameterType="string" resultMap="UserResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users 
+        WHERE username = #{username}
+    </select>
+
+    <!-- 根据用户名和用户类型查询用户 -->
+    <select id="findByUsernameAndUserType" resultMap="UserResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users 
+        WHERE username = #{username} AND user_type = #{userType}
+    </select>
+
+    <!-- 插入新用户 -->
+    <insert id="insertUser" parameterType="com.whu.wufeibackend.entity.User" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO users (
+            username, password, user_type, nickname, introduction, avatar, 
+            committee_desc, contact, pending, approved, created_at, updated_at
+        ) VALUES (
+            #{username}, #{password}, #{userType}, #{nickname}, #{introduction}, #{avatar},
+            #{committeeDesc}, #{contact}, #{pending}, #{approved}, NOW(), NOW()
+        )
+    </insert>
+
+    <!-- 更新用户信息 -->
+    <update id="updateUser" parameterType="com.whu.wufeibackend.entity.User">
+        UPDATE users 
+        SET 
+            username = #{username},
+            password = #{password},
+            user_type = #{userType},
+            nickname = #{nickname},
+            introduction = #{introduction},
+            avatar = #{avatar},
+            committee_desc = #{committeeDesc},
+            contact = #{contact},
+            pending = #{pending},
+            approved = #{approved},
+            updated_at = NOW()
+        WHERE id = #{id}
+    </update>
+
+    <!-- 查询所有待审批的居委会用户 -->
+    <select id="findPendingCommitteeUsers" resultMap="UserResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users 
+        WHERE user_type = 'committee' AND pending = 1
+        ORDER BY created_at DESC
+    </select>
+
+    <!-- 根据用户ID查询用户 -->
+    <select id="findById" parameterType="integer" resultMap="UserResultMap">
+        SELECT 
+        <include refid="Base_Column_List"/>
+        FROM users 
+        WHERE id = #{id}
+    </select>
+
+    <!-- 检查用户名是否存在 -->
+    <select id="countByUsername" parameterType="string" resultType="int">
+        SELECT COUNT(*) 
+        FROM users 
+        WHERE username = #{username}
+    </select>
+
+</mapper> 
