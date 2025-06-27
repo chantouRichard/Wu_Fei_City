@@ -46,7 +46,7 @@
             v-model="password"
           />
           <view class="password-toggle" @click="togglePassword">
-            <image :src="showPassword ? '/static/login/hideicon.png' : '/static/login/showicon.png'" class="toggle-icon" />
+            <image :src="showPassword ? '/static/login/showicon.png' : '/static/login/hideicon.png'" class="toggle-icon" />
           </view>
         </view>
       </view>
@@ -65,7 +65,7 @@
             v-model="confirmPassword"
           />
           <view class="password-toggle" @click="toggleConfirmPassword">
-            <image :src="showConfirmPassword ? '/static/login/hideicon.png' : '/static/login/showicon.png'" class="toggle-icon" />
+            <image :src="showConfirmPassword ? '/static/login/showicon.png' : '/static/login/hideicon.png'" class="toggle-icon" />
           </view>
         </view>
       </view>
