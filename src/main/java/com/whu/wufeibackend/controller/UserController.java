@@ -1,6 +1,6 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.DTO.ApiResponse;
+import com.whu.wufeibackend.dto.ApiResponse;
 import com.whu.wufeibackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;

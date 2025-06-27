@@ -1,6 +1,6 @@
 package com.whu.wufeibackend.exception;
 
-import com.whu.wufeibackend.DTO.ApiResponse;
+import com.whu.wufeibackend.dto.ApiResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.BindException;
 import org.springframework.validation.FieldError;

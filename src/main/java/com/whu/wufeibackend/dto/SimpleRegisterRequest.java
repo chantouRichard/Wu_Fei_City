@@ -1,4 +1,4 @@
-package com.whu.wufeibackend.DTO;
+package com.whu.wufeibackend.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

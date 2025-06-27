@@ -1,4 +1,4 @@
-package com.whu.wufeibackend.DTO;
+package com.whu.wufeibackend.dto;
 
 /**
  * 登录响应DTO

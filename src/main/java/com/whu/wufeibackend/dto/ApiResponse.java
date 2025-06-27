@@ -1,4 +1,4 @@
-package com.whu.wufeibackend.DTO;
+package com.whu.wufeibackend.dto;
 
 /**
  * 统一API响应DTO

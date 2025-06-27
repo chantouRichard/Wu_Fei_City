@@ -1,6 +1,6 @@
 package com.whu.wufeibackend.service;
 
-import com.whu.wufeibackend.DTO.RankItem;
+import com.whu.wufeibackend.dto.RankItem;
 import com.whu.wufeibackend.entity.GreenScoreRecord;
 import com.whu.wufeibackend.entity.UserScoreRanking;
 import com.whu.wufeibackend.mapper.GreenScoreMapper;
