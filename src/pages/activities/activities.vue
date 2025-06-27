@@ -1,5 +1,10 @@
 <template>
 	<view class="container">
+		<!-- 浮动发布按钮 -->
+		<button class="publish-btn" @click="goToPublish">
+			<image class="publish-icon" src="/static/icons/publish.png" mode="aspectFit"/>
+		</button>
+		
 		<!-- 顶部分段控制器 -->
 		<view class="tabs">
 			<view
@@ -88,6 +93,11 @@
 		methods: {
 			switchTab(index) {
 				this.currentTab = index;
+			},
+			goToPublish() {
+				uni.navigateTo({
+					url: '/pages/activities/publish'
+				});
 			}
 		}
 	}
@@ -97,6 +107,48 @@
 	.container {
 		display: flex;
 		flex-direction: column;
+		position: relative;
+		min-height: 100vh;
+	}
+	
+	/* 顶部标题栏样式 */
+	.header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		padding: 15px 20px;
+		background-color: #fff;
+		border-bottom: 1px solid #f0f0f0;
+	}
+	
+	.page-title {
+		font-size: 18px;
+		font-weight: 600;
+		color: #333;
+	}
+	
+	.publish-btn {
+		position: fixed;
+		width: 70px;
+		height: 70px;
+		top: 572px;
+		left: 269px;
+		background: linear-gradient(to right, #B7EF68, #03E996);
+		color: #fff;
+		border: none;
+		border-radius: 35px;
+		font-size: 16px;
+		font-weight: 500;
+		box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+		z-index: 999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+	
+	.publish-btn:active {
+		opacity: 0.8;
+		transform: scale(0.95);
 	}
 	.tabs {
 		display: flex;

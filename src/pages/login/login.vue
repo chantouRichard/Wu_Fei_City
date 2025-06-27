@@ -161,14 +161,15 @@ export default {
         // 使用用户状态管理 - 设置为普通用户
         const userStore = this.useUserStore()
         const userData = {
-          userId: this.account,
-          nickname: this.account,
-          introduction: "普通用户",
+          username: this.account,
+          password: this.password
           // 其他用户信息可以从后端获取
         }
         
         // 登录并设置用户类型为 normal
         userStore.loginUser(userData, 'normal')
+
+        
         
         uni.showToast({
           title: '登录成功',
@@ -219,11 +220,7 @@ export default {
 
 <style lang="scss" scoped>
 /* 重置页面默认样式 */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-}
+
 
 .login-container {
   position: relative;

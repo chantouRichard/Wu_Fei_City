@@ -33,7 +33,7 @@
 					<image v-if="index < 3" class="medal" :src="getMedalImage(index)" mode="aspectFit"/>
 					<text v-else class="rank-num">{{ formatRankNumber(index + 1) }}</text>
 					<text class="user-name">{{ item.nickname }}</text>
-					<text class="user-score">{{ item.green_score }}绿值</text>
+					<text class="user-score">{{ item.greenScore }}绿值</text>
 				</view>
 			</view>
 		</view>

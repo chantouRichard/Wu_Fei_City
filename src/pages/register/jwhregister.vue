@@ -2,18 +2,18 @@
   <view class="register-container">
     <!-- 绿色背景图片 -->
     <image src="/static/login/jwhbackground.png" class="background-image" />
-
+    
     <!-- 绿叶装饰背景 -->
     <image src="/static/login/leaf.png" class="leaves-overlay" />
 
     <!-- 绿叶装饰背景 -->
     <image src="/static/login/leaf1.png" class="leaves-overlay2" />
-
+    
     <!-- 返回按钮 -->
     <view class="return-button" @click="goBack">
       <image src="/static/login/return1.png" class="return-icon" />
     </view>
-
+    
     <!-- 表单容器 -->
     <view class="form-container">
       <!-- 账号输入框 -->
@@ -23,15 +23,15 @@
           <text class="input-label">账号</text>
         </view>
         <view class="input-content">
-          <input
-            type="text"
-            class="input-field"
+          <input 
+            type="text" 
+            class="input-field" 
             placeholder="请输入账号"
             v-model="account"
           />
         </view>
       </view>
-
+      
       <!-- 密码输入框 -->
       <view class="input-group">
         <view class="input-header">
@@ -39,18 +39,18 @@
           <text class="input-label">密码</text>
         </view>
         <view class="input-content">
-          <input
-            :type="showPassword ? 'text' : 'password'"
-            class="input-field"
+          <input 
+            :type="showPassword ? 'text' : 'password'" 
+            class="input-field" 
             placeholder="请设置6-16位密码"
             v-model="password"
           />
           <view class="password-toggle" @click="togglePassword">
-            <image :src="showPassword ? '/static/login/showicon.png' : '/static/login/hideicon.png'" class="toggle-icon" />
+            <image :src="showPassword ? '/static/login/hideicon.png' : '/static/login/showicon.png'" class="toggle-icon" />
           </view>
         </view>
       </view>
-
+      
       <!-- 确认密码输入框 -->
       <view class="input-group">
         <view class="input-header">
@@ -58,18 +58,34 @@
           <text class="input-label">确认密码</text>
         </view>
         <view class="input-content">
-          <input
-            :type="showConfirmPassword ? 'text' : 'password'"
-            class="input-field"
+          <input 
+            :type="showConfirmPassword ? 'text' : 'password'" 
+            class="input-field" 
             placeholder="请再次输入密码"
             v-model="confirmPassword"
           />
           <view class="password-toggle" @click="toggleConfirmPassword">
-            <image :src="showConfirmPassword ? '/static/login/showicon.png' : '/static/login/hideicon.png'" class="toggle-icon" />
+            <image :src="showConfirmPassword ? '/static/login/hideicon.png' : '/static/login/showicon.png'" class="toggle-icon" />
           </view>
         </view>
       </view>
-
+      
+      <!-- 居委会描述信息输入框 -->
+      <view class="input-group">
+        <view class="input-header">
+          <image src="/static/login/houseicon.png" class="input-icon" />
+          <text class="input-label">居委会描述信息</text>
+        </view>
+        <view class="input-content">
+          <input 
+            type="text" 
+            class="input-field" 
+            placeholder="请输入居委会描述信息"
+            v-model="description"
+          />
+        </view>
+      </view>
+      
       <!-- 联系电话输入框 -->
       <view class="input-group">
         <view class="input-header">
@@ -77,15 +93,15 @@
           <text class="input-label">联系电话</text>
         </view>
         <view class="input-content">
-          <input
-            type="tel"
-            class="input-field"
+          <input 
+            type="tel" 
+            class="input-field" 
             placeholder="请输入联系电话"
             v-model="phone"
           />
         </view>
       </view>
-
+      
       <!-- 注册按钮 -->
       <view class="register-button" @click="handleRegister">
         <image src="/static/login/registerbutton.png" class="register-btn-bg" />
@@ -96,141 +112,138 @@
 
 <script>
 export default {
-  name: "Register",
+  name: 'Register',
   data() {
     return {
-      account: "", // 账号
-      password: "", // 密码
-      confirmPassword: "", // 确认密码
-      phone: "", // 联系电话
+      account: '', // 账号
+      password: '', // 密码
+      confirmPassword: '', // 确认密码
+      description: '', // 居委会描述信息
+      phone: '', // 联系电话
       showPassword: false, // 是否显示密码
-      showConfirmPassword: false, // 是否显示确认密码
-    };
+      showConfirmPassword: false // 是否显示确认密码
+    }
   },
   methods: {
     // 返回上一页
     goBack() {
       uni.navigateBack({
-        delta: 1,
-      });
+        delta: 1
+      })
     },
-
+    
     // 切换密码显示状态
     togglePassword() {
-      this.showPassword = !this.showPassword;
+      this.showPassword = !this.showPassword
     },
-
+    
     // 切换确认密码显示状态
     toggleConfirmPassword() {
-      this.showConfirmPassword = !this.showConfirmPassword;
+      this.showConfirmPassword = !this.showConfirmPassword
     },
-
+    
     // 图片加载错误处理
     onImageError() {
-      console.log("注册按钮图片加载失败");
+      console.log('注册按钮图片加载失败')
     },
-
+    
     // 处理注册
     handleRegister() {
       // 验证输入
       if (!this.account.trim()) {
         uni.showToast({
-          title: "请输入账号",
-          icon: "none",
-        });
-        return;
+          title: '请输入账号',
+          icon: 'none'
+        })
+        return
       }
-
+      
       if (!this.password.trim()) {
         uni.showToast({
-          title: "请设置密码",
-          icon: "none",
-        });
-        return;
+          title: '请设置密码',
+          icon: 'none'
+        })
+        return
       }
-
+      
       if (this.password.length < 6 || this.password.length > 16) {
         uni.showToast({
-          title: "密码长度应为6-16位",
-          icon: "none",
-        });
-        return;
+          title: '密码长度应为6-16位',
+          icon: 'none'
+        })
+        return
       }
-
+      
       if (!this.confirmPassword.trim()) {
         uni.showToast({
-          title: "请确认密码",
-          icon: "none",
-        });
-        return;
+          title: '请确认密码',
+          icon: 'none'
+        })
+        return
       }
-
+      
       if (this.password !== this.confirmPassword) {
         uni.showToast({
-          title: "两次输入的密码不一致",
-          icon: "none",
-        });
-        return;
+          title: '两次输入的密码不一致',
+          icon: 'none'
+        })
+        return
       }
-
+      
+      if (!this.description.trim()) {
+        uni.showToast({
+          title: '请输入居委会描述信息',
+          icon: 'none'
+        })
+        return
+      }
+      
       if (!this.phone.trim()) {
         uni.showToast({
-          title: "请输入联系电话",
-          icon: "none",
-        });
-        return;
+          title: '请输入联系电话',
+          icon: 'none'
+        })
+        return
       }
-
+      
       // 验证手机号格式
-      const phoneRegex = /^1[3-9]\d{9}$/;
+      const phoneRegex = /^1[3-9]\d{9}$/
       if (!phoneRegex.test(this.phone)) {
         uni.showToast({
-          title: "请输入正确的手机号",
-          icon: "none",
-        });
-        return;
+          title: '请输入正确的手机号',
+          icon: 'none'
+        })
+        return
       }
-
+      
       // 这里添加注册逻辑
       uni.showLoading({
-        title: "注册中...",
-      });
-
+        title: '注册中...'
+      })
+      
       // 模拟注册请求
-      uni.request({
-        url: "http://localhost:8080/api/register",
-        method: "POST",
-        data: {
-          username: this.account,
-          password: this.password,
-          userType: "normal",
-        },
-        success(res) {
-          console.log("注册成功！", res.data);
-          uni.hideLoading();
-          uni.showToast({
-            title: "注册成功",
-            icon: "success",
-          });
-
-          // 注册成功后返回登录页面
-          setTimeout(() => {
-            uni.navigateBack({
-              delta: 1,
-            });
-          }, 1500);
-        },
-        fail(err) {
-          console.error("失败！", err);
-        },
-      });
-    },
-  },
-};
+      setTimeout(() => {
+        uni.hideLoading()
+        uni.showToast({
+          title: '注册成功',
+          icon: 'success'
+        })
+        
+        // 注册成功后返回登录页面
+        setTimeout(() => {
+          uni.navigateBack({
+            delta: 1
+          })
+        }, 1500)
+      }, 2000)
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
 /* 重置页面默认样式 */
+
 
 .register-container {
   position: relative;
@@ -249,6 +262,7 @@ export default {
   height: 100%;
   object-fit: cover;
   z-index: 1;
+ 
 }
 
 /* 绿叶装饰背景 */
@@ -261,6 +275,7 @@ export default {
   object-fit: cover;
   object-position: bottom; /* 确保图片底部与容器底部对齐 */
   z-index: 2;
+ 
 }
 
 .leaves-overlay2 {
@@ -344,20 +359,20 @@ export default {
   background-color: transparent;
   border: none;
   outline: none;
-
+  
   /* 自定义placeholder样式 */
   &::placeholder {
     color: #999999;
     font-size: 1.4vh; /* 进一步缩小占位符字体 */
     opacity: 1;
   }
-
+  
   &::-webkit-input-placeholder {
     color: #999999;
     font-size: 1.4vh;
     opacity: 1;
   }
-
+  
   &::-moz-placeholder {
     color: #999999;
     font-size: 1.4vh;
@@ -402,4 +417,4 @@ export default {
   z-index: 16;
   pointer-events: none; /* 确保文字不阻挡点击事件 */
 }
-</style>
+</style> 

@@ -90,7 +90,7 @@
           placeholder-style="letter-spacing: 20px; color: #999;"
           @confirm="chatStore.addUserMessage"
         ></textarea>
-        <div @click="chatStore.addUserMessage">
+        <div :class="{ 'send-btn-disabled': chatStore.inputMessage === '' }" @click="sendMessage">
           <image src="/static/chat/send.png" class="send-btn"></image>
         </div>
         <image class="pic" src="/static/chat/image.png" @click="uploadImage" />
@@ -103,8 +103,10 @@
 <script setup>
 import { ref, watch, onUnmounted } from "vue";
 import { useChatStore } from "@/stores/chat";
+import { useUserStore } from "@/stores/user";
 
 const chatStore = useChatStore();
+const userStore = useUserStore();
 const scrollToView = ref("");
 const scrollTop = ref(0);
 const isRecording = ref(false);
@@ -307,6 +309,14 @@ const uploadImage = () => {
   });
 };
 
+// 发送消息
+const sendMessage = () => {
+  if (chatStore.inputMessage) {
+    chatStore.addUserMessage(); // 添加用户消息
+    userStore.modifyGreenPlantScore(5); // 修改绿分
+  }
+};
+
 const scrollToBottom = () => {
   if (chatStore.history.length > 0) {
     scrollToView.value = "msg" + (chatStore.history.length - 1);
@@ -441,6 +451,11 @@ watch(
   border: none;
 
   background-color: white;
+}
+
+.send-btn-disabled{
+  opacity: 0.5;
+  cursor: not-allowed;
 }
 
 .send-btn {
