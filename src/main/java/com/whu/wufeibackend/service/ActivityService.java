@@ -3,6 +3,8 @@ package com.whu.wufeibackend.service;
 import com.whu.wufeibackend.dto.ActivityListResponse;
 import com.whu.wufeibackend.entity.Activity;
 import com.whu.wufeibackend.mapper.ActivityMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,9 @@ import java.util.List;
 @Service
 public class ActivityService {
 
+    // 日志记录器
+    private static final Logger logger = LoggerFactory.getLogger(ActivityService.class);
+
     @Autowired(required = false)
     private ActivityMapper activityMapper;
 
@@ -30,23 +35,39 @@ public class ActivityService {
      * @return 开放报名的活动列表
      */
     public List<ActivityListResponse> getOpenActivities() {
+        logger.info("开始获取开放报名的活动列表");
+        
         try {
             if (activityMapper != null) {
+                logger.debug("数据库连接正常，开始执行数据库查询");
                 List<ActivityListResponse> activities = activityMapper.getOpenActivities();
+                logger.info("从数据库获取到开放报名活动数量: {}", activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
-                for (ActivityListResponse activity : activities) {
-                    List<String> avatars = activityMapper.getRecentParticipantAvatars(activity.getActivityId());
-                    activity.setAvatars(avatars);
+                if (activities != null) {
+                    for (ActivityListResponse activity : activities) {
+                        logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
+                        try {
+                            List<String> avatars = activityMapper.getRecentParticipantAvatars(activity.getActivityId());
+                            activity.setAvatars(avatars);
+                            logger.debug("活动ID: {} 获取到头像数量: {}", 
+                                       activity.getActivityId(), 
+                                       avatars != null ? avatars.size() : 0);
+                        } catch (Exception e) {
+                            logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
+                            activity.setAvatars(new ArrayList<>());
+                        }
+                    }
                 }
                 
+                logger.info("成功完成开放报名活动列表的数据库查询和处理");
                 return activities;
             } else {
-                // 返回模拟数据
+                logger.warn("数据库连接为空，切换到模拟数据模式");
                 return getMockOpenActivities();
             }
         } catch (Exception e) {
-            // 如果数据库连接失败，返回模拟数据
+            logger.error("获取开放报名活动列表时发生异常: {}, 切换到模拟数据模式", e.getMessage(), e);
             return getMockOpenActivities();
         }
     }
@@ -58,21 +79,39 @@ public class ActivityService {
      * @return 进行中的活动列表
      */
     public List<ActivityListResponse> getInProgressActivities() {
+        logger.info("开始获取进行中的活动列表");
+        
         try {
             if (activityMapper != null) {
+                logger.debug("数据库连接正常，开始执行数据库查询");
                 List<ActivityListResponse> activities = activityMapper.getInProgressActivities();
+                logger.info("从数据库获取到进行中活动数量: {}", activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
-                for (ActivityListResponse activity : activities) {
-                    List<String> avatars = activityMapper.getRecentParticipantAvatars(activity.getActivityId());
-                    activity.setAvatars(avatars);
+                if (activities != null) {
+                    for (ActivityListResponse activity : activities) {
+                        logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
+                        try {
+                            List<String> avatars = activityMapper.getRecentParticipantAvatars(activity.getActivityId());
+                            activity.setAvatars(avatars);
+                            logger.debug("活动ID: {} 获取到头像数量: {}", 
+                                       activity.getActivityId(), 
+                                       avatars != null ? avatars.size() : 0);
+                        } catch (Exception e) {
+                            logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
+                            activity.setAvatars(new ArrayList<>());
+                        }
+                    }
                 }
                 
+                logger.info("成功完成进行中活动列表的数据库查询和处理");
                 return activities;
             } else {
+                logger.warn("数据库连接为空，切换到模拟数据模式");
                 return getMockInProgressActivities();
             }
         } catch (Exception e) {
+            logger.error("获取进行中活动列表时发生异常: {}, 切换到模拟数据模式", e.getMessage(), e);
             return getMockInProgressActivities();
         }
     }
@@ -84,27 +123,46 @@ public class ActivityService {
      * @return 已结束的活动列表
      */
     public List<ActivityListResponse> getFinishedActivities() {
+        logger.info("开始获取已结束的活动列表");
+        
         try {
             if (activityMapper != null) {
+                logger.debug("数据库连接正常，开始执行数据库查询");
                 List<ActivityListResponse> activities = activityMapper.getFinishedActivities();
+                logger.info("从数据库获取到已结束活动数量: {}", activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
-                for (ActivityListResponse activity : activities) {
-                    List<String> avatars = activityMapper.getRecentParticipantAvatars(activity.getActivityId());
-                    activity.setAvatars(avatars);
+                if (activities != null) {
+                    for (ActivityListResponse activity : activities) {
+                        logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
+                        try {
+                            List<String> avatars = activityMapper.getRecentParticipantAvatars(activity.getActivityId());
+                            activity.setAvatars(avatars);
+                            logger.debug("活动ID: {} 获取到头像数量: {}", 
+                                       activity.getActivityId(), 
+                                       avatars != null ? avatars.size() : 0);
+                        } catch (Exception e) {
+                            logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
+                            activity.setAvatars(new ArrayList<>());
+                        }
+                    }
                 }
                 
+                logger.info("成功完成已结束活动列表的数据库查询和处理");
                 return activities;
             } else {
+                logger.warn("数据库连接为空，切换到模拟数据模式");
                 return getMockFinishedActivities();
             }
         } catch (Exception e) {
+            logger.error("获取已结束活动列表时发生异常: {}, 切换到模拟数据模式", e.getMessage(), e);
             return getMockFinishedActivities();
         }
     }
 
     // 模拟数据方法
     private List<ActivityListResponse> getMockOpenActivities() {
+        logger.info("使用模拟数据生成开放报名活动列表");
         List<ActivityListResponse> activities = new ArrayList<>();
         
         ActivityListResponse activity1 = new ActivityListResponse();
@@ -125,10 +183,12 @@ public class ActivityService {
         activity1.setMaxParticipants(50);
         
         activities.add(activity1);
+        logger.debug("生成模拟开放报名活动数量: {}", activities.size());
         return activities;
     }
 
     private List<ActivityListResponse> getMockInProgressActivities() {
+        logger.info("使用模拟数据生成进行中活动列表");
         List<ActivityListResponse> activities = new ArrayList<>();
         
         ActivityListResponse activity1 = new ActivityListResponse();
@@ -148,10 +208,12 @@ public class ActivityService {
         activity1.setMaxParticipants(30);
         
         activities.add(activity1);
+        logger.debug("生成模拟进行中活动数量: {}", activities.size());
         return activities;
     }
 
     private List<ActivityListResponse> getMockFinishedActivities() {
+        logger.info("使用模拟数据生成已结束活动列表");
         List<ActivityListResponse> activities = new ArrayList<>();
         
         ActivityListResponse activity1 = new ActivityListResponse();
@@ -172,6 +234,7 @@ public class ActivityService {
         activity1.setMaxParticipants(25);
         
         activities.add(activity1);
+        logger.debug("生成模拟已结束活动数量: {}", activities.size());
         return activities;
     }
 
@@ -182,13 +245,23 @@ public class ActivityService {
      * @return 用户头像URL列表（最多3个）
      */
     public List<String> getRecentParticipantAvatars(Integer activityId) {
+        logger.info("开始获取活动ID: {} 的参与者头像", activityId);
+        
         if (activityMapper != null) {
             try {
-                return activityMapper.getRecentParticipantAvatars(activityId);
+                logger.debug("执行数据库查询获取活动ID: {} 的参与者头像", activityId);
+                List<String> avatars = activityMapper.getRecentParticipantAvatars(activityId);
+                logger.info("成功获取活动ID: {} 的参与者头像，数量: {}", 
+                           activityId, avatars != null ? avatars.size() : 0);
+                return avatars;
             } catch (Exception e) {
+                logger.error("获取活动ID: {} 的参与者头像失败: {}, 返回默认头像", 
+                            activityId, e.getMessage(), e);
                 return Arrays.asList("https://cdn.example.com/users/default-avatar.jpg");
             }
         }
+        
+        logger.warn("数据库连接为空，返回默认头像");
         return Arrays.asList("https://cdn.example.com/users/default-avatar.jpg");
     }
 
@@ -199,13 +272,22 @@ public class ActivityService {
      * @return 参与人数
      */
     public Integer getParticipantCount(Integer activityId) {
+        logger.info("开始获取活动ID: {} 的参与人数", activityId);
+        
         if (activityMapper != null) {
             try {
-                return activityMapper.getParticipantCount(activityId);
+                logger.debug("执行数据库查询获取活动ID: {} 的参与人数", activityId);
+                Integer count = activityMapper.getParticipantCount(activityId);
+                logger.info("成功获取活动ID: {} 的参与人数: {}", activityId, count);
+                return count;
             } catch (Exception e) {
+                logger.error("获取活动ID: {} 的参与人数失败: {}, 返回0", 
+                            activityId, e.getMessage(), e);
                 return 0;
             }
         }
+        
+        logger.warn("数据库连接为空，返回参与人数0");
         return 0;
     }
 
@@ -216,13 +298,25 @@ public class ActivityService {
      * @return 活动详情
      */
     public Activity findById(Integer id) {
+        logger.info("开始查询活动详情，活动ID: {}", id);
+        
         if (activityMapper != null) {
             try {
-                return activityMapper.findById(id);
+                logger.debug("执行数据库查询获取活动ID: {} 的详情", id);
+                Activity activity = activityMapper.findById(id);
+                if (activity != null) {
+                    logger.info("成功获取活动ID: {} 的详情，标题: {}", id, activity.getTitle());
+                } else {
+                    logger.warn("未找到活动ID: {} 的详情", id);
+                }
+                return activity;
             } catch (Exception e) {
+                logger.error("查询活动ID: {} 的详情失败: {}", id, e.getMessage(), e);
                 return null;
             }
         }
+        
+        logger.warn("数据库连接为空，无法查询活动详情");
         return null;
     }
 
@@ -232,13 +326,21 @@ public class ActivityService {
      * @return 活动列表
      */
     public List<Activity> findAll() {
+        logger.info("开始查询所有活动");
+        
         if (activityMapper != null) {
             try {
-                return activityMapper.findAll();
+                logger.debug("执行数据库查询获取所有活动");
+                List<Activity> activities = activityMapper.findAll();
+                logger.info("成功获取所有活动，数量: {}", activities != null ? activities.size() : 0);
+                return activities;
             } catch (Exception e) {
+                logger.error("查询所有活动失败: {}", e.getMessage(), e);
                 return new ArrayList<>();
             }
         }
+        
+        logger.warn("数据库连接为空，返回空列表");
         return new ArrayList<>();
     }
 
@@ -249,14 +351,22 @@ public class ActivityService {
      * @return 创建的活动
      */
     public Activity createActivity(Activity activity) {
+        logger.info("开始创建新活动，标题: {}", activity != null ? activity.getTitle() : "null");
+        
         if (activityMapper != null) {
             try {
+                logger.debug("执行数据库插入操作");
                 activityMapper.insert(activity);
+                logger.info("成功创建活动，ID: {}, 标题: {}", 
+                           activity.getId(), activity.getTitle());
                 return activity;
             } catch (Exception e) {
+                logger.error("创建活动失败: {}", e.getMessage(), e);
                 return null;
             }
         }
+        
+        logger.warn("数据库连接为空，无法创建活动");
         return null;
     }
 
@@ -267,14 +377,24 @@ public class ActivityService {
      * @return 更新后的活动
      */
     public Activity updateActivity(Activity activity) {
+        logger.info("开始更新活动，ID: {}, 标题: {}", 
+                   activity != null ? activity.getId() : "null",
+                   activity != null ? activity.getTitle() : "null");
+        
         if (activityMapper != null) {
             try {
+                logger.debug("执行数据库更新操作");
                 activityMapper.update(activity);
+                logger.info("成功更新活动，ID: {}, 标题: {}", 
+                           activity.getId(), activity.getTitle());
                 return activity;
             } catch (Exception e) {
+                logger.error("更新活动失败: {}", e.getMessage(), e);
                 return null;
             }
         }
+        
+        logger.warn("数据库连接为空，无法更新活动");
         return null;
     }
 
@@ -285,13 +405,25 @@ public class ActivityService {
      * @return 是否删除成功
      */
     public boolean deleteActivity(Integer id) {
+        logger.info("开始删除活动，ID: {}", id);
+        
         if (activityMapper != null) {
             try {
-                return activityMapper.deleteById(id) > 0;
+                logger.debug("执行数据库删除操作");
+                boolean result = activityMapper.deleteById(id) > 0;
+                if (result) {
+                    logger.info("成功删除活动，ID: {}", id);
+                } else {
+                    logger.warn("删除活动失败，可能活动不存在，ID: {}", id);
+                }
+                return result;
             } catch (Exception e) {
+                logger.error("删除活动失败，ID: {}, 错误: {}", id, e.getMessage(), e);
                 return false;
             }
         }
+        
+        logger.warn("数据库连接为空，无法删除活动");
         return false;
     }
 } 
