@@ -1,0 +1,514 @@
+{
+	"info": {
+		"_postman_id": "wu-fei-city-activities-api",
+		"name": "无废城市 - 活动管理API测试集合",
+		"description": "无废城市社区活动管理相关API的完整测试用例集合",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "活动管理",
+			"item": [
+				{
+					"name": "获取开放报名的活动列表",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"状态码应该是 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"响应应该是JSON格式\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"响应结构应该正确\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('code');",
+									"    pm.expect(responseJson).to.have.property('message');",
+									"    pm.expect(responseJson).to.have.property('data');",
+									"    pm.expect(responseJson).to.have.property('success');",
+									"    pm.expect(responseJson.code).to.eql(200);",
+									"    pm.expect(responseJson.success).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"活动数据结构应该正确\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    if (responseJson.data && responseJson.data.length > 0) {",
+									"        const activity = responseJson.data[0];",
+									"        pm.expect(activity).to.have.property('activityId');",
+									"        pm.expect(activity).to.have.property('title');",
+									"        pm.expect(activity).to.have.property('organizerName');",
+									"        pm.expect(activity).to.have.property('startTime');",
+									"        pm.expect(activity).to.have.property('endTime');",
+									"        pm.expect(activity).to.have.property('status');",
+									"        pm.expect(activity).to.have.property('imageUrl');",
+									"        pm.expect(activity).to.have.property('location');",
+									"        pm.expect(activity).to.have.property('avatars');",
+									"        pm.expect(activity).to.have.property('participantCount');",
+									"        pm.expect(activity).to.have.property('maxParticipants');",
+									"        pm.expect(activity.status).to.eql('open');",
+									"        pm.expect(activity.avatars).to.be.an('array');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/open",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities",
+								"open"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "成功响应示例",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities/open",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities",
+										"open"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"message\": \"获取开放报名活动列表成功\",\n  \"data\": [\n    {\n      \"activityId\": 1,\n      \"title\": \"社区清洁日\",\n      \"organizerName\": \"东湖社区居委会\",\n      \"startTime\": \"2025-07-01T08:00:00\",\n      \"endTime\": \"2025-07-05T18:00:00\",\n      \"status\": \"open\",\n      \"imageUrl\": \"https://cdn.example.com/activities/cleaning.jpg\",\n      \"location\": \"东社区小广场\",\n      \"avatars\": [\n        \"https://cdn.example.com/users/avatar1.jpg\",\n        \"https://cdn.example.com/users/avatar2.jpg\",\n        \"https://cdn.example.com/users/avatar3.jpg\"\n      ],\n      \"participantCount\": 26,\n      \"maxParticipants\": 50\n    }\n  ],\n  \"success\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "获取进行中的活动列表",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"状态码应该是 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"响应应该是JSON格式\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"响应结构应该正确\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('code');",
+									"    pm.expect(responseJson).to.have.property('message');",
+									"    pm.expect(responseJson).to.have.property('data');",
+									"    pm.expect(responseJson).to.have.property('success');",
+									"    pm.expect(responseJson.code).to.eql(200);",
+									"    pm.expect(responseJson.success).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"活动状态应该是inprogress\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    if (responseJson.data && responseJson.data.length > 0) {",
+									"        const activity = responseJson.data[0];",
+									"        pm.expect(activity.status).to.eql('inprogress');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/inprogress",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities",
+								"inprogress"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "成功响应示例",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities/inprogress",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities",
+										"inprogress"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"message\": \"获取进行中活动列表成功\",\n  \"data\": [\n    {\n      \"activityId\": 2,\n      \"title\": \"绿色出行倡议\",\n      \"organizerName\": \"西湖社区居委会\",\n      \"startTime\": \"2024-06-10T08:00:00\",\n      \"endTime\": \"2024-06-20T20:00:00\",\n      \"status\": \"inprogress\",\n      \"imageUrl\": \"https://cdn.example.com/activities/green-travel.jpg\",\n      \"location\": \"社区门口\",\n      \"avatars\": [\n        \"https://cdn.example.com/users/avatar4.jpg\",\n        \"https://cdn.example.com/users/avatar5.jpg\"\n      ],\n      \"participantCount\": 18,\n      \"maxParticipants\": 30\n    }\n  ],\n  \"success\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "获取已结束的活动列表",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"状态码应该是 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"响应应该是JSON格式\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"响应结构应该正确\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('code');",
+									"    pm.expect(responseJson).to.have.property('message');",
+									"    pm.expect(responseJson).to.have.property('data');",
+									"    pm.expect(responseJson).to.have.property('success');",
+									"    pm.expect(responseJson.code).to.eql(200);",
+									"    pm.expect(responseJson.success).to.be.true;",
+									"});",
+									"",
+									"pm.test(\"活动状态应该是finished\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    if (responseJson.data && responseJson.data.length > 0) {",
+									"        const activity = responseJson.data[0];",
+									"        pm.expect(activity.status).to.eql('finished');",
+									"    }",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/finished",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities",
+								"finished"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "成功响应示例",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities/finished",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities",
+										"finished"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"message\": \"获取已结束活动列表成功\",\n  \"data\": [\n    {\n      \"activityId\": 3,\n      \"title\": \"社区植树活动\",\n      \"organizerName\": \"南湖社区居委会\",\n      \"startTime\": \"2024-05-01T07:00:00\",\n      \"endTime\": \"2024-05-10T19:00:00\",\n      \"status\": \"finished\",\n      \"imageUrl\": \"https://cdn.example.com/activities/tree-planting.jpg\",\n      \"location\": \"社区花园\",\n      \"avatars\": [\n        \"https://cdn.example.com/users/avatar6.jpg\",\n        \"https://cdn.example.com/users/avatar7.jpg\",\n        \"https://cdn.example.com/users/avatar8.jpg\"\n      ],\n      \"participantCount\": 25,\n      \"maxParticipants\": 25\n    }\n  ],\n  \"success\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "获取活动参与者头像",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"状态码应该是 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"响应应该是JSON格式\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"响应结构应该正确\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('code');",
+									"    pm.expect(responseJson).to.have.property('message');",
+									"    pm.expect(responseJson).to.have.property('data');",
+									"    pm.expect(responseJson).to.have.property('success');",
+									"    pm.expect(responseJson.code).to.eql(200);",
+									"    pm.expect(responseJson.success).to.be.true;",
+									"    pm.expect(responseJson.data).to.be.an('array');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/1/avatars",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities",
+								"1",
+								"avatars"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "成功响应示例",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities/1/avatars",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities",
+										"1",
+										"avatars"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"message\": \"获取参与者头像成功\",\n  \"data\": [\n    \"https://cdn.example.com/users/default-avatar.jpg\"\n  ],\n  \"success\": true\n}"
+						}
+					]
+				},
+				{
+					"name": "获取活动参与人数",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"状态码应该是 200\", function () {",
+									"    pm.response.to.have.status(200);",
+									"});",
+									"",
+									"pm.test(\"响应应该是JSON格式\", function () {",
+									"    pm.response.to.be.json;",
+									"});",
+									"",
+									"pm.test(\"响应结构应该正确\", function () {",
+									"    const responseJson = pm.response.json();",
+									"    pm.expect(responseJson).to.have.property('code');",
+									"    pm.expect(responseJson).to.have.property('message');",
+									"    pm.expect(responseJson).to.have.property('data');",
+									"    pm.expect(responseJson).to.have.property('success');",
+									"    pm.expect(responseJson.code).to.eql(200);",
+									"    pm.expect(responseJson.success).to.be.true;",
+									"    pm.expect(responseJson.data).to.be.a('number');",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/api/activities/1/count",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"api",
+								"activities",
+								"1",
+								"count"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "成功响应示例",
+							"originalRequest": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/activities/1/count",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"activities",
+										"1",
+										"count"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								}
+							],
+							"cookie": [],
+							"body": "{\n  \"code\": 200,\n  \"message\": \"获取参与人数成功\",\n  \"data\": 0,\n  \"success\": true\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+} 

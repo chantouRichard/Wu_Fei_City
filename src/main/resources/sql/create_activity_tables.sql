@@ -17,6 +17,7 @@ CREATE TABLE IF NOT EXISTS `activities` (
   `location` VARCHAR(200) NOT NULL COMMENT '活动地点',
   `max_participants` INT DEFAULT NULL COMMENT '最大参与人数',
   `status` ENUM('pending','published','finished') DEFAULT 'pending' COMMENT '活动状态',
+  `image_url` TEXT DEFAULT NULL COMMENT '活动图片URL',
   `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
