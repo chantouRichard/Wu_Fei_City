@@ -7,8 +7,14 @@ import java.util.List;
  * 活动列表响应DTO
  * 用于GET /api/activities/* 接口的响应
  * 
+ * 字段说明：
+ * - createdAtAndSignupStartTime: 既是活动创建时间也是报名开始时间
+ * - signupEndTimeAndActivityStartTime: 既是报名结束时间也是活动开始时间
+ * - activityEndTime: 活动结束时间
+ * 
  * @author 无废技术组
  * @since 2024-06-27
+ * @updated 2025-01-27
  */
 public class ActivityListResponse {
     
@@ -28,14 +34,19 @@ public class ActivityListResponse {
     private String organizerName;
     
     /**
-     * 活动开始时间（报名开始时间）
+     * 活动创建时间/报名开始时间
      */
-    private LocalDateTime startTime;
+    private LocalDateTime createdAtAndSignupStartTime;
     
     /**
-     * 活动结束时间（报名结束时间）
+     * 报名结束时间/活动开始时间
      */
-    private LocalDateTime endTime;
+    private LocalDateTime signupEndTimeAndActivityStartTime;
+    
+    /**
+     * 活动结束时间
+     */
+    private LocalDateTime activityEndTime;
     
     /**
      * 活动状态：open/inprogress/finished
@@ -72,14 +83,17 @@ public class ActivityListResponse {
     public ActivityListResponse() {}
 
     public ActivityListResponse(Integer activityId, String title, String organizerName,
-                               LocalDateTime startTime, LocalDateTime endTime, String status,
+                               LocalDateTime createdAtAndSignupStartTime, 
+                               LocalDateTime signupEndTimeAndActivityStartTime,
+                               LocalDateTime activityEndTime, String status,
                                String imageUrl, String location, List<String> avatars,
                                Integer participantCount, Integer maxParticipants) {
         this.activityId = activityId;
         this.title = title;
         this.organizerName = organizerName;
-        this.startTime = startTime;
-        this.endTime = endTime;
+        this.createdAtAndSignupStartTime = createdAtAndSignupStartTime;
+        this.signupEndTimeAndActivityStartTime = signupEndTimeAndActivityStartTime;
+        this.activityEndTime = activityEndTime;
         this.status = status;
         this.imageUrl = imageUrl;
         this.location = location;
@@ -113,20 +127,28 @@ public class ActivityListResponse {
         this.organizerName = organizerName;
     }
 
-    public LocalDateTime getStartTime() {
-        return startTime;
+    public LocalDateTime getCreatedAtAndSignupStartTime() {
+        return createdAtAndSignupStartTime;
     }
 
-    public void setStartTime(LocalDateTime startTime) {
-        this.startTime = startTime;
+    public void setCreatedAtAndSignupStartTime(LocalDateTime createdAtAndSignupStartTime) {
+        this.createdAtAndSignupStartTime = createdAtAndSignupStartTime;
     }
 
-    public LocalDateTime getEndTime() {
-        return endTime;
+    public LocalDateTime getSignupEndTimeAndActivityStartTime() {
+        return signupEndTimeAndActivityStartTime;
     }
 
-    public void setEndTime(LocalDateTime endTime) {
-        this.endTime = endTime;
+    public void setSignupEndTimeAndActivityStartTime(LocalDateTime signupEndTimeAndActivityStartTime) {
+        this.signupEndTimeAndActivityStartTime = signupEndTimeAndActivityStartTime;
+    }
+
+    public LocalDateTime getActivityEndTime() {
+        return activityEndTime;
+    }
+
+    public void setActivityEndTime(LocalDateTime activityEndTime) {
+        this.activityEndTime = activityEndTime;
     }
 
     public String getStatus() {
@@ -183,8 +205,9 @@ public class ActivityListResponse {
                 "activityId=" + activityId +
                 ", title='" + title + '\'' +
                 ", organizerName='" + organizerName + '\'' +
-                ", startTime=" + startTime +
-                ", endTime=" + endTime +
+                ", createdAtAndSignupStartTime=" + createdAtAndSignupStartTime +
+                ", signupEndTimeAndActivityStartTime=" + signupEndTimeAndActivityStartTime +
+                ", activityEndTime=" + activityEndTime +
                 ", status='" + status + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
                 ", location='" + location + '\'' +

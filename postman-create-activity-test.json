@@ -1,0 +1,367 @@
+{
+    "info": {
+        "name": "创建活动接口测试",
+        "description": "测试POST /api/activities/create接口的各种场景",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "variable": [
+        {
+            "key": "baseUrl",
+            "value": "http://localhost:8080",
+            "type": "string"
+        }
+    ],
+    "item": [
+        {
+            "name": "1. 创建活动 - 成功案例",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// 验证响应状态码",
+                            "pm.test(\"Status code is 200\", function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "// 验证响应时间",
+                            "pm.test(\"Response time is less than 2000ms\", function () {",
+                            "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                            "});",
+                            "",
+                            "// 验证响应格式",
+                            "pm.test(\"Response has correct format\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    pm.expect(jsonData).to.have.property('message');",
+                            "    pm.expect(jsonData).to.have.property('data');",
+                            "    pm.expect(jsonData).to.have.property('code');",
+                            "    pm.expect(jsonData.code).to.eql(200);",
+                            "    pm.expect(jsonData.message).to.include('成功');",
+                            "});",
+                            "",
+                            "// 验证返回的活动数据",
+                            "pm.test(\"Activity data is correct\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    var activity = jsonData.data;",
+                            "    ",
+                            "    pm.expect(activity).to.have.property('activityId');",
+                            "    pm.expect(activity).to.have.property('title');",
+                            "    pm.expect(activity).to.have.property('createdAtAndSignupStartTime');",
+                            "    pm.expect(activity).to.have.property('signupEndTimeAndActivityStartTime');",
+                            "    pm.expect(activity).to.have.property('activityEndTime');",
+                            "    pm.expect(activity).to.have.property('location');",
+                            "    pm.expect(activity).to.have.property('status');",
+                            "    ",
+                            "    pm.expect(activity.title).to.eql('社区清洁日');",
+                            "    pm.expect(activity.location).to.eql('社区公园');",
+                            "    pm.expect(activity.status).to.eql('published');",
+                            "    ",
+                            "    // 验证时间格式",
+                            "    pm.expect(activity.createdAtAndSignupStartTime).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$/);",
+                            "    pm.expect(activity.signupEndTimeAndActivityStartTime).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$/);",
+                            "    pm.expect(activity.activityEndTime).to.match(/^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$/);",
+                            "});",
+                            "",
+                            "// 保存活动ID用于后续测试",
+                            "pm.test(\"Save activity ID\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    if (jsonData.data && jsonData.data.activityId) {",
+                            "        pm.collectionVariables.set('createdActivityId', jsonData.data.activityId);",
+                            "    }",
+                            "});",
+                            "",
+                            "console.log('创建活动成功测试完成');"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"title\": \"社区清洁日\",\n  \"description\": \"组织居民清理社区卫生，美化生活环境\",\n  \"signup_end_time_and_activity_start_time\": \"2025-02-15T09:00:00\",\n  \"activity_end_time\": \"2025-02-15T12:00:00\",\n  \"location\": \"社区公园\",\n  \"max_participants\": 50,\n  \"image_url\": \"https://cdn.example.com/activities/cleaning.jpg\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/api/activities/create",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "activities",
+                        "create"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "2. 创建活动 - 标题长度不足",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// 验证响应状态码为400",
+                            "pm.test(\"Status code is 400\", function () {",
+                            "    pm.response.to.have.status(400);",
+                            "});",
+                            "",
+                            "// 验证错误信息",
+                            "pm.test(\"Error message is correct\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    pm.expect(jsonData).to.have.property('message');",
+                            "    pm.expect(jsonData).to.have.property('code');",
+                            "    pm.expect(jsonData.code).to.eql(400);",
+                            "    pm.expect(jsonData.message).to.include('标题长度');",
+                            "});",
+                            "",
+                            "console.log('标题长度验证测试完成');"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"title\": \"短\",\n  \"signup_end_time_and_activity_start_time\": \"2025-02-15T09:00:00\",\n  \"activity_end_time\": \"2025-02-15T12:00:00\",\n  \"location\": \"社区公园\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/api/activities/create",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "activities",
+                        "create"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "3. 创建活动 - 地点为空",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// 验证响应状态码为400",
+                            "pm.test(\"Status code is 400\", function () {",
+                            "    pm.response.to.have.status(400);",
+                            "});",
+                            "",
+                            "// 验证错误信息",
+                            "pm.test(\"Error message is correct\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    pm.expect(jsonData).to.have.property('message');",
+                            "    pm.expect(jsonData).to.have.property('code');",
+                            "    pm.expect(jsonData.code).to.eql(400);",
+                            "    pm.expect(jsonData.message).to.include('地点不能为空');",
+                            "});",
+                            "",
+                            "console.log('地点验证测试完成');"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"title\": \"社区清洁日\",\n  \"signup_end_time_and_activity_start_time\": \"2025-02-15T09:00:00\",\n  \"activity_end_time\": \"2025-02-15T12:00:00\",\n  \"location\": \"\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/api/activities/create",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "activities",
+                        "create"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "4. 创建活动 - 时间逻辑错误",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// 验证响应状态码为400",
+                            "pm.test(\"Status code is 400\", function () {",
+                            "    pm.response.to.have.status(400);",
+                            "});",
+                            "",
+                            "// 验证错误信息",
+                            "pm.test(\"Error message is correct\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    pm.expect(jsonData).to.have.property('message');",
+                            "    pm.expect(jsonData).to.have.property('code');",
+                            "    pm.expect(jsonData.code).to.eql(400);",
+                            "    pm.expect(jsonData.message).to.include('时间设置不正确');",
+                            "});",
+                            "",
+                            "console.log('时间逻辑验证测试完成');"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"title\": \"社区清洁日\",\n  \"signup_end_time_and_activity_start_time\": \"2023-01-01T09:00:00\",\n  \"activity_end_time\": \"2023-01-01T08:00:00\",\n  \"location\": \"社区公园\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/api/activities/create",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "activities",
+                        "create"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "5. 创建活动 - 完整字段测试",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// 验证响应状态码",
+                            "pm.test(\"Status code is 200\", function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "// 验证所有字段都正确返回",
+                            "pm.test(\"All fields are returned correctly\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    var activity = jsonData.data;",
+                            "    ",
+                            "    pm.expect(activity.title).to.eql('环保知识讲座');",
+                            "    pm.expect(activity.description).to.eql('邀请专家讲解环保知识，提高居民环保意识');",
+                            "    pm.expect(activity.location).to.eql('社区活动中心');",
+                            "    pm.expect(activity.maxParticipants).to.eql(100);",
+                            "    pm.expect(activity.imageUrl).to.include('lecture.jpg');",
+                            "    pm.expect(activity.organizerId).to.be.a('number');",
+                            "});",
+                            "",
+                            "console.log('完整字段测试完成');"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n  \"title\": \"环保知识讲座\",\n  \"description\": \"邀请专家讲解环保知识，提高居民环保意识\",\n  \"signup_end_time_and_activity_start_time\": \"2025-03-01T14:00:00\",\n  \"activity_end_time\": \"2025-03-01T17:00:00\",\n  \"location\": \"社区活动中心\",\n  \"max_participants\": 100,\n  \"image_url\": \"https://cdn.example.com/activities/lecture.jpg\"\n}"
+                },
+                "url": {
+                    "raw": "{{baseUrl}}/api/activities/create",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "activities",
+                        "create"
+                    ]
+                }
+            }
+        },
+        {
+            "name": "6. 验证创建的活动 - 查询开放活动列表",
+            "event": [
+                {
+                    "listen": "test",
+                    "script": {
+                        "exec": [
+                            "// 验证响应状态码",
+                            "pm.test(\"Status code is 200\", function () {",
+                            "    pm.response.to.have.status(200);",
+                            "});",
+                            "",
+                            "// 验证新创建的活动在开放列表中",
+                            "pm.test(\"Created activity appears in open list\", function () {",
+                            "    var jsonData = pm.response.json();",
+                            "    var activities = jsonData.data;",
+                            "    var createdActivityId = pm.collectionVariables.get('createdActivityId');",
+                            "    ",
+                            "    if (createdActivityId) {",
+                            "        var foundActivity = activities.find(activity => activity.activityId == createdActivityId);",
+                            "        pm.expect(foundActivity).to.not.be.undefined;",
+                            "        if (foundActivity) {",
+                            "            pm.expect(foundActivity.title).to.eql('社区清洁日');",
+                            "            pm.expect(foundActivity.status).to.eql('open');",
+                            "        }",
+                            "    }",
+                            "});",
+                            "",
+                            "console.log('查询验证测试完成');"
+                        ],
+                        "type": "text/javascript"
+                    }
+                }
+            ],
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "{{baseUrl}}/api/activities/open",
+                    "host": [
+                        "{{baseUrl}}"
+                    ],
+                    "path": [
+                        "api",
+                        "activities",
+                        "open"
+                    ]
+                }
+            }
+        }
+    ]
+} 

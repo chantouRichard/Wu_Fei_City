@@ -2,21 +2,39 @@ package com.whu.wufeibackend.controller;
 
 import com.whu.wufeibackend.dto.ActivityListResponse;
 import com.whu.wufeibackend.dto.ApiResponse;
+import com.whu.wufeibackend.dto.CreateActivityRequest;
+import com.whu.wufeibackend.dto.CreateActivityResponse;
 import com.whu.wufeibackend.service.ActivityService;
+import com.whu.wufeibackend.service.TimeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
  * 活动管理控制器
  * 
+ * 时间逻辑说明：
+ * - createdAtAndSignupStartTime: 既是活动创建时间也是报名开始时间
+ * - signupEndTimeAndActivityStartTime: 既是报名结束时间也是活动开始时间
+ * - activityEndTime: 活动结束时间
+ * 
+ * 活动状态判断逻辑：
+ * - open: created_at_and_signup_start_time < NOW() AND signup_end_time_and_activity_start_time > NOW()
+ * - inprogress: signup_end_time_and_activity_start_time < NOW() AND activity_end_time > NOW()
+ * - finished: activity_end_time < NOW() OR status = 'finished'
+ * 
  * @author 无废技术组
  * @since 2024-06-27
+ * @updated 2025-01-27
  */
 @RestController
 @RequestMapping("/api/activities")
@@ -29,11 +47,19 @@ public class ActivityController {
 
     @Autowired
     private ActivityService activityService;
+    
+    @Autowired
+    private TimeService timeService;
 
     /**
      * 获取开放报名的活动列表
      * GET /api/activities/open
-     * 逻辑：start_time < NOW() AND end_time > NOW() AND status != 'finished'
+     * 逻辑：created_at_and_signup_start_time < NOW() AND signup_end_time_and_activity_start_time > NOW() AND status != 'finished'
+     * 
+     * 返回字段包含：
+     * - createdAtAndSignupStartTime: 活动创建时间/报名开始时间
+     * - signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间
+     * - activityEndTime: 活动结束时间
      * 
      * @return 开放报名的活动列表
      */
@@ -71,7 +97,12 @@ public class ActivityController {
     /**
      * 获取进行中的活动列表
      * GET /api/activities/inprogress
-     * 逻辑：end_time < NOW() AND status != 'finished'
+     * 逻辑：signup_end_time_and_activity_start_time < NOW() AND activity_end_time > NOW() AND status != 'finished'
+     * 
+     * 返回字段包含：
+     * - createdAtAndSignupStartTime: 活动创建时间/报名开始时间
+     * - signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间
+     * - activityEndTime: 活动结束时间
      * 
      * @return 进行中的活动列表
      */
@@ -109,7 +140,12 @@ public class ActivityController {
     /**
      * 获取已结束的活动列表
      * GET /api/activities/finished
-     * 逻辑：status == 'finished'
+     * 逻辑：activity_end_time < NOW() OR status = 'finished'
+     * 
+     * 返回字段包含：
+     * - createdAtAndSignupStartTime: 活动创建时间/报名开始时间
+     * - signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间
+     * - activityEndTime: 活动结束时间
      * 
      * @return 已结束的活动列表
      */
@@ -205,6 +241,92 @@ public class ActivityController {
             logger.error("获取活动{}的参与人数失败，耗时: {}ms，错误信息: {}", 
                         activityId, endTime - startTime, e.getMessage(), e);
             return ApiResponse.error("获取参与人数失败: " + e.getMessage());
+        }
+    }
+
+    /**
+     * 创建新活动
+     * POST /api/activities/create
+     * 
+     * 验证规则：
+     * - title: 长度至少2个字符
+     * - 时间逻辑: created_at_and_signup_start_time < signup_end_time_and_activity_start_time < activity_end_time
+     * - location: 非空
+     * 
+     * 字段说明：
+     * - created_at_and_signup_start_time: 活动创建时间（即报名开始时间），由服务器自动设置为当前时间
+     * - signup_end_time_and_activity_start_time: 报名结束时间（即活动开始时间）
+     * - activity_end_time: 活动结束时间
+     * 
+     * @param request 创建活动请求体
+     * @return 创建的活动信息
+     */
+    @PostMapping("/create")
+    @Operation(summary = "创建新活动", description = "居委会用户创建新的社区活动")
+    public ResponseEntity<ApiResponse<CreateActivityResponse>> createActivity(
+            @Valid @RequestBody CreateActivityRequest request) {
+        
+        logger.info("=== 开始处理创建活动请求，标题: {} ===", request.getTitle());
+        long startTime = System.currentTimeMillis();
+        
+        try {
+            // 验证请求参数
+            logger.debug("开始验证请求参数");
+            
+            // 验证标题长度
+            if (request.getTitle() == null || request.getTitle().trim().length() < 2) {
+                logger.warn("活动标题验证失败：标题长度小于2个字符");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ApiResponse.error(400, "活动标题长度至少为2个字符"));
+            }
+            
+            // 验证地点非空
+            if (request.getLocation() == null || request.getLocation().trim().isEmpty()) {
+                logger.warn("活动地点验证失败：地点不能为空");
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ApiResponse.error(400, "活动地点不能为空"));
+            }
+            
+            // 验证时间逻辑（使用时间服务）
+            LocalDateTime currentTime = timeService.now();
+            if (!request.isTimeSequenceValid(currentTime)) {
+                logger.warn("时间逻辑验证失败：当前时间: {}, 活动开始时间: {}, 活动结束时间: {}, 时间服务信息: {}", 
+                           currentTime, 
+                           request.getSignupEndTimeAndActivityStartTime(), 
+                           request.getActivityEndTime(),
+                           timeService.getTimeInfo());
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                    .body(ApiResponse.error(400, "时间设置不正确：活动开始时间必须晚于当前时间，活动结束时间必须晚于活动开始时间"));
+            }
+            
+            logger.debug("请求参数验证通过");
+            
+            // TODO: 从JWT token中获取当前用户ID（组织者ID）
+            // 目前暂时使用默认的居委会用户ID，实际应用中需要从认证信息中获取
+            Long organizerId = 1L; // 假设当前用户是居委会用户，ID为1
+            
+            logger.debug("调用ActivityService.createActivity()方法，组织者ID: {}", organizerId);
+            CreateActivityResponse response = activityService.createActivity(request, organizerId);
+            
+            long endTime = System.currentTimeMillis();
+            
+            if (response != null) {
+                logger.info("成功创建活动，ID: {}, 标题: {}, 耗时: {}ms", 
+                           response.getActivityId(), response.getTitle(), endTime - startTime);
+                
+                return ResponseEntity.ok(ApiResponse.success("活动创建成功", response));
+            } else {
+                logger.error("创建活动失败：服务返回null");
+                return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body(ApiResponse.error(500, "活动创建失败"));
+            }
+            
+        } catch (Exception e) {
+            long endTime = System.currentTimeMillis();
+            logger.error("创建活动时发生异常，耗时: {}ms，错误信息: {}", 
+                        endTime - startTime, e.getMessage(), e);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                .body(ApiResponse.error(500, "服务器内部错误: " + e.getMessage()));
         }
     }
 } 

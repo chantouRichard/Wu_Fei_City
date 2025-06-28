@@ -1,0 +1,472 @@
+{
+  "info": {
+    "name": "无废城市 - 活动接口测试集合 (字段更新版)",
+    "description": "测试活动管理相关API接口，包含新的字段结构：createdAtAndSignupStartTime, signupEndTimeAndActivityStartTime, activityEndTime",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_postman_id": "activity-api-test-collection-v2",
+    "version": "2.0.0"
+  },
+  "item": [
+    {
+      "name": "1. 获取开放报名的活动列表",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 测试HTTP状态码",
+              "pm.test('HTTP状态码应该是200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 测试响应时间",
+              "pm.test('响应时间应该小于2000ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});",
+              "",
+              "// 解析响应JSON",
+              "let responseJson = pm.response.json();",
+              "",
+              "// 测试响应结构",
+              "pm.test('响应应该包含正确的结构', function () {",
+              "    pm.expect(responseJson).to.have.property('code');",
+              "    pm.expect(responseJson).to.have.property('message');",
+              "    pm.expect(responseJson).to.have.property('data');",
+              "    pm.expect(responseJson.code).to.eql(200);",
+              "});",
+              "",
+              "// 测试数据结构（如果有数据）",
+              "if (responseJson.data && responseJson.data.length > 0) {",
+              "    pm.test('活动数据应该包含新的字段结构', function () {",
+              "        let activity = responseJson.data[0];",
+              "        pm.expect(activity).to.have.property('activityId');",
+              "        pm.expect(activity).to.have.property('title');",
+              "        pm.expect(activity).to.have.property('organizerName');",
+              "        ",
+              "        // 新字段结构验证",
+              "        pm.expect(activity).to.have.property('createdAtAndSignupStartTime');",
+              "        pm.expect(activity).to.have.property('signupEndTimeAndActivityStartTime');",
+              "        pm.expect(activity).to.have.property('activityEndTime');",
+              "        ",
+              "        pm.expect(activity).to.have.property('status');",
+              "        pm.expect(activity.status).to.eql('open');",
+              "        pm.expect(activity).to.have.property('location');",
+              "        pm.expect(activity).to.have.property('avatars');",
+              "        pm.expect(activity).to.have.property('participantCount');",
+              "        pm.expect(activity).to.have.property('maxParticipants');",
+              "    });",
+              "    ",
+              "    pm.test('时间字段应该是有效的日期格式', function () {",
+              "        let activity = responseJson.data[0];",
+              "        pm.expect(new Date(activity.createdAtAndSignupStartTime)).to.be.a('date');",
+              "        pm.expect(new Date(activity.signupEndTimeAndActivityStartTime)).to.be.a('date');",
+              "        pm.expect(new Date(activity.activityEndTime)).to.be.a('date');",
+              "    });",
+              "}",
+              "",
+              "// 输出响应数据到控制台",
+              "console.log('开放报名活动数量:', responseJson.data ? responseJson.data.length : 0);",
+              "if (responseJson.data && responseJson.data.length > 0) {",
+              "    console.log('第一个活动详情:', JSON.stringify(responseJson.data[0], null, 2));",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/open",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "open"
+          ]
+        },
+        "description": "获取当前可以报名参与的活动列表\n\n**业务逻辑**: created_at_and_signup_start_time < NOW() AND signup_end_time_and_activity_start_time > NOW() AND status != 'finished'\n\n**返回字段说明**:\n- createdAtAndSignupStartTime: 活动创建时间/报名开始时间\n- signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间\n- activityEndTime: 活动结束时间"
+      },
+      "response": []
+    },
+    {
+      "name": "2. 获取进行中的活动列表",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 测试HTTP状态码",
+              "pm.test('HTTP状态码应该是200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 测试响应时间",
+              "pm.test('响应时间应该小于2000ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});",
+              "",
+              "// 解析响应JSON",
+              "let responseJson = pm.response.json();",
+              "",
+              "// 测试响应结构",
+              "pm.test('响应应该包含正确的结构', function () {",
+              "    pm.expect(responseJson).to.have.property('code');",
+              "    pm.expect(responseJson).to.have.property('message');",
+              "    pm.expect(responseJson).to.have.property('data');",
+              "    pm.expect(responseJson.code).to.eql(200);",
+              "});",
+              "",
+              "// 测试数据结构（如果有数据）",
+              "if (responseJson.data && responseJson.data.length > 0) {",
+              "    pm.test('活动数据应该包含新的字段结构', function () {",
+              "        let activity = responseJson.data[0];",
+              "        pm.expect(activity).to.have.property('activityId');",
+              "        pm.expect(activity).to.have.property('title');",
+              "        pm.expect(activity).to.have.property('organizerName');",
+              "        ",
+              "        // 新字段结构验证",
+              "        pm.expect(activity).to.have.property('createdAtAndSignupStartTime');",
+              "        pm.expect(activity).to.have.property('signupEndTimeAndActivityStartTime');",
+              "        pm.expect(activity).to.have.property('activityEndTime');",
+              "        ",
+              "        pm.expect(activity).to.have.property('status');",
+              "        pm.expect(activity.status).to.eql('inprogress');",
+              "        pm.expect(activity).to.have.property('location');",
+              "        pm.expect(activity).to.have.property('avatars');",
+              "        pm.expect(activity).to.have.property('participantCount');",
+              "        pm.expect(activity).to.have.property('maxParticipants');",
+              "    });",
+              "    ",
+              "    pm.test('时间逻辑应该符合进行中状态', function () {",
+              "        let activity = responseJson.data[0];",
+              "        let now = new Date();",
+              "        let signupEnd = new Date(activity.signupEndTimeAndActivityStartTime);",
+              "        let activityEnd = new Date(activity.activityEndTime);",
+              "        ",
+              "        // 报名应该已经结束，活动应该还未结束",
+              "        pm.expect(signupEnd.getTime()).to.be.below(now.getTime());",
+              "        pm.expect(activityEnd.getTime()).to.be.above(now.getTime());",
+              "    });",
+              "}",
+              "",
+              "// 输出响应数据到控制台",
+              "console.log('进行中活动数量:', responseJson.data ? responseJson.data.length : 0);",
+              "if (responseJson.data && responseJson.data.length > 0) {",
+              "    console.log('第一个活动详情:', JSON.stringify(responseJson.data[0], null, 2));",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/inprogress",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "inprogress"
+          ]
+        },
+        "description": "获取报名已结束但活动尚未完成的活动列表\n\n**业务逻辑**: signup_end_time_and_activity_start_time < NOW() AND activity_end_time > NOW() AND status != 'finished'\n\n**返回字段说明**:\n- createdAtAndSignupStartTime: 活动创建时间/报名开始时间\n- signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间\n- activityEndTime: 活动结束时间"
+      },
+      "response": []
+    },
+    {
+      "name": "3. 获取已结束的活动列表",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 测试HTTP状态码",
+              "pm.test('HTTP状态码应该是200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 测试响应时间",
+              "pm.test('响应时间应该小于2000ms', function () {",
+              "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+              "});",
+              "",
+              "// 解析响应JSON",
+              "let responseJson = pm.response.json();",
+              "",
+              "// 测试响应结构",
+              "pm.test('响应应该包含正确的结构', function () {",
+              "    pm.expect(responseJson).to.have.property('code');",
+              "    pm.expect(responseJson).to.have.property('message');",
+              "    pm.expect(responseJson).to.have.property('data');",
+              "    pm.expect(responseJson.code).to.eql(200);",
+              "});",
+              "",
+              "// 测试数据结构（如果有数据）",
+              "if (responseJson.data && responseJson.data.length > 0) {",
+              "    pm.test('活动数据应该包含新的字段结构', function () {",
+              "        let activity = responseJson.data[0];",
+              "        pm.expect(activity).to.have.property('activityId');",
+              "        pm.expect(activity).to.have.property('title');",
+              "        pm.expect(activity).to.have.property('organizerName');",
+              "        ",
+              "        // 新字段结构验证",
+              "        pm.expect(activity).to.have.property('createdAtAndSignupStartTime');",
+              "        pm.expect(activity).to.have.property('signupEndTimeAndActivityStartTime');",
+              "        pm.expect(activity).to.have.property('activityEndTime');",
+              "        ",
+              "        pm.expect(activity).to.have.property('status');",
+              "        pm.expect(activity.status).to.eql('finished');",
+              "        pm.expect(activity).to.have.property('location');",
+              "        pm.expect(activity).to.have.property('avatars');",
+              "        pm.expect(activity).to.have.property('participantCount');",
+              "        pm.expect(activity).to.have.property('maxParticipants');",
+              "    });",
+              "    ",
+              "    pm.test('时间逻辑应该符合已结束状态', function () {",
+              "        let activity = responseJson.data[0];",
+              "        let now = new Date();",
+              "        let activityEnd = new Date(activity.activityEndTime);",
+              "        ",
+              "        // 活动应该已经结束或状态为finished",
+              "        let isTimeFinished = activityEnd.getTime() < now.getTime();",
+              "        let isStatusFinished = activity.status === 'finished';",
+              "        ",
+              "        pm.expect(isTimeFinished || isStatusFinished).to.be.true;",
+              "    });",
+              "}",
+              "",
+              "// 输出响应数据到控制台",
+              "console.log('已结束活动数量:', responseJson.data ? responseJson.data.length : 0);",
+              "if (responseJson.data && responseJson.data.length > 0) {",
+              "    console.log('第一个活动详情:', JSON.stringify(responseJson.data[0], null, 2));",
+              "}"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/finished",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "finished"
+          ]
+        },
+        "description": "获取已经完成的活动列表\n\n**业务逻辑**: activity_end_time < NOW() OR status = 'finished'\n\n**返回字段说明**:\n- createdAtAndSignupStartTime: 活动创建时间/报名开始时间\n- signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间\n- activityEndTime: 活动结束时间"
+      },
+      "response": []
+    },
+    {
+      "name": "4. 获取活动参与者头像 (额外测试)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 测试HTTP状态码",
+              "pm.test('HTTP状态码应该是200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 解析响应JSON",
+              "let responseJson = pm.response.json();",
+              "",
+              "// 测试响应结构",
+              "pm.test('响应应该包含正确的结构', function () {",
+              "    pm.expect(responseJson).to.have.property('code');",
+              "    pm.expect(responseJson).to.have.property('message');",
+              "    pm.expect(responseJson).to.have.property('data');",
+              "    pm.expect(responseJson.code).to.eql(200);",
+              "    pm.expect(responseJson.data).to.be.an('array');",
+              "});",
+              "",
+              "// 测试头像数据",
+              "pm.test('头像数据应该是字符串数组，且不超过3个', function () {",
+              "    pm.expect(responseJson.data.length).to.be.at.most(3);",
+              "    if (responseJson.data.length > 0) {",
+              "        responseJson.data.forEach(avatar => {",
+              "            pm.expect(avatar).to.be.a('string');",
+              "        });",
+              "    }",
+              "});",
+              "",
+              "console.log('参与者头像数量:', responseJson.data.length);",
+              "console.log('头像列表:', responseJson.data);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/{{activityId}}/avatars",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "{{activityId}}",
+            "avatars"
+          ]
+        },
+        "description": "获取指定活动最近报名的三位用户头像\n\n**注意**: 需要设置 activityId 环境变量或直接替换为具体的活动ID"
+      },
+      "response": []
+    },
+    {
+      "name": "5. 获取活动参与人数 (额外测试)",
+      "event": [
+        {
+          "listen": "test",
+          "script": {
+            "exec": [
+              "// 测试HTTP状态码",
+              "pm.test('HTTP状态码应该是200', function () {",
+              "    pm.response.to.have.status(200);",
+              "});",
+              "",
+              "// 解析响应JSON",
+              "let responseJson = pm.response.json();",
+              "",
+              "// 测试响应结构",
+              "pm.test('响应应该包含正确的结构', function () {",
+              "    pm.expect(responseJson).to.have.property('code');",
+              "    pm.expect(responseJson).to.have.property('message');",
+              "    pm.expect(responseJson).to.have.property('data');",
+              "    pm.expect(responseJson.code).to.eql(200);",
+              "    pm.expect(responseJson.data).to.be.a('number');",
+              "});",
+              "",
+              "// 测试参与人数",
+              "pm.test('参与人数应该是非负整数', function () {",
+              "    pm.expect(responseJson.data).to.be.at.least(0);",
+              "});",
+              "",
+              "console.log('参与人数:', responseJson.data);"
+            ],
+            "type": "text/javascript"
+          }
+        }
+      ],
+      "request": {
+        "method": "GET",
+        "header": [
+          {
+            "key": "Content-Type",
+            "value": "application/json"
+          },
+          {
+            "key": "Accept",
+            "value": "application/json"
+          }
+        ],
+        "url": {
+          "raw": "{{baseUrl}}/api/activities/{{activityId}}/count",
+          "host": [
+            "{{baseUrl}}"
+          ],
+          "path": [
+            "api",
+            "activities",
+            "{{activityId}}",
+            "count"
+          ]
+        },
+        "description": "获取指定活动的参与人数\n\n**注意**: 需要设置 activityId 环境变量或直接替换为具体的活动ID"
+      },
+      "response": []
+    }
+  ],
+  "event": [
+    {
+      "listen": "prerequest",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 全局预请求脚本",
+          "console.log('=== 开始执行活动API测试 ===');",
+          "console.log('请求URL:', pm.request.url.toString());",
+          "console.log('请求时间:', new Date().toISOString());"
+        ]
+      }
+    },
+    {
+      "listen": "test",
+      "script": {
+        "type": "text/javascript",
+        "exec": [
+          "// 全局测试脚本",
+          "console.log('响应状态码:', pm.response.code);",
+          "console.log('响应时间:', pm.response.responseTime + 'ms');",
+          "console.log('=== 测试完成 ===\\n');"
+        ]
+      }
+    }
+  ],
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    },
+    {
+      "key": "activityId",
+      "value": "1",
+      "type": "string"
+    }
+  ]
+} 

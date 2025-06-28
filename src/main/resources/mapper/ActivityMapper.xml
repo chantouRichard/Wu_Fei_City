@@ -8,13 +8,13 @@
         <result property="title" column="title"/>
         <result property="description" column="description"/>
         <result property="organizerId" column="organizer_id"/>
-        <result property="startTime" column="start_time"/>
-        <result property="endTime" column="end_time"/>
+        <result property="signupEndTimeAndActivityStartTime" column="signup_end_time_and_activity_start_time"/>
+        <result property="activityEndTime" column="activity_end_time"/>
         <result property="location" column="location"/>
         <result property="maxParticipants" column="max_participants"/>
         <result property="status" column="status"/>
         <result property="imageUrl" column="image_url"/>
-        <result property="createdAt" column="created_at"/>
+        <result property="createdAtAndSignupStartTime" column="created_at_and_signup_start_time"/>
         <result property="updatedAt" column="updated_at"/>
     </resultMap>
 
@@ -23,8 +23,9 @@
         <result property="activityId" column="activity_id"/>
         <result property="title" column="title"/>
         <result property="organizerName" column="organizer_name"/>
-        <result property="startTime" column="start_time"/>
-        <result property="endTime" column="end_time"/>
+        <result property="createdAtAndSignupStartTime" column="created_at_and_signup_start_time"/>
+        <result property="signupEndTimeAndActivityStartTime" column="signup_end_time_and_activity_start_time"/>
+        <result property="activityEndTime" column="activity_end_time"/>
         <result property="status" column="computed_status"/>
         <result property="imageUrl" column="image_url"/>
         <result property="location" column="location"/>
@@ -38,12 +39,13 @@
             a.id as activity_id,
             a.title,
             u.nickname as organizer_name,
-            a.start_time,
-            a.end_time,
+            a.created_at_and_signup_start_time,
+            a.signup_end_time_and_activity_start_time,
+            a.activity_end_time,
             CASE 
-                WHEN a.start_time &lt; NOW() AND a.end_time &gt; NOW() AND a.status != 'finished' THEN 'open'
-                WHEN a.end_time &lt; NOW() AND a.status != 'finished' THEN 'inprogress'
-                WHEN a.status = 'finished' THEN 'finished'
+                WHEN a.created_at_and_signup_start_time &lt; NOW() AND a.signup_end_time_and_activity_start_time &gt; NOW() AND a.status != 'finished' THEN 'open'
+                WHEN a.signup_end_time_and_activity_start_time &lt; NOW() AND a.activity_end_time &gt; NOW() AND a.status != 'finished' THEN 'inprogress'
+                WHEN a.activity_end_time &lt; NOW() OR a.status = 'finished' THEN 'finished'
                 ELSE 'pending'
             END as computed_status,
             COALESCE(a.image_url, 'https://cdn.example.com/activities/default.jpg') as image_url,
@@ -53,12 +55,12 @@
         FROM activities a
         LEFT JOIN users u ON a.organizer_id = u.id
         LEFT JOIN activity_participants ap ON a.id = ap.activity_id
-        WHERE a.start_time &lt; NOW() 
-          AND a.end_time &gt; NOW() 
+        WHERE a.created_at_and_signup_start_time &lt; NOW() 
+          AND a.signup_end_time_and_activity_start_time &gt; NOW() 
           AND a.status != 'finished'
           AND a.status = 'published'
-        GROUP BY a.id, a.title, u.nickname, a.start_time, a.end_time, a.status, a.image_url, a.location, a.max_participants
-        ORDER BY a.start_time DESC
+        GROUP BY a.id, a.title, u.nickname, a.created_at_and_signup_start_time, a.signup_end_time_and_activity_start_time, a.activity_end_time, a.status, a.image_url, a.location, a.max_participants
+        ORDER BY a.created_at_and_signup_start_time DESC
     </select>
 
     <!-- 获取进行中的活动列表 -->
@@ -67,12 +69,13 @@
             a.id as activity_id,
             a.title,
             u.nickname as organizer_name,
-            a.start_time,
-            a.end_time,
+            a.created_at_and_signup_start_time,
+            a.signup_end_time_and_activity_start_time,
+            a.activity_end_time,
             CASE 
-                WHEN a.start_time &lt; NOW() AND a.end_time &gt; NOW() AND a.status != 'finished' THEN 'open'
-                WHEN a.end_time &lt; NOW() AND a.status != 'finished' THEN 'inprogress'
-                WHEN a.status = 'finished' THEN 'finished'
+                WHEN a.created_at_and_signup_start_time &lt; NOW() AND a.signup_end_time_and_activity_start_time &gt; NOW() AND a.status != 'finished' THEN 'open'
+                WHEN a.signup_end_time_and_activity_start_time &lt; NOW() AND a.activity_end_time &gt; NOW() AND a.status != 'finished' THEN 'inprogress'
+                WHEN a.activity_end_time &lt; NOW() OR a.status = 'finished' THEN 'finished'
                 ELSE 'pending'
             END as computed_status,
             COALESCE(a.image_url, 'https://cdn.example.com/activities/default.jpg') as image_url,
@@ -82,11 +85,12 @@
         FROM activities a
         LEFT JOIN users u ON a.organizer_id = u.id
         LEFT JOIN activity_participants ap ON a.id = ap.activity_id
-        WHERE a.end_time &lt; NOW() 
+        WHERE a.signup_end_time_and_activity_start_time &lt; NOW() 
+          AND a.activity_end_time &gt; NOW()
           AND a.status != 'finished'
           AND a.status = 'published'
-        GROUP BY a.id, a.title, u.nickname, a.start_time, a.end_time, a.status, a.image_url, a.location, a.max_participants
-        ORDER BY a.end_time DESC
+        GROUP BY a.id, a.title, u.nickname, a.created_at_and_signup_start_time, a.signup_end_time_and_activity_start_time, a.activity_end_time, a.status, a.image_url, a.location, a.max_participants
+        ORDER BY a.signup_end_time_and_activity_start_time DESC
     </select>
 
     <!-- 获取已结束的活动列表 -->
@@ -95,8 +99,9 @@
             a.id as activity_id,
             a.title,
             u.nickname as organizer_name,
-            a.start_time,
-            a.end_time,
+            a.created_at_and_signup_start_time,
+            a.signup_end_time_and_activity_start_time,
+            a.activity_end_time,
             'finished' as computed_status,
             COALESCE(a.image_url, 'https://cdn.example.com/activities/default.jpg') as image_url,
             a.location,
@@ -105,8 +110,8 @@
         FROM activities a
         LEFT JOIN users u ON a.organizer_id = u.id
         LEFT JOIN activity_participants ap ON a.id = ap.activity_id
-        WHERE a.status = 'finished'
-        GROUP BY a.id, a.title, u.nickname, a.start_time, a.end_time, a.status, a.image_url, a.location, a.max_participants
+        WHERE a.activity_end_time &lt; NOW() OR a.status = 'finished'
+        GROUP BY a.id, a.title, u.nickname, a.created_at_and_signup_start_time, a.signup_end_time_and_activity_start_time, a.activity_end_time, a.status, a.image_url, a.location, a.max_participants
         ORDER BY a.updated_at DESC
     </select>
 
@@ -134,17 +139,21 @@
 
     <!-- 查询所有活动 -->
     <select id="findAll" resultMap="ActivityResultMap">
-        SELECT * FROM activities ORDER BY created_at DESC
+        SELECT * FROM activities ORDER BY created_at_and_signup_start_time DESC
     </select>
 
     <!-- 插入新活动 -->
     <insert id="insert" parameterType="com.whu.wufeibackend.entity.Activity" useGeneratedKeys="true" keyProperty="id">
         INSERT INTO activities (
-            title, description, organizer_id, start_time, end_time, 
-            location, max_participants, status, image_url
+            title, description, organizer_id, 
+            signup_end_time_and_activity_start_time, activity_end_time, 
+            location, max_participants, status, image_url,
+            created_at_and_signup_start_time
         ) VALUES (
-            #{title}, #{description}, #{organizerId}, #{startTime}, #{endTime},
-            #{location}, #{maxParticipants}, #{status}, #{imageUrl}
+            #{title}, #{description}, #{organizerId}, 
+            #{signupEndTimeAndActivityStartTime}, #{activityEndTime},
+            #{location}, #{maxParticipants}, #{status}, #{imageUrl},
+            #{createdAtAndSignupStartTime}
         )
     </insert>
 
@@ -154,8 +163,8 @@
             title = #{title},
             description = #{description},
             organizer_id = #{organizerId},
-            start_time = #{startTime},
-            end_time = #{endTime},
+            signup_end_time_and_activity_start_time = #{signupEndTimeAndActivityStartTime},
+            activity_end_time = #{activityEndTime},
             location = #{location},
             max_participants = #{maxParticipants},
             status = #{status},

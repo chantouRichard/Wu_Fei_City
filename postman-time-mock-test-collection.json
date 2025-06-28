@@ -1,0 +1,542 @@
+{
+  "info": {
+    "name": "Wu Fei City - 时间模拟完整测试集合",
+    "description": "包含时间模拟功能的活动创建API测试集合",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:8080",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "时间管理",
+      "item": [
+        {
+          "name": "1. 获取时间信息",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/test/time",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test", "time"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. 设置测试时间 - 过去",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/test/time/preset?preset=past",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test", "time", "preset"],
+              "query": [
+                {
+                  "key": "preset",
+                  "value": "past"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. 设置测试时间 - 当前",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/test/time/preset?preset=current",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test", "time", "preset"],
+              "query": [
+                {
+                  "key": "preset",
+                  "value": "current"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. 设置测试时间 - 未来",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/test/time/preset?preset=future",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test", "time", "preset"],
+              "query": [
+                {
+                  "key": "preset",
+                  "value": "future"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. 设置自定义时间",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/test/time/mock?mockTime=2024-12-01T10:00:00",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test", "time", "mock"],
+              "query": [
+                {
+                  "key": "mockTime",
+                  "value": "2024-12-01T10:00:00"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "6. 重置为真实时间",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/test/time/mock",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test", "time", "mock"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "活动创建测试",
+      "item": [
+        {
+          "name": "1. 创建活动 - 成功案例",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// 在创建活动前先设置模拟时间",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"baseUrl\") + \"/api/test/time/preset\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/x-www-form-urlencoded\"",
+                  "    },",
+                  "    body: {",
+                  "        mode: \"urlencoded\",",
+                  "        urlencoded: [",
+                  "            {key: \"preset\", value: \"current\"}",
+                  "        ]",
+                  "    }",
+                  "}, function (err, res) {",
+                  "    if (err) {",
+                  "        console.log(\"设置模拟时间失败:\", err);",
+                  "    } else {",
+                  "        console.log(\"模拟时间设置成功:\", res.json());",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码为200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"响应包含活动ID\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('activity_id');",
+                  "    pm.expect(jsonData.data.activity_id).to.be.a('number');",
+                  "});",
+                  "",
+                  "pm.test(\"响应包含完整活动信息\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.data).to.have.property('title', '社区清洁日');",
+                  "    pm.expect(jsonData.data).to.have.property('status', 'published');",
+                  "    pm.expect(jsonData.data).to.have.property('created_at_and_signup_start_time');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"社区清洁日\",\n  \"description\": \"组织居民清理社区卫生，美化生活环境\",\n  \"signup_end_time_and_activity_start_time\": \"2025-02-15T09:00:00\",\n  \"activity_end_time\": \"2025-02-15T12:00:00\",\n  \"location\": \"社区公园\",\n  \"max_participants\": 50,\n  \"image_url\": \"https://cdn.example.com/activities/cleaning.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "activities", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "2. 创建活动 - 时间验证失败",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// 设置未来时间来测试时间验证失败",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"baseUrl\") + \"/api/test/time/preset\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/x-www-form-urlencoded\"",
+                  "    },",
+                  "    body: {",
+                  "        mode: \"urlencoded\",",
+                  "        urlencoded: [",
+                  "            {key: \"preset\", value: \"future\"}",
+                  "        ]",
+                  "    }",
+                  "}, function (err, res) {",
+                  "    if (err) {",
+                  "        console.log(\"设置模拟时间失败:\", err);",
+                  "    } else {",
+                  "        console.log(\"模拟时间设置为未来:\", res.json());",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码为400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"返回时间验证错误信息\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.false;",
+                  "    pm.expect(jsonData.message).to.include('时间设置不正确');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"测试活动（应该失败）\",\n  \"signup_end_time_and_activity_start_time\": \"2025-02-15T09:00:00\",\n  \"activity_end_time\": \"2025-02-15T12:00:00\",\n  \"location\": \"测试地点\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "activities", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "3. 创建活动 - 边界时间测试",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// 设置接近活动开始时间的模拟时间",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"baseUrl\") + \"/api/test/time/mock\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/x-www-form-urlencoded\"",
+                  "    },",
+                  "    body: {",
+                  "        mode: \"urlencoded\",",
+                  "        urlencoded: [",
+                  "            {key: \"mockTime\", value: \"2025-02-15T08:59:00\"}",
+                  "        ]",
+                  "    }",
+                  "}, function (err, res) {",
+                  "    if (err) {",
+                  "        console.log(\"设置模拟时间失败:\", err);",
+                  "    } else {",
+                  "        console.log(\"设置边界时间成功:\", res.json());",
+                  "    }",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码为200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"边界时间测试成功\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "    pm.expect(jsonData.data).to.have.property('activity_id');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"边界时间测试活动\",\n  \"description\": \"测试在活动开始前1分钟创建\",\n  \"signup_end_time_and_activity_start_time\": \"2025-02-15T09:00:00\",\n  \"activity_end_time\": \"2025-02-15T12:00:00\",\n  \"location\": \"边界测试地点\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "activities", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "4. 创建活动 - 参数验证",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// 重置为正常测试时间",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"baseUrl\") + \"/api/test/time/preset\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/x-www-form-urlencoded\"",
+                  "    },",
+                  "    body: {",
+                  "        mode: \"urlencoded\",",
+                  "        urlencoded: [",
+                  "            {key: \"preset\", value: \"current\"}",
+                  "        ]",
+                  "    }",
+                  "}, function (err, res) {",
+                  "    console.log(\"重置时间完成\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码为400\", function () {",
+                  "    pm.response.to.have.status(400);",
+                  "});",
+                  "",
+                  "pm.test(\"返回标题长度验证错误\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.false;",
+                  "    pm.expect(jsonData.message).to.include('标题长度必须至少为2个字符');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"短\",\n  \"signup_end_time_and_activity_start_time\": \"2025-02-15T09:00:00\",\n  \"activity_end_time\": \"2025-02-15T12:00:00\",\n  \"location\": \"测试地点\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "activities", "create"]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "5. 创建长期活动",
+          "event": [
+            {
+              "listen": "prerequest",
+              "script": {
+                "exec": [
+                  "// 确保使用当前测试时间",
+                  "pm.sendRequest({",
+                  "    url: pm.environment.get(\"baseUrl\") + \"/api/test/time/preset\",",
+                  "    method: \"POST\",",
+                  "    header: {",
+                  "        \"Content-Type\": \"application/x-www-form-urlencoded\"",
+                  "    },",
+                  "    body: {",
+                  "        mode: \"urlencoded\",",
+                  "        urlencoded: [",
+                  "            {key: \"preset\", value: \"current\"}",
+                  "        ]",
+                  "    }",
+                  "}, function (err, res) {",
+                  "    console.log(\"时间设置完成\");",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            },
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码为200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"长期活动创建成功\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "    pm.expect(jsonData.data.title).to.equal('绿色教育项目');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"绿色教育项目\",\n  \"description\": \"为期9个月的环保教育计划，通过系列活动提高居民环保意识\",\n  \"signup_end_time_and_activity_start_time\": \"2025-01-15T09:00:00\",\n  \"activity_end_time\": \"2025-10-15T17:00:00\",\n  \"location\": \"社区教育中心\",\n  \"max_participants\": 100,\n  \"image_url\": \"https://cdn.example.com/activities/education.jpg\"\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/create",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "activities", "create"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "活动查询",
+      "item": [
+        {
+          "name": "查看开放报名的活动",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"状态码为200\", function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test(\"返回活动列表\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "    pm.expect(jsonData.data).to.be.an('array');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/activities/open",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "activities", "open"]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "测试清理",
+      "item": [
+        {
+          "name": "重置为真实时间",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "pm.test(\"成功重置为真实时间\", function () {",
+                  "    var jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.success).to.be.true;",
+                  "    pm.expect(jsonData.message).to.include('重置为真实时间');",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/api/test/time/mock",
+              "host": ["{{baseUrl}}"],
+              "path": ["api", "test", "time", "mock"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+} 

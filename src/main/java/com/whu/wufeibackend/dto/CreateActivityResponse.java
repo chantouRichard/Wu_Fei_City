@@ -1,26 +1,22 @@
-package com.whu.wufeibackend.entity;
+package com.whu.wufeibackend.dto;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.time.LocalDateTime;
 
 /**
- * 活动实体类
- * 对应数据库activities表
+ * 创建活动成功响应DTO
  * 
- * 字段说明：
- * - createdAtAndSignupStartTime: 既是活动创建时间也是报名开始时间
- * - signupEndTimeAndActivityStartTime: 既是报名结束时间也是活动开始时间
- * - activityEndTime: 活动结束时间
- * 
- * @author 无废技术组
- * @since 2024-06-27
- * @updated 2025-01-27
+ * @author Wu Fei City Team
+ * @since 2025-01-27
  */
-public class Activity {
+public class CreateActivityResponse {
     
     /**
-     * 活动ID，主键，自增
+     * 活动ID
      */
-    private Integer id;
+    @JsonProperty("activity_id")
+    private Long activityId;
     
     /**
      * 活动标题
@@ -28,23 +24,29 @@ public class Activity {
     private String title;
     
     /**
-     * 活动详情
+     * 活动详情描述
      */
     private String description;
     
     /**
-     * 组织者(居委会用户ID)
+     * 活动创建时间/报名开始时间
      */
-    private Integer organizerId;
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonProperty("created_at_and_signup_start_time")
+    private LocalDateTime createdAtAndSignupStartTime;
     
     /**
      * 报名结束时间/活动开始时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonProperty("signup_end_time_and_activity_start_time")
     private LocalDateTime signupEndTimeAndActivityStartTime;
     
     /**
      * 活动结束时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss")
+    @JsonProperty("activity_end_time")
     private LocalDateTime activityEndTime;
     
     /**
@@ -55,6 +57,7 @@ public class Activity {
     /**
      * 最大参与人数
      */
+    @JsonProperty("max_participants")
     private Integer maxParticipants;
     
     /**
@@ -65,38 +68,45 @@ public class Activity {
     /**
      * 活动图片URL
      */
+    @JsonProperty("image_url")
     private String imageUrl;
     
     /**
-     * 活动创建时间/报名开始时间
+     * 组织者ID
      */
-    private LocalDateTime createdAtAndSignupStartTime;
-    
-    /**
-     * 更新时间
-     */
-    private LocalDateTime updatedAt;
+    @JsonProperty("organizer_id")
+    private Long organizerId;
 
-    // 构造函数
-    public Activity() {}
+    // 无参构造函数
+    public CreateActivityResponse() {}
 
-    public Activity(String title, String description, Integer organizerId, 
-                   LocalDateTime signupEndTimeAndActivityStartTime, LocalDateTime activityEndTime, String location) {
+    // 全参构造函数
+    public CreateActivityResponse(Long activityId, String title, String description,
+                                LocalDateTime createdAtAndSignupStartTime,
+                                LocalDateTime signupEndTimeAndActivityStartTime,
+                                LocalDateTime activityEndTime, String location,
+                                Integer maxParticipants, String status, String imageUrl,
+                                Long organizerId) {
+        this.activityId = activityId;
         this.title = title;
         this.description = description;
-        this.organizerId = organizerId;
+        this.createdAtAndSignupStartTime = createdAtAndSignupStartTime;
         this.signupEndTimeAndActivityStartTime = signupEndTimeAndActivityStartTime;
         this.activityEndTime = activityEndTime;
         this.location = location;
+        this.maxParticipants = maxParticipants;
+        this.status = status;
+        this.imageUrl = imageUrl;
+        this.organizerId = organizerId;
     }
 
     // Getter和Setter方法
-    public Integer getId() {
-        return id;
+    public Long getActivityId() {
+        return activityId;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setActivityId(Long activityId) {
+        this.activityId = activityId;
     }
 
     public String getTitle() {
@@ -115,12 +125,12 @@ public class Activity {
         this.description = description;
     }
 
-    public Integer getOrganizerId() {
-        return organizerId;
+    public LocalDateTime getCreatedAtAndSignupStartTime() {
+        return createdAtAndSignupStartTime;
     }
 
-    public void setOrganizerId(Integer organizerId) {
-        this.organizerId = organizerId;
+    public void setCreatedAtAndSignupStartTime(LocalDateTime createdAtAndSignupStartTime) {
+        this.createdAtAndSignupStartTime = createdAtAndSignupStartTime;
     }
 
     public LocalDateTime getSignupEndTimeAndActivityStartTime() {
@@ -171,37 +181,28 @@ public class Activity {
         this.imageUrl = imageUrl;
     }
 
-    public LocalDateTime getCreatedAtAndSignupStartTime() {
-        return createdAtAndSignupStartTime;
+    public Long getOrganizerId() {
+        return organizerId;
     }
 
-    public void setCreatedAtAndSignupStartTime(LocalDateTime createdAtAndSignupStartTime) {
-        this.createdAtAndSignupStartTime = createdAtAndSignupStartTime;
-    }
-
-    public LocalDateTime getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(LocalDateTime updatedAt) {
-        this.updatedAt = updatedAt;
+    public void setOrganizerId(Long organizerId) {
+        this.organizerId = organizerId;
     }
 
     @Override
     public String toString() {
-        return "Activity{" +
-                "id=" + id +
+        return "CreateActivityResponse{" +
+                "activityId=" + activityId +
                 ", title='" + title + '\'' +
                 ", description='" + description + '\'' +
-                ", organizerId=" + organizerId +
+                ", createdAtAndSignupStartTime=" + createdAtAndSignupStartTime +
                 ", signupEndTimeAndActivityStartTime=" + signupEndTimeAndActivityStartTime +
                 ", activityEndTime=" + activityEndTime +
                 ", location='" + location + '\'' +
                 ", maxParticipants=" + maxParticipants +
                 ", status='" + status + '\'' +
                 ", imageUrl='" + imageUrl + '\'' +
-                ", createdAtAndSignupStartTime=" + createdAtAndSignupStartTime +
-                ", updatedAt=" + updatedAt +
+                ", organizerId=" + organizerId +
                 '}';
     }
 } 

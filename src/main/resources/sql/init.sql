@@ -68,23 +68,26 @@ CREATE TABLE IF NOT EXISTS `green_score_records` (
   CONSTRAINT `fk_green_score_user` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='绿色积分记录表';
 
--- 创建社区活动表
+-- 创建社区活动表（使用新字段结构）
 CREATE TABLE IF NOT EXISTS `activities` (
   `id` INT NOT NULL AUTO_INCREMENT,
   `title` VARCHAR(100) NOT NULL COMMENT '活动标题',
   `description` TEXT COMMENT '活动详情',
   `organizer_id` INT NOT NULL COMMENT '组织者(居委会用户ID)',
-  `start_time` DATETIME NOT NULL COMMENT '开始报名时间',
-  `end_time` DATETIME NOT NULL COMMENT '结束报名时间',
+  `signup_end_time_and_activity_start_time` DATETIME NOT NULL COMMENT '报名结束时间/活动开始时间',
+  `activity_end_time` DATETIME NOT NULL COMMENT '活动结束时间',
   `location` VARCHAR(200) NOT NULL COMMENT '活动地点',
   `max_participants` INT DEFAULT NULL COMMENT '最大参与人数',
   `status` ENUM('pending','published','finished') DEFAULT 'pending' COMMENT '活动状态',
   `image_url` TEXT DEFAULT NULL COMMENT '活动图片URL',
-  `created_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `created_at_and_signup_start_time` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '活动创建时间/报名开始时间',
   `updated_at` DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
   PRIMARY KEY (`id`),
   KEY `idx_organizer` (`organizer_id`),
-  KEY `idx_time` (`start_time`,`end_time`),
+  KEY `idx_time` (`created_at_and_signup_start_time`,`signup_end_time_and_activity_start_time`,`activity_end_time`),
+  KEY `idx_status` (`status`),
+  -- 时间逻辑约束：创建时间 < 活动开始时间 < 活动结束时间
+  CONSTRAINT `chk_time_sequence` CHECK (`created_at_and_signup_start_time` < `signup_end_time_and_activity_start_time` AND `signup_end_time_and_activity_start_time` < `activity_end_time`),
   CONSTRAINT `fk_activity_organizer` FOREIGN KEY (`organizer_id`) REFERENCES `users` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='社区活动表';
 
@@ -148,15 +151,16 @@ INSERT INTO `green_score_records` (`user_id`, `score`, `action_type`, `descripti
 ((SELECT id FROM users WHERE username = 'testuser3'), 8, 'water_saving', '节约用水', '2024-01-01'),
 ((SELECT id FROM users WHERE username = 'testuser3'), 25, 'volunteer_activity', '志愿活动', '2024-01-02');
 
--- 插入测试活动数据
-INSERT INTO `activities` (`title`, `description`, `organizer_id`, `start_time`, `end_time`, `location`, `max_participants`, `status`, `image_url`) VALUES
+-- 插入测试活动数据（使用新字段结构）
+-- 时间逻辑：created_at_and_signup_start_time < signup_end_time_and_activity_start_time < activity_end_time
+INSERT INTO `activities` (`title`, `description`, `organizer_id`, `signup_end_time_and_activity_start_time`, `activity_end_time`, `location`, `max_participants`, `status`, `image_url`, `created_at_and_signup_start_time`) VALUES
 -- 由居委会1组织的活动
-('社区垃圾分类宣传活动', '提高居民垃圾分类意识，学习正确的垃圾分类方法', (SELECT id FROM users WHERE username = 'committee1'), '2024-12-01 09:00:00', '2024-12-15 18:00:00', '社区广场', 50, 'published', 'https://cdn.example.com/activities/garbage-sorting.jpg'),
-('绿色出行倡议活动', '倡导居民使用公共交通、自行车等绿色出行方式', (SELECT id FROM users WHERE username = 'committee1'), '2024-12-10 08:00:00', '2024-12-20 20:00:00', '社区门口', 30, 'published', 'https://cdn.example.com/activities/green-travel.jpg'),
-('节能减排知识讲座', '邀请专家讲解家庭节能减排小技巧', (SELECT id FROM users WHERE username = 'committee1'), '2025-01-01 14:00:00', '2025-01-10 16:00:00', '社区活动中心', 100, 'published', 'https://cdn.example.com/activities/energy-saving.jpg'),
+('社区垃圾分类宣传活动', '提高居民垃圾分类意识，学习正确的垃圾分类方法', (SELECT id FROM users WHERE username = 'committee1'), '2025-12-15 18:00:00', '2025-12-15 21:00:00', '社区广场', 50, 'published', 'https://cdn.example.com/activities/garbage-sorting.jpg', '2024-12-01 09:00:00'),
+('绿色出行倡议活动', '倡导居民使用公共交通、自行车等绿色出行方式', (SELECT id FROM users WHERE username = 'committee1'), '2025-12-20 20:00:00', '2025-12-20 23:00:00', '社区门口', 30, 'published', 'https://cdn.example.com/activities/green-travel.jpg', '2024-12-10 08:00:00'),
+('节能减排知识讲座', '邀请专家讲解家庭节能减排小技巧', (SELECT id FROM users WHERE username = 'committee1'), '2025-01-10 16:00:00', '2025-10-10 19:00:00', '社区活动中心', 100, 'published', 'https://cdn.example.com/activities/energy-saving.jpg', '2025-01-01 14:00:00'),
 -- 由居委会2组织的活动  
-('社区植树活动', '在社区空地种植绿色植物，美化环境', (SELECT id FROM users WHERE username = 'committee2'), '2024-11-05 07:00:00', '2024-11-12 19:00:00', '社区花园', 25, 'finished', 'https://cdn.example.com/activities/tree-planting.jpg'),
-('环保手工制作活动', '利用废旧物品制作实用的环保手工艺品', (SELECT id FROM users WHERE username = 'committee2'), '2024-11-20 10:00:00', '2024-11-25 17:00:00', '社区活动室', 20, 'finished', 'https://cdn.example.com/activities/handicraft.jpg');
+('社区植树活动', '在社区空地种植绿色植物，美化环境', (SELECT id FROM users WHERE username = 'committee2'), '2024-11-12 19:00:00', '2024-11-12 22:00:00', '社区花园', 25, 'finished', 'https://cdn.example.com/activities/tree-planting.jpg', '2024-11-05 07:00:00'),
+('环保手工制作活动', '利用废旧物品制作实用的环保手工艺品', (SELECT id FROM users WHERE username = 'committee2'), '2024-11-25 17:00:00', '2024-11-25 20:00:00', '社区活动室', 20, 'finished', 'https://cdn.example.com/activities/handicraft.jpg', '2024-11-20 10:00:00');
 
 -- 插入活动参与记录
 INSERT INTO `activity_participants` (`activity_id`, `user_id`, `attended`) VALUES
@@ -198,3 +202,7 @@ INSERT INTO `activity_participants` (`activity_id`, `user_id`, `attended`) VALUE
 -- JOIN activities a ON ap.activity_id = a.id
 -- JOIN users u ON ap.user_id = u.id
 -- ORDER BY a.title, u.nickname; 
+
+
+
+SELECT '数据库初始化完成!' AS status; 
