@@ -26,7 +26,7 @@
 				</view>
 
 				<!-- 分隔线 -->
-				<view class="divider"></view>
+				<view class="divider" @click.stop></view>
 
 				<!-- 活动日期 -->
 				<picker 
@@ -44,6 +44,46 @@
 						</view>
 					</view>
 				</picker>
+
+				<!-- 分隔线 -->
+				<view class="divider" @click.stop></view>
+
+				<!-- 报名开始时间 -->
+				<view class="form-item">
+					<text class="label">报名开始时间</text>
+					<picker 
+						mode="multiSelector" 
+						:value="registrationStartTimeIndex" 
+						:range="registrationTimeRange" 
+						@change="onRegistrationStartTimeChange"
+						class="picker-wrapper"
+					>
+						<view class="picker-display">
+							<text class="picker-text">{{activityData.registrationStartTime || '请选择时间'}}</text>
+							<text class="arrow">></text>
+						</view>
+					</picker>
+				</view>
+
+				<!-- 分隔线 -->
+				<view class="divider"></view>
+
+				<!-- 报名结束时间 -->
+				<view class="form-item">
+					<text class="label">报名结束时间</text>
+					<picker 
+						mode="multiSelector" 
+						:value="registrationEndTimeIndex" 
+						:range="registrationTimeRange" 
+						@change="onRegistrationEndTimeChange"
+						class="picker-wrapper"
+					>
+						<view class="picker-display">
+							<text class="picker-text">{{activityData.registrationEndTime || '请选择时间'}}</text>
+							<text class="arrow">></text>
+						</view>
+					</picker>
+				</view>
 
 				<!-- 分隔线 -->
 				<view class="divider"></view>
@@ -104,16 +144,33 @@ export default {
 		data() {
 			return {
 				activeTab: 'basic', // 当前激活的标签
-				activityData: {
-				name: '',
-				date: '',
-				location: '',
-				description: '', // 添加详细介绍字段
-				images: [] // 添加图片数组
-			},
+			activityData: {
+			name: '',
+			date: '',
+			location: '',
+			description: '', // 添加详细介绍字段
+			images: [], // 添加图片数组
+			registrationStartTime: '', // 报名开始时间
+			registrationEndTime: '' // 报名结束时间
+		},
 			isSaved: false, // 保存状态
 			isPublished: false, // 发布状态
-			savedActivities: [] // 本地存储的活动数据
+			savedActivities: [], // 本地存储的活动数据
+			// 时间选择器相关数据
+			registrationStartTimeIndex: [0, 0, 0, 0, 0],
+			registrationEndTimeIndex: [0, 0, 0, 0, 0],
+			registrationTimeRange: [
+				// 年份 (2024-2030)
+				['2024', '2025', '2026', '2027', '2028', '2029', '2030'],
+				// 月份 (01-12)
+				['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'],
+				// 日期 (01-31)
+				['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23', '24', '25', '26', '27', '28', '29', '30', '31'],
+				// 小时 (00-23)
+				['00', '01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12', '13', '14', '15', '16', '17', '18', '19', '20', '21', '22', '23'],
+				// 分钟 (00-59)
+				['00', '05', '10', '15', '20', '25', '30', '35', '40', '45', '50', '55']
+			]
 			};
 		},
 	onLoad() {
@@ -140,6 +197,82 @@ export default {
 					}
 				});
 			},
+			// 报名开始时间选择器变化
+			onRegistrationStartTimeChange(e) {
+				const val = e.detail.value;
+				this.registrationStartTimeIndex = val;
+				const year = this.registrationTimeRange[0][val[0]];
+				const month = this.registrationTimeRange[1][val[1]];
+				const day = this.registrationTimeRange[2][val[2]];
+				const hour = this.registrationTimeRange[3][val[3]];
+				const minute = this.registrationTimeRange[4][val[4]];
+				this.activityData.registrationStartTime = `${year}-${month}-${day} ${hour}:${minute}`;
+			},
+			// 报名结束时间选择器变化
+			onRegistrationEndTimeChange(e) {
+				const val = e.detail.value;
+				this.registrationEndTimeIndex = val;
+				const year = this.registrationTimeRange[0][val[0]];
+				const month = this.registrationTimeRange[1][val[1]];
+				const day = this.registrationTimeRange[2][val[2]];
+				const hour = this.registrationTimeRange[3][val[3]];
+				const minute = this.registrationTimeRange[4][val[4]];
+				this.activityData.registrationEndTime = `${year}-${month}-${day} ${hour}:${minute}`;
+			},
+			validateTimeFormat(type) {
+				const timeRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
+				let timeValue = '';
+				let fieldName = '';
+				
+				if (type === 'start') {
+					timeValue = this.activityData.registrationStartTime;
+					fieldName = '报名开始时间';
+				} else {
+					timeValue = this.activityData.registrationEndTime;
+					fieldName = '报名结束时间';
+				}
+				
+				if (timeValue && !timeRegex.test(timeValue)) {
+					uni.showToast({
+						title: `${fieldName}格式错误，请使用 YYYY-MM-DD HH:mm 格式`,
+						icon: 'none',
+						duration: 3000
+					});
+					return false;
+				}
+				
+				// 验证时间是否有效
+				if (timeValue && timeRegex.test(timeValue)) {
+					const date = new Date(timeValue.replace(' ', 'T'));
+					if (isNaN(date.getTime())) {
+						uni.showToast({
+							title: `${fieldName}无效，请输入正确的日期时间`,
+							icon: 'none',
+							duration: 3000
+						});
+						return false;
+					}
+				}
+				
+				// 验证开始时间不能晚于结束时间
+				if (this.activityData.registrationStartTime && this.activityData.registrationEndTime) {
+					const startTime = new Date(this.activityData.registrationStartTime.replace(' ', 'T'));
+					const endTime = new Date(this.activityData.registrationEndTime.replace(' ', 'T'));
+					
+					if (startTime >= endTime) {
+						uni.showToast({
+							title: '报名开始时间不能晚于或等于结束时间',
+							icon: 'none',
+							duration: 3000
+						});
+						return false;
+					}
+				}
+				
+				return true;
+			},
+
+
 		saveActivity() {
 			// 验证表单
 			if (!this.activityData.name.trim()) {
@@ -163,6 +296,14 @@ export default {
 				});
 				return;
 			}
+			
+			// 验证报名时间格式
+			if (this.activityData.registrationStartTime && !this.validateTimeFormat('start')) {
+				return;
+			}
+			if (this.activityData.registrationEndTime && !this.validateTimeFormat('end')) {
+				return;
+			}
 
 			// 创建活动对象
 			const newActivity = {
@@ -170,6 +311,10 @@ export default {
 				title: this.activityData.name,
 				date: this.activityData.date,
 				location: this.activityData.location,
+				registrationStartTime: this.activityData.registrationStartTime,
+				registrationEndTime: this.activityData.registrationEndTime,
+				description: this.activityData.description,
+				images: this.activityData.images,
 				createTime: new Date().toISOString(),
 				joined: 0,
 				limit: 50 // 默认限制50人
@@ -407,7 +552,9 @@ export default {
 .label {
 	font-size: 16px;
 	color: #333;
-	width: 80px;
+	width: 100px;
+	flex-shrink: 0;
+	white-space: nowrap;
 }
 
 .input-wrapper {
@@ -430,18 +577,44 @@ export default {
 }
 
 .placeholder {
-	color: #999;
+	color: #7F7F7F;
 	text-align: right;
 }
 
 .arrow {
-	width: 27px;
-	height: 29px;
-	top: 220px;
-	left: 349px;
 	font-size: 16px;
 	color: #333;
 	font-weight: bold;
+	margin-left: 10px;
+}
+
+.picker-wrapper {
+	flex: 1;
+	margin-left: 15px;
+}
+
+.picker-display {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	width: 100%;
+	min-height: 20px;
+}
+
+.picker-text {
+	flex: 1;
+	font-size: 16px;
+	color: #7F7F7F;
+	text-align: right;
+	margin-right: 10px;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+.picker-text:empty::before {
+	content: '请选择时间';
+	color: #7F7F7F;
 }
 
 /* 保存按钮 */
@@ -641,5 +814,8 @@ export default {
 .delete-btn:active {
 	opacity: 0.8;
 }
+
+
+
 
 </style>
