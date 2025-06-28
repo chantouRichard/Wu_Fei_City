@@ -159,7 +159,7 @@
 			},
 			goToActivitiesPage() {
 				uni.navigateTo({
-					url: '/pages/activities/activities'
+					url: '/pages/activities/activities_user'
 				});
 			}
 		}
