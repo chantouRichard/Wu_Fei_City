@@ -83,6 +83,19 @@
 			"style": {
 				"navigationBarTitleText": "管理员活动中心"
 			}
+		},
+		{
+			"path": "pages/activities/publish",
+			"style": {
+				"navigationBarTitleText": "发起活动"
+			}
+		},
+		{
+			"path": "pages/activities/detail",
+			"style": {
+				"navigationBarTitleText": "活动详情",
+				"navigationStyle": "custom"
+			}
 		}
 	],
 	"globalStyle": {

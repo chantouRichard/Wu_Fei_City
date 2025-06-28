@@ -54,7 +54,12 @@
         "setting" : {
             "urlCheck" : false
         },
-        "usingComponents" : true
+        "usingComponents" : true,
+        "permission" : {
+            "scope.writePhotosAlbum" : {
+                "desc" : "保存图片到相册"
+            }
+        }
     },
     "mp-alipay" : {
         "usingComponents" : true

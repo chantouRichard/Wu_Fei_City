@@ -41,7 +41,7 @@
         />
         <view class="password-toggle" @click="togglePassword">
           <image 
-            :src="showPassword ? '/static/login/hideicon.png' : '/static/login/showicon.png'" 
+            :src="showPassword ? '/static/login/showicon.png' : '/static/login/hideicon.png'" 
             class="toggle-icon" 
           />
         </view>
