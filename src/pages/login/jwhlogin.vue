@@ -157,22 +157,17 @@ export default {
       // 模拟登录请求
       setTimeout(() => {
         uni.hideLoading()
-        
-        // 使用用户状态管理 - 设置为居委会
+
+        // 使用用户状态管理 - 设置为普通用户
         const userStore = this.useUserStore()
         const userData = {
           username: this.account,
-          password: this.password,
+          password: this.password
           // 其他用户信息可以从后端获取
         }
-        
-        // 登录并设置用户类型为 committee
+
+        // 登录并设置用户类型为 normal
         userStore.loginUser(userData, 'committee')
-        
-        uni.showToast({
-          title: '居委会登录失败',
-          icon:'error'
-        })
       }, 2000)
     },
     

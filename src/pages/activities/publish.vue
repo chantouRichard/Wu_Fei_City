@@ -432,24 +432,29 @@ export default {
 
       // 创建活动对象
       const newActivity = {
-        id: Date.now(),
-        title: this.activityData.name,
-        date: this.activityData.date,
-        location: this.activityData.location,
-        signup_end_time_and_activity_start_time:
-          this.activityData.registrationStartTime,
-        activity_end_time: this.activityData.registrationEndTime,
-        description: this.activityData.description,
-        image_url:
-          this.activityData.images[0] ||
-          "https://cdn.example.com/activities/cleaning.jpg",
-        createTime: new Date().toISOString(),
-        max_participants: 50, // 默认限制50人
-      };
+  id: Date.now(),
+  title: this.activityData.name,
+  date: this.activityData.date,
+  location: this.activityData.location,
+  signup_end_time_and_activity_start_time: new Date(this.activityData.registrationStartTime)
+    .toISOString()
+    .replace(/\.\d{3}Z$/, ""),  // 去掉毫秒和时区
+  activity_end_time: new Date(this.activityData.registrationEndTime)
+    .toISOString()
+    .replace(/\.\d{3}Z$/, ""),  // 去掉毫秒和时区
+  description: this.activityData.description,
+  image_url:
+    this.activityData.images[0] ||
+    "https://cdn.example.com/activities/cleaning.jpg",
+  createTime: new Date().toISOString(),
+  max_participants: 50, // 默认限制50人
+};
+
 
       // 保存到本地存储
       this.savedActivities.push(newActivity);
       uni.setStorageSync("publishedActivities", this.savedActivities);
+	  console.log("发布活动:", newActivity);
 
       // 更新保存状态
       this.isSaved = true;
@@ -459,6 +464,7 @@ export default {
         method: "POST",
         data: newActivity,
         success: (res) => {
+          console.log("发布活动成功", res);
           if (res.statusCode === 200) {
             // 处理成功情况，例如更新界面状态或显示消息等
             // 显示成功提示
@@ -495,11 +501,8 @@ export default {
       }
     },
     handleButtonClick() {
-      if (this.activeTab === "basic") {
         this.saveActivity();
-      } else {
-        this.publishActivity();
-      }
+
     },
     publishActivity() {
       // 设置发布状态
@@ -513,9 +516,7 @@ export default {
 
       // 按钮状态变化后立即跳转到活动中心
       setTimeout(() => {
-        uni.redirectTo({
-          url: "/pages/activities/activities",
-        });
+        uni.navigateBack();
       }, 800);
     },
     chooseImage() {

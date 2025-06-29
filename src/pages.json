@@ -79,9 +79,10 @@
 			}
 		},
 		{
-			"path": "pages/activities/activities_admin",
+			"path": "pages/activities/activities_jwh",
 			"style": {
-				"navigationBarTitleText": "管理员活动中心"
+				"navigationBarTitleText": "居委会活动中心",
+				"navigationStyle": "custom"
 			}
 		},
 		{

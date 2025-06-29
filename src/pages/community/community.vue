@@ -9,15 +9,15 @@
 		<!-- 功能区 -->
 		<view class="features">
 			<view class="feature-item" @click="goToMyPage">
-				<image class="feature-img" src="/static/community/my_2.png" mode="aspectFit"/>
+				<image class="feature-img" src="../../static/community/my_2.png" mode="aspectFit"/>
 				<text class="feature-label">我的绿值</text>
 			</view>
 			<view class="feature-item" @click="goToPhotoChat">
-				<image class="feature-img" src="/static/community/camera_2.png" mode="aspectFit"/>
+				<image class="feature-img" src="../../static/community/camera_2.png" mode="aspectFit"/>
 				<text class="feature-label">拍照识别</text>
 			</view>
 			<view class="feature-item">
-				<image class="feature-img" src="/static/community/shop_2.png" mode="aspectFit"/>
+				<image class="feature-img" src="../../static/community/shop_2.png" mode="aspectFit"/>
 				<text class="feature-label">兑换商城</text>
 			</view>
 		</view>
@@ -26,7 +26,7 @@
 		<view class="rank-card">
 			<view class="rank-header">
 				<text class="rank-title">绿值排行</text>
-				<image class="crown" src="/static/community/huangguan1.png" mode="aspectFit"/>
+				<image class="crown" src="../../static/community/huangguan1.png" mode="aspectFit"/>
 			</view>
 			<view class="rank-list">
 				<view class="rank-item" v-for="(item, index) in rankList" :key="index">
@@ -41,13 +41,18 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useChatStore } from '../../stores/chat'
 import { useUserStore } from '../../stores/user'
 
 // 获取全局状态
 const chatStore = useChatStore();
 const userStore = useUserStore();
+
+// 页面挂载时获取用户排名
+onMounted(() => {
+	userStore.updateRank()
+})
 
 // 排行榜数据
 const rankList = computed(() => userStore.rank || [])
@@ -103,6 +108,8 @@ const goToPhotoChat = () => {
 	background: #f7f7f7;
 	min-height: 100vh;
 	padding-bottom: 20px;
+	display: flex;
+	flex-direction: column;
 }
 .header {
 	display: flex;
@@ -157,11 +164,12 @@ const goToPhotoChat = () => {
 	color: #33333386;
 }
 .rank-card {
+	flex: 1;
 	left: 0rpx; top: 60rpx;
 	position: relative;
 	background: linear-gradient(180deg, #C8ED93 0%, #E2F4CA 100%);
-	border-top-left-radius: 30px;
-	border-top-right-radius: 30px;
+	border-top-left-radius: 55px;
+	border-top-right-radius: 55px;
 	margin: 0 0px;
 	padding: 5px 0 10px 0;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.03);
@@ -189,7 +197,7 @@ const goToPhotoChat = () => {
     margin-top: 28px;
     line-height: 44px;
 	left: 0rpx; 
-	top: -24rpx
+	top: -14rpx
 }
 
 .crown {

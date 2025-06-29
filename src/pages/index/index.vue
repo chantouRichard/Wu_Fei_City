@@ -221,7 +221,7 @@ export default {
         });
       else if (this.userStore.userInfo.user_type == "committee")
         uni.navigateTo({
-          url: "/pages/activities/activities_admin",
+          url: "/pages/activities/activities_jwh",
         });
     },
   },

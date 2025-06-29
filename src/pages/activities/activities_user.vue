@@ -3,25 +3,13 @@
 		<!-- 顶部渐变背景和Tab栏 -->
 		<view class="header-bg"></view>
 		<view class="tabs">
-			<view
-				class="tab"
-				:class="{ active: currentTab === 0 }"
-				@click="switchTab(0)"
-			>
+			<view class="tab" :class="{ active: currentTab === 0 }" @click="switchTab(0)">
 				可报名活动
 			</view>
-			<view
-				class="tab"
-				:class="{ active: currentTab === 1 }"
-				@click="switchTab(1)"
-			>
+			<view class="tab" :class="{ active: currentTab === 1 }" @click="switchTab(1)">
 				已报名活动
 			</view>
-			<view
-				class="tab"
-				:class="{ active: currentTab === 2 }"
-				@click="switchTab(2)"
-			>
+			<view class="tab" :class="{ active: currentTab === 2 }" @click="switchTab(2)">
 				已完成活动
 			</view>
 		</view>
@@ -48,12 +36,10 @@
 							</view>
 							<text class="join-num">{{ item.joined }}/{{ item.limit }}人</text>
 						</view>
-						<button
-							:class="'card-btn ' + getBtnClass(item, 'available')"
-							:disabled="getBtnClass(item, 'available')==='btn-full'"
-						>
+						<view :class="'card-btn ' + getBtnClass(item, 'available')"
+							:disabled="getBtnClass(item, 'available') === 'btn-full'">
 							{{ getBtnText(item, 'available') }}
-						</button>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -78,11 +64,9 @@
 							</view>
 							<text class="join-num">{{ item.joined }}/{{ item.limit }}人</text>
 						</view>
-						<button
-							:class="'card-btn ' + getBtnClass(item, 'registered')"
-						>
+						<view :class="'card-btn ' + getBtnClass(item, 'registered')">
 							{{ getBtnText(item, 'registered') }}
-						</button>
+						</view>
 					</view>
 				</view>
 			</view>
@@ -238,17 +222,20 @@ function getBtnClass(item, type) {
 <style scoped>
 .activities-bg {
 	min-height: 100vh;
-	background: linear-gradient(180deg, #b7ef68 0%, #f7f7f7 100%);
-	padding-bottom: 20px;
+	background: linear-gradient(180deg, #b7ef68 0%, #B8EF6B 30%, #f7f7f7 100%);
+	padding-bottom: 20px;	
 }
+
 .header-bg {
 	position: absolute;
-	left: 0; top: 0;
+	left: 0;
+	top: 0;
 	width: 100vw;
 	height: 120px;
 	background: linear-gradient(135deg, #b7ef68 0%, #b7ef68 100%);
 	z-index: 0;
 }
+
 .tabs {
 	display: flex;
 	background: transparent;
@@ -257,22 +244,24 @@ function getBtnClass(item, type) {
 	padding-top: 20px;
 	margin-bottom: 10px;
 }
+
 .tab {
 	flex: 1;
 	padding: 14px 0 10px 0;
 	text-align: center;
-	font-size: 17px;
-	
-	font-weight: 500;
+	font-size: 15px;
+	font-weight: 450;
 	position: relative;
 	background: transparent;
-	transition: color 0.2s;
+	transition: all 0.2s ease;
 }
+
 .tab.active {
-	
 	font-weight: bold;
 	font-size: 19px;
+	transform: translateY(-5px);
 }
+
 .tab.active::after {
 	content: '';
 	position: absolute;
@@ -281,30 +270,35 @@ function getBtnClass(item, type) {
 	transform: translateX(-50%);
 	width: 36px;
 	height: 5px;
-	background: #b7ef68;
-	border-radius: 3px;
+	background: #000000;
+	border-radius: 4px;
 }
+
 .content {
-	padding: 10px 0 0 0;
+	padding: 10px 15px 0 15px;
 	position: relative;
 	z-index: 2;
 }
+
 .activity-list {
 	display: flex;
 	flex-direction: column;
 	gap: 22px;
 	margin-top: -5px;
 }
+
 .card {
 	width: 95%;
 	background: #fff;
 	border-radius: 18px;
-	box-shadow: 0 4px 18px rgba(60,197,31,0.10);
+	box-shadow: 0 4px 10px rgba(15, 16, 15, 0.685);
 	overflow: hidden;
 	margin: 0 8px 0 8px;
 	display: flex;
 	flex-direction: column;
+	position: relative;
 }
+
 .card-content {
 	display: flex;
 	flex-direction: row;
@@ -312,6 +306,7 @@ function getBtnClass(item, type) {
 	padding: 18px 16px 10px 16px;
 	box-sizing: border-box;
 }
+
 .card-img {
 	width: 127px;
 	height: 109px;
@@ -321,12 +316,14 @@ function getBtnClass(item, type) {
 	flex-shrink: 0;
 	background: #f2f2f2;
 }
+
 .card-main {
 	flex: 1;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
 }
+
 .card-title {
 	font-size: 18px;
 	font-weight: bold;
@@ -334,6 +331,7 @@ function getBtnClass(item, type) {
 	margin-bottom: 20px;
 	font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
+
 .card-info {
 	display: flex;
 	flex-direction: column;
@@ -342,39 +340,50 @@ function getBtnClass(item, type) {
 	border-left: 3px solid #e0e0e0;
 	margin-left: -2px;
 }
+
 .card-line {
 	margin-bottom: 2px;
 	line-height: 1.3;
 }
+
 .card-org {
 	font-size: 15px;
 	color: #444;
 	font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
+
 .card-meta {
 	font-size: 13px;
 	color: #bbb;
 	font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
+
 .card-bottom {
-	width: 100%;
+	width: 95%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 16px 0 16px;
-	min-height: 44px;
+	min-height: 34px;
 	box-sizing: border-box;
-	background: #fff;
-	border-top: 1px solid #f0f0f0;
+	background: #f1f1f1;
+	margin: 0 auto 10px;
+	border-radius: 20px;
+	overflow: visible;
 }
+
 .avatars-group {
 	display: flex;
 	align-items: center;
+	overflow: visible;
 }
+
 .avatars {
 	display: flex;
 	align-items: center;
+	margin-right: 10px;
+	overflow: visible;
 }
+
 .avatar {
 	width: 28px;
 	height: 28px;
@@ -382,8 +391,11 @@ function getBtnClass(item, type) {
 	border: 2px solid #fff;
 	margin-right: -8px;
 	background: #eee;
+	transform: scale(1.3);
+	transform-origin: center;
 	box-shadow: 0 1px 4px rgba(60,197,31,0.08);
 }
+
 .join-num {
 	font-size: 14px;
 	color: #bbb;
@@ -391,38 +403,29 @@ function getBtnClass(item, type) {
 	font-weight: 500;
 	white-space: nowrap;
 }
+
 .card-btn {
-	width: 100px;
-	height: 36px;
-	border-radius: 18px;
-	font-size: 16px;
-	font-weight: 600;
-	border: none;
-	outline: none;
-	box-shadow: 0 2px 8px rgba(60,197,31,0.08);
-	background: linear-gradient(90deg, #3cc51f 0%, #00e676 100%);
-	color: #fff;
-	letter-spacing: 1px;
+	width: 90px;
+	height: 37px;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: Arial, Helvetica, sans-serif;
+	border-radius: 90px;
 	display: flex;
-	align-items: center;
 	justify-content: center;
-	padding: 0;
-	text-align: center;
-	margin: 0;
-	cursor: pointer;
-	transition: filter 0.2s;
+	align-items: center;
+	background: linear-gradient(90deg, #B4EF69 0%, #87ED75 20%, #2CEA8B 75%, #0BEA95 100%);
 }
+
 .card-btn:active {
 	filter: brightness(0.95);
 }
-.btn-full, .btn-disabled {
-	background: #eee !important;
-	color: #bbb !important;
-	border: none;
-}
+
+.btn-full,
+.btn-disabled,
 .btn-quit {
-	background: #fff !important;
-	color: #3cc51f !important;
-	border: 1px solid #3cc51f;
+	background: #B3B3B3 !important;
+	color: #000000 !important;
+	border: none;
 }
 </style>

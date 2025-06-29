@@ -55,7 +55,6 @@
         <view class="panel-title-section">
           <text class="panel-title">绿植记录</text>
         </view>
-        <!-- 扁平椭圆形加号，在右边 -->
       </view>
 
       <!-- 日历容器，添加上下居中和空白 -->
@@ -171,6 +170,12 @@ const showEditModal = ref(false);
 const currentDate = ref(new Date());
 const weekdays = ['S','M','T','W','T','F','S'];
 
+// 更新热力图
+onMounted(() => {
+  console.log('更新热力图');
+  userStore.updateHistory();
+});
+
 // 编辑表单
 const editForm = ref({
     nickname: '',
@@ -236,6 +241,7 @@ const chooseAvatar = () => {
 const getDayClass = (idx) => {
     const h = userStore.userInfo.history || [];
     if (idx >= h.length) return 'level-0';
+    // console.log("idx h[idx]",idx, h[idx]);
     return `level-${Math.min(Math.max(h[idx], 0), 4)}`;
 };
 

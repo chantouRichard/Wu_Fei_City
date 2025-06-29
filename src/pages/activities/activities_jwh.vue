@@ -69,6 +69,17 @@
 							</view>
 						</view>
 					</view>
+					<view class="card-bottom">
+						<view class="avatars-group">
+							<view class="avatars">
+								<image v-for="(a, i) in item.avatars" :key="i" class="avatar" :src="a" />
+							</view>
+							<text class="join-num">{{ item.joined }}/{{ item.limit }}人</text>
+						</view>
+						<view class="finish-button">
+							确认参与人员
+						</view>
+					</view>
 				</view>
 				<view v-if="registeredActivities.length == 0" style="display: flex;flex-direction: column;justify-content: center;">
 					<img src="../../static/activity/none.png" style="margin: auto;"/>
@@ -99,13 +110,6 @@
 	</view>
 	<!-- 页面右下角悬浮按钮组，始终渲染两个按钮 -->
 	<view class="fab-group">
-		<view
-			v-if="currentTab === 1"
-			class="page-fab"
-			@click="onFabClick('user')"
-		>
-			<image class="fab-icon" src="/static/activity/btn_2.png" mode="aspectFit" />
-		</view>
 		<view
 			class="page-fab"
 			@click="onFabClick('send')"
@@ -302,8 +306,9 @@ getList();
 <style scoped>
 .activities-bg {
 	min-height: 100vh;
-	background: linear-gradient(180deg, #b7ef68 0%, #f7f7f7 100%);
-	padding-bottom: 20px;
+	background: linear-gradient(180deg, #b7ef68 0%, #B8EF6B 30%, #f7f7f7 100%);
+	padding: 10px;
+	padding-top: 50px;
 }
 .header-bg {
 	position: absolute;
@@ -325,15 +330,13 @@ getList();
 	flex: 1;
 	padding: 14px 0 10px 0;
 	text-align: center;
-	font-size: 17px;
-	
-	font-weight: 500;
+	font-size: 15px;
+	font-weight: 450;
 	position: relative;
 	background: transparent;
-	transition: color 0.2s;
+	transition: all 0.2s ease;
 }
 .tab.active {
-	
 	font-weight: bold;
 	font-size: 19px;
 }
@@ -345,8 +348,8 @@ getList();
 	transform: translateX(-50%);
 	width: 36px;
 	height: 5px;
-	background: #b7ef68;
-	border-radius: 3px;
+	background: #000000;
+	border-radius: 4px;
 }
 .content {
 	padding: 10px 0 0 0;
@@ -363,7 +366,7 @@ getList();
 	width: 95%;
 	background: #fff;
 	border-radius: 18px;
-	box-shadow: 0 4px 18px rgba(60,197,31,0.10);
+	box-shadow: 0 4px 10px rgba(15, 16, 15, 0.685);
 	overflow: hidden;
 	margin: 0 8px 0 8px;
 	display: flex;
@@ -422,23 +425,27 @@ getList();
 	font-family: 'PingFang SC', 'Microsoft YaHei', Arial, sans-serif;
 }
 .card-bottom {
-	width: 100%;
+	width: 95%;
 	display: flex;
 	align-items: center;
 	justify-content: space-between;
-	padding: 0 16px 0 16px;
-	min-height: 44px;
+	min-height: 34px;
 	box-sizing: border-box;
-	background: #fff;
-	border-top: 1px solid #f0f0f0;
+	background: #f1f1f1;
+	margin: 0 auto 10px;
+	border-radius: 20px;
+	overflow: visible;
 }
 .avatars-group {
 	display: flex;
 	align-items: center;
+	overflow: visible;
 }
 .avatars {
 	display: flex;
 	align-items: center;
+	overflow: visible;
+	margin-right: 10px;
 }
 .avatar {
 	width: 28px;
@@ -447,6 +454,8 @@ getList();
 	border: 2px solid #fff;
 	margin-right: -8px;
 	background: #eee;
+	transform: scale(1.3);
+	transform-origin: center;
 	box-shadow: 0 1px 4px rgba(60,197,31,0.08);
 }
 .join-num {
@@ -455,6 +464,18 @@ getList();
 	margin-left: 10px;
 	font-weight: 500;
 	white-space: nowrap;
+}
+.finish-button{
+	width: 109px;
+	height: 37px;
+	font-size: 14px;
+	font-weight: 400;
+	font-family: Arial, Helvetica, sans-serif;
+	border-radius: 90px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: linear-gradient(90deg, #B4EF69 0%, #87ED75 20%, #2CEA8B 75%, #0BEA95 100%);
 }
 .card-btn {
 	width: 100px;
@@ -522,7 +543,7 @@ getList();
 .page-fab {
 	width: 56px;
 	height: 56px;
-	background: linear-gradient(135deg, #3cc51f 0%, #00e676 100%);
+	background: linear-gradient(45deg, #B1EF6A 0%, #62E87B 50%, #00e676 100%);
 	border-radius: 50%;
 	display: flex;
 	align-items: center;
