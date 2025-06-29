@@ -158,18 +158,6 @@ export default {
       setTimeout(() => {
         uni.hideLoading()
         
-        // 使用用户状态管理 - 设置为居委会
-        const userStore = this.useUserStore()
-        const userData = {
-          userId: this.account,
-          nickname: this.account,
-          introduction: "居委会工作人员",
-          // 其他用户信息可以从后端获取
-        }
-        
-        // 登录并设置用户类型为 committee
-        userStore.loginUser(userData, 'committee')
-        
         uni.showToast({
           title: '居委会登录成功',
           icon: 'success'
@@ -177,8 +165,8 @@ export default {
         
         // 登录成功后跳转到主页
         setTimeout(() => {
-          uni.reLaunch({
-            url: '/pages/index/index'
+          uni.navigateTo({
+            url: '/pages/activities/activities_jwh'
           })
         }, 1500)
       }, 2000)
