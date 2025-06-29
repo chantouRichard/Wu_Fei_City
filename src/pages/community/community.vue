@@ -41,13 +41,18 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, onMounted } from 'vue'
 import { useChatStore } from '../../stores/chat'
 import { useUserStore } from '../../stores/user'
 
 // 获取全局状态
 const chatStore = useChatStore();
 const userStore = useUserStore();
+
+// 页面挂载时获取用户排名
+onMounted(() => {
+	userStore.updateRank()
+})
 
 // 排行榜数据
 const rankList = computed(() => userStore.rank || [])
