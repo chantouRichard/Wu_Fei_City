@@ -169,19 +169,6 @@ export default {
         // 登录并设置用户类型为 normal
         userStore.loginUser(userData, 'normal')
 
-        
-        
-        uni.showToast({
-          title: '登录成功',
-          icon: 'success'
-        })
-        
-        // 登录成功后跳转到主页
-        setTimeout(() => {
-          uni.reLaunch({
-            url: '/pages/index/index'
-          })
-        }, 1500)
       }, 2000)
     },
     

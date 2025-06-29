@@ -50,6 +50,10 @@
 						</view>
 					</view>
 				</view>
+				<view v-if="availableActivities.length == 0" style="display: flex;flex-direction: column;justify-content: center;">
+					<img src="../../static/activity/none.png" style="margin: auto;"/>
+					<view style="margin: auto;">暂无活动</view>
+				</view>
 			</view>
 			<!-- 已报名活动 -->
 			<view v-if="currentTab === 1" class="activity-list">
@@ -66,6 +70,10 @@
 						</view>
 					</view>
 				</view>
+				<view v-if="registeredActivities.length == 0" style="display: flex;flex-direction: column;justify-content: center;">
+					<img src="../../static/activity/none.png" style="margin: auto;"/>
+					<view style="margin: auto;">暂无活动</view>
+				</view>
 			</view>
 			<!-- 已完成活动 -->
 			<view v-if="currentTab === 2" class="activity-list">
@@ -81,6 +89,10 @@
 							</view>
 						</view>
 					</view>
+				</view>
+				<view v-if="historyActivities.length == 0" style="display: flex;flex-direction: column;justify-content: center;">
+					<img src="../../static/activity/none.png" style="margin: auto;"/>
+					<view style="margin: auto;">暂无活动</view>
 				</view>
 			</view>
 		</view>
@@ -107,6 +119,8 @@
 <script setup>
 import { ref, computed } from 'vue'
 
+
+
 const currentTab = ref(0)
 const switchTab = (idx) => {
 	currentTab.value = idx
@@ -116,7 +130,7 @@ const availableActivities = ref([
 	{
 		id: 1,
 		img: '/static/activity/activi1.png',
-		title: '测绘社区打扫活动',
+		title: '测绘社区打扫活动11',
 		desc: '武汉大学测绘社区居委会',
 		time: '7月3日 14:30~16:30',
 		place: '武汉大学-测绘社区',
@@ -147,7 +161,7 @@ const registeredActivities = ref([
 	{
 		id: 3,
 		img: '/static/activity/activi1.png',
-		title: '测绘社区打扫活动',
+		title: '测绘社区打扫活动22',
 		desc: '武汉大学测绘社区居委会',
 		time: '7月3日 14:30~16:30',
 		place: '武汉大学-测绘社区',
@@ -178,7 +192,7 @@ const historyActivities = ref([
 	{
 		id: 5,
 		img: '/static/activity/activi1.png',
-		title: '测绘社区打扫活动',
+		title: '测绘社区打扫活动33',
 		desc: '武汉大学测绘社区居委会',
 		time: '7月3日 14:30~16:30',
 		place: '武汉大学-测绘社区',
@@ -205,7 +219,47 @@ const historyActivities = ref([
 	}
 ])
 
-
+async function getList() {
+	uni.request({
+        url: "http://localhost:8080/api/activities/open",
+        method: "GET",
+        data: {},
+        success(res) {
+          console.log("获取列表成功！", res.data);
+          
+		  availableActivities.value = res.data.data;
+        },
+        fail(err) {
+          console.error("失败！", err);
+        },
+      });
+	uni.request({
+        url: "http://localhost:8080/api/activities/inprogress",
+        method: "GET",
+        data: {},
+        success(res) {
+          console.log("获取列表成功！", res.data);
+          
+		  registeredActivities.value = res.data.data;
+        },
+        fail(err) {
+          console.error("失败！", err);
+        },
+      });
+	  uni.request({
+        url: "http://localhost:8080/api/activities/finished",
+        method: "GET",
+        data: {},
+        success(res) {
+          console.log("获取列表成功！", res.data);
+          
+		  historyActivities.value = res.data.data;
+        },
+        fail(err) {
+          console.error("失败！", err);
+        },
+      });
+}
 
 function getBtnText(item, type) {
 	if (type === 'available') {
@@ -227,8 +281,22 @@ function getBtnClass(item, type) {
 }
 
 function onFabClick(type) {
-	uni.showToast({ title: `FAB点击: ${type}`, icon: 'none' })
+	if(type == 'send'){
+		uni.navigateTo({
+			url: '/pages/activities/publish'
+		})
+		return;
+	}
+	else{
+		uni.showToast({
+			title: '提示',
+			content: '暂不支持此功能，敬请期待！'
+		})
+		return;
+	}
 }
+
+getList();
 </script>
 
 <style scoped>

@@ -161,9 +161,8 @@ export default {
         // 使用用户状态管理 - 设置为居委会
         const userStore = this.useUserStore()
         const userData = {
-          userId: this.account,
-          nickname: this.account,
-          introduction: "居委会工作人员",
+          username: this.account,
+          password: this.password,
           // 其他用户信息可以从后端获取
         }
         
@@ -171,16 +170,9 @@ export default {
         userStore.loginUser(userData, 'committee')
         
         uni.showToast({
-          title: '居委会登录成功',
-          icon: 'success'
+          title: '居委会登录失败',
+          icon:'error'
         })
-        
-        // 登录成功后跳转到主页
-        setTimeout(() => {
-          uni.reLaunch({
-            url: '/pages/index/index'
-          })
-        }, 1500)
       }, 2000)
     },
     

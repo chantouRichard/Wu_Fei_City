@@ -222,20 +222,33 @@ export default {
       })
       
       // 模拟注册请求
-      setTimeout(() => {
-        uni.hideLoading()
-        uni.showToast({
-          title: '注册成功',
-          icon: 'success'
-        })
-        
-        // 注册成功后返回登录页面
-        setTimeout(() => {
-          uni.navigateBack({
-            delta: 1
-          })
-        }, 1500)
-      }, 2000)
+      uni.request({
+        url: "http://localhost:8080/api/register",
+        method: "POST",
+        data: {
+          username: this.account,
+          password: this.password,
+          userType: "committee",
+        },
+        success(res) {
+          console.log("注册成功！", res.data);
+          uni.hideLoading();
+          uni.showToast({
+            title: "注册成功",
+            icon: "success",
+          });
+
+          // 注册成功后返回登录页面
+          setTimeout(() => {
+            uni.navigateBack({
+              delta: 1,
+            });
+          }, 1500);
+        },
+        fail(err) {
+          console.error("失败！", err);
+        },
+      });
     }
   }
 }
