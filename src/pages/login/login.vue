@@ -26,8 +26,10 @@
         <input v-model="password" :type="showPassword ? 'text' : 'password'" placeholder="请输入密码" class="input-field"
           placeholder-style="color: #666666; font-size: 2.5vh; font-weight: 500;" />
         <view class="password-toggle" @click="togglePassword">
-          <image :src="showPassword ? '/static/login/hideicon.png' : '/static/login/showicon.png'"
-            class="toggle-icon" />
+          <image 
+            :src="showPassword ? '/static/login/showicon.png' : '/static/login/hideicon.png'" 
+            class="toggle-icon" 
+          />
         </view>
       </view>
 
