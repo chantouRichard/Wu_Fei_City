@@ -1,4 +1,4 @@
-package com.whu.wufeibackend.dto;
+package com.whu.wufeibackend.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;

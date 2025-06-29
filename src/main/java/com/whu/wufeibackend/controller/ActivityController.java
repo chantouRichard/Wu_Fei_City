@@ -1,9 +1,9 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.dto.ActivityListResponse;
-import com.whu.wufeibackend.dto.ApiResponse;
-import com.whu.wufeibackend.dto.CreateActivityRequest;
-import com.whu.wufeibackend.dto.CreateActivityResponse;
+import com.whu.wufeibackend.DTO.ActivityListResponse;
+import com.whu.wufeibackend.DTO.ApiResponse;
+import com.whu.wufeibackend.DTO.CreateActivityRequest;
+import com.whu.wufeibackend.DTO.CreateActivityResponse;
 import com.whu.wufeibackend.service.ActivityService;
 import com.whu.wufeibackend.service.TimeService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 活动管理控制器
@@ -61,23 +62,15 @@ public class ActivityController {
      * - signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间
      * - activityEndTime: 活动结束时间
      * 
-     * @return 开放报名的活动列表
+     * @return 居委会开放报名的活动列表
      */
     @GetMapping("/open")
     @Operation(summary = "获取开放报名的活动列表", description = "获取当前可以报名参与的活动列表")
-    public ApiResponse<List<ActivityListResponse>> getOpenActivities() {
-        logger.info("=== 开始处理获取开放报名活动列表请求 ===");
-        long startTime = System.currentTimeMillis();
-        
+    public ApiResponse<List<ActivityListResponse>> getOpenActivities(@RequestBody Map<String, Object> requestBody) {
+        Integer userId = (Integer) requestBody.get("userId");
         try {
-            logger.debug("调用ActivityService.getOpenActivities()方法");
-            List<ActivityListResponse> activities = activityService.getOpenActivities();
-            
-            long endTime = System.currentTimeMillis();
-            logger.info("成功获取开放报名活动列表，数量: {}, 耗时: {}ms", 
-                       activities != null ? activities.size() : 0, 
-                       endTime - startTime);
-            
+            List<ActivityListResponse> activities = activityService.getOpenActivities(userId);
+
             if (activities != null && !activities.isEmpty()) {
                 logger.debug("开放报名活动详情: {}", activities);
             } else {
@@ -88,8 +81,7 @@ public class ActivityController {
             
         } catch (Exception e) {
             long endTime = System.currentTimeMillis();
-            logger.error("获取开放报名活动列表失败，耗时: {}ms，错误信息: {}", 
-                        endTime - startTime, e.getMessage(), e);
+
             return ApiResponse.error("获取开放报名活动列表失败: " + e.getMessage());
         }
     }
@@ -104,17 +96,18 @@ public class ActivityController {
      * - signupEndTimeAndActivityStartTime: 报名结束时间/活动开始时间
      * - activityEndTime: 活动结束时间
      * 
-     * @return 进行中的活动列表
+     * @return 居委会进行中的活动列表
      */
     @GetMapping("/inprogress")
     @Operation(summary = "获取进行中的活动列表", description = "获取报名已结束但活动尚未完成的活动列表")
-    public ApiResponse<List<ActivityListResponse>> getInProgressActivities() {
+    public ApiResponse<List<ActivityListResponse>> getInProgressActivities(@RequestBody Map<String, Object> requestBody) {
         logger.info("=== 开始处理获取进行中活动列表请求 ===");
         long startTime = System.currentTimeMillis();
-        
+        Integer userId = (Integer) requestBody.get("userId");
+
         try {
             logger.debug("调用ActivityService.getInProgressActivities()方法");
-            List<ActivityListResponse> activities = activityService.getInProgressActivities();
+            List<ActivityListResponse> activities = activityService.getInProgressActivities(userId);
             
             long endTime = System.currentTimeMillis();
             logger.info("成功获取进行中活动列表，数量: {}, 耗时: {}ms", 
@@ -151,13 +144,14 @@ public class ActivityController {
      */
     @GetMapping("/finished")
     @Operation(summary = "获取已结束的活动列表", description = "获取已经完成的活动列表")
-    public ApiResponse<List<ActivityListResponse>> getFinishedActivities() {
+    public ApiResponse<List<ActivityListResponse>> getFinishedActivities(@RequestBody Map<String, Object> requestBody) {
         logger.info("=== 开始处理获取已结束活动列表请求 ===");
         long startTime = System.currentTimeMillis();
-        
+        Integer userId = (Integer) requestBody.get("userId");
+
         try {
             logger.debug("调用ActivityService.getFinishedActivities()方法");
-            List<ActivityListResponse> activities = activityService.getFinishedActivities();
+            List<ActivityListResponse> activities = activityService.getFinishedActivities(userId);
             
             long endTime = System.currentTimeMillis();
             logger.info("成功获取已结束活动列表，数量: {}, 耗时: {}ms", 
@@ -301,9 +295,8 @@ public class ActivityController {
             
             logger.debug("请求参数验证通过");
             
-            // TODO: 从JWT token中获取当前用户ID（组织者ID）
             // 目前暂时使用默认的居委会用户ID，实际应用中需要从认证信息中获取
-            Long organizerId = 1L; // 假设当前用户是居委会用户，ID为1
+            Long organizerId = Long.valueOf(request.getOrganizerId());
             
             logger.debug("调用ActivityService.createActivity()方法，组织者ID: {}", organizerId);
             CreateActivityResponse response = activityService.createActivity(request, organizerId);

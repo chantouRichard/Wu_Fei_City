@@ -1,8 +1,8 @@
 package com.whu.wufeibackend.service;
 
-import com.whu.wufeibackend.dto.ActivityListResponse;
-import com.whu.wufeibackend.dto.CreateActivityRequest;
-import com.whu.wufeibackend.dto.CreateActivityResponse;
+import com.whu.wufeibackend.DTO.ActivityListResponse;
+import com.whu.wufeibackend.DTO.CreateActivityRequest;
+import com.whu.wufeibackend.DTO.CreateActivityResponse;
 import com.whu.wufeibackend.entity.Activity;
 import com.whu.wufeibackend.mapper.ActivityMapper;
 import org.slf4j.Logger;
@@ -50,13 +50,13 @@ public class ActivityService {
      * 
      * @return 开放报名的活动列表
      */
-    public List<ActivityListResponse> getOpenActivities() {
+    public List<ActivityListResponse> getOpenActivities(Integer userId) {
         logger.info("开始获取开放报名的活动列表");
         
         try {
             if (activityMapper != null) {
                 logger.debug("数据库连接正常，开始执行数据库查询");
-                List<ActivityListResponse> activities = activityMapper.getOpenActivities();
+                List<ActivityListResponse> activities = activityMapper.getOpenActivities(userId);
                 logger.info("从数据库获取到开放报名活动数量: {}", activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
@@ -94,13 +94,13 @@ public class ActivityService {
      * 
      * @return 进行中的活动列表
      */
-    public List<ActivityListResponse> getInProgressActivities() {
+    public List<ActivityListResponse> getInProgressActivities(Integer userId) {
         logger.info("开始获取进行中的活动列表");
         
         try {
             if (activityMapper != null) {
                 logger.debug("数据库连接正常，开始执行数据库查询");
-                List<ActivityListResponse> activities = activityMapper.getInProgressActivities();
+                List<ActivityListResponse> activities = activityMapper.getInProgressActivities(userId);
                 logger.info("从数据库获取到进行中活动数量: {}", activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
@@ -138,13 +138,13 @@ public class ActivityService {
      * 
      * @return 已结束的活动列表
      */
-    public List<ActivityListResponse> getFinishedActivities() {
+    public List<ActivityListResponse> getFinishedActivities(Integer userId) {
         logger.info("开始获取已结束的活动列表");
         
         try {
             if (activityMapper != null) {
                 logger.debug("数据库连接正常，开始执行数据库查询");
-                List<ActivityListResponse> activities = activityMapper.getFinishedActivities();
+                List<ActivityListResponse> activities = activityMapper.getFinishedActivities(userId);
                 logger.info("从数据库获取到已结束活动数量: {}", activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像

@@ -1,7 +1,7 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.dto.SimpleRegisterRequest;
-import com.whu.wufeibackend.dto.SimpleRegisterResponse;
+import com.whu.wufeibackend.DTO.SimpleRegisterRequest;
+import com.whu.wufeibackend.DTO.SimpleRegisterResponse;
 import com.whu.wufeibackend.service.UserService;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;

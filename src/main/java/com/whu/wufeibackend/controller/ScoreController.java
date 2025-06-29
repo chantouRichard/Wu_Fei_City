@@ -1,7 +1,7 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.dto.ApiResponse;
-import com.whu.wufeibackend.dto.RankItem;
+import com.whu.wufeibackend.DTO.ApiResponse;
+import com.whu.wufeibackend.DTO.RankItem;
 import com.whu.wufeibackend.entity.GreenScoreRecord;
 import com.whu.wufeibackend.service.GreenScoreService;
 import org.slf4j.Logger;

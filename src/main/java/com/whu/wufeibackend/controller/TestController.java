@@ -1,6 +1,6 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.dto.ApiResponse;
+import com.whu.wufeibackend.DTO.ApiResponse;
 import com.whu.wufeibackend.service.TimeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;

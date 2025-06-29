@@ -1,6 +1,6 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.dto.ApiResponse;
+import com.whu.wufeibackend.DTO.ApiResponse;
 import com.whu.wufeibackend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -24,17 +24,18 @@ public class UserController {
     @PutMapping("update")
     public ResponseEntity<ApiResponse<String>> update(@RequestBody Map<String, Object> requestBody) {
         try {
-            String userIdStr = (String) requestBody.get("userId");
-
-            if(userIdStr == null) {
-                return ResponseEntity.badRequest()
-                        .body(new ApiResponse<>(400, "参数不完整", null, false));
-            }
-
-            Integer userId = Integer.parseInt(userIdStr);
+//            String userIdStr = (String) requestBody.get("userId");
+//
+//            if(userIdStr == null) {
+//                return ResponseEntity.badRequest()
+//                        .body(new ApiResponse<>(400, "参数不完整", null, false));
+//            }
+//
+//            Integer userId = Integer.parseInt(userIdStr);
+            Integer userId = (Integer) requestBody.get("userId");
             String nickname = (String) requestBody.get("nickname");
             String introduction = (String) requestBody.get("introduction");
-            String avatar  = (String) requestBody.get("avatat");
+            String avatar  = (String) requestBody.get("avatar");
 
             boolean success = userService.updateUserInfo(userId, nickname, introduction, avatar);
 

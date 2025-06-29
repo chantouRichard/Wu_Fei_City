@@ -19,7 +19,7 @@
     </resultMap>
 
     <!-- 活动列表响应结果映射 -->
-    <resultMap id="ActivityListResponseResultMap" type="com.whu.wufeibackend.dto.ActivityListResponse">
+    <resultMap id="ActivityListResponseResultMap" type="com.whu.wufeibackend.DTO.ActivityListResponse">
         <result property="activityId" column="activity_id"/>
         <result property="title" column="title"/>
         <result property="organizerName" column="organizer_name"/>
@@ -59,6 +59,7 @@
           AND a.signup_end_time_and_activity_start_time &gt; NOW() 
           AND a.status != 'finished'
           AND a.status = 'published'
+          AND a.organizer_id = #{userId}
         GROUP BY a.id, a.title, u.nickname, a.created_at_and_signup_start_time, a.signup_end_time_and_activity_start_time, a.activity_end_time, a.status, a.image_url, a.location, a.max_participants
         ORDER BY a.created_at_and_signup_start_time DESC
     </select>
@@ -89,6 +90,7 @@
           AND a.activity_end_time &gt; NOW()
           AND a.status != 'finished'
           AND a.status = 'published'
+          AND a.organizer_id = #{userId}
         GROUP BY a.id, a.title, u.nickname, a.created_at_and_signup_start_time, a.signup_end_time_and_activity_start_time, a.activity_end_time, a.status, a.image_url, a.location, a.max_participants
         ORDER BY a.signup_end_time_and_activity_start_time DESC
     </select>
@@ -111,6 +113,7 @@
         LEFT JOIN users u ON a.organizer_id = u.id
         LEFT JOIN activity_participants ap ON a.id = ap.activity_id
         WHERE a.activity_end_time &lt; NOW() OR a.status = 'finished'
+            AND a.organizer_id = #{userId}
         GROUP BY a.id, a.title, u.nickname, a.created_at_and_signup_start_time, a.signup_end_time_and_activity_start_time, a.activity_end_time, a.status, a.image_url, a.location, a.max_participants
         ORDER BY a.updated_at DESC
     </select>

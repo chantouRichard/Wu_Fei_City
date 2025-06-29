@@ -1,7 +1,7 @@
 package com.whu.wufeibackend.mapper;
 
 import com.whu.wufeibackend.entity.Activity;
-import com.whu.wufeibackend.dto.ActivityListResponse;
+import com.whu.wufeibackend.DTO.ActivityListResponse;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
@@ -22,7 +22,7 @@ public interface ActivityMapper {
      * 
      * @return 开放报名的活动列表
      */
-    List<ActivityListResponse> getOpenActivities();
+    List<ActivityListResponse> getOpenActivities(@Param("userId") Integer userId);
 
     /**
      * 获取进行中的活动列表
@@ -30,7 +30,7 @@ public interface ActivityMapper {
      * 
      * @return 进行中的活动列表
      */
-    List<ActivityListResponse> getInProgressActivities();
+    List<ActivityListResponse> getInProgressActivities(@Param("userId") Integer userId);
 
     /**
      * 获取已结束的活动列表
@@ -38,7 +38,7 @@ public interface ActivityMapper {
      * 
      * @return 已结束的活动列表
      */
-    List<ActivityListResponse> getFinishedActivities();
+    List<ActivityListResponse> getFinishedActivities(@Param("userId") Integer userId);
 
     /**
      * 根据活动ID获取最近报名的三位用户头像

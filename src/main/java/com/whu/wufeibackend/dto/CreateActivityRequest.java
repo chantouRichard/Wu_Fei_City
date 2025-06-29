@@ -1,4 +1,4 @@
-package com.whu.wufeibackend.dto;
+package com.whu.wufeibackend.DTO;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -15,7 +15,11 @@ import java.time.LocalDateTime;
  * @since 2025-01-27
  */
 public class CreateActivityRequest {
-    
+
+    /**
+     * 创建者ID
+     */
+    private Integer organizerId;
     /**
      * 活动标题
      * 必须至少2个字符
@@ -71,10 +75,11 @@ public class CreateActivityRequest {
     public CreateActivityRequest() {}
 
     // 全参构造函数
-    public CreateActivityRequest(String title, String description, 
+    public CreateActivityRequest(Integer organizerId, String title, String description,
                                LocalDateTime signupEndTimeAndActivityStartTime,
                                LocalDateTime activityEndTime, String location, 
                                Integer maxParticipants, String imageUrl) {
+        this.organizerId = organizerId;
         this.title = title;
         this.description = description;
         this.signupEndTimeAndActivityStartTime = signupEndTimeAndActivityStartTime;
@@ -85,6 +90,14 @@ public class CreateActivityRequest {
     }
 
     // Getter和Setter方法
+    public Integer getOrganizerId() {
+        return organizerId;
+    }
+
+    public void setOrganizerId(Integer organizerId) {
+        this.organizerId = organizerId;
+    }
+
     public String getTitle() {
         return title;
     }
