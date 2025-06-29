@@ -108,6 +108,8 @@ const goToPhotoChat = () => {
 	background: #f7f7f7;
 	min-height: 100vh;
 	padding-bottom: 20px;
+	display: flex;
+	flex-direction: column;
 }
 .header {
 	display: flex;
@@ -162,11 +164,12 @@ const goToPhotoChat = () => {
 	color: #33333386;
 }
 .rank-card {
+	flex: 1;
 	left: 0rpx; top: 60rpx;
 	position: relative;
 	background: linear-gradient(180deg, #C8ED93 0%, #E2F4CA 100%);
-	border-top-left-radius: 30px;
-	border-top-right-radius: 30px;
+	border-top-left-radius: 55px;
+	border-top-right-radius: 55px;
 	margin: 0 0px;
 	padding: 5px 0 10px 0;
 	box-shadow: 0 2px 8px rgba(0,0,0,0.03);
@@ -194,7 +197,7 @@ const goToPhotoChat = () => {
     margin-top: 28px;
     line-height: 44px;
 	left: 0rpx; 
-	top: -24rpx
+	top: -14rpx
 }
 
 .crown {
