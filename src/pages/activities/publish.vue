@@ -128,19 +128,18 @@
           <view class="image-container">
             <view class="image-list">
               <view
-                v-for="(image, index) in activityData.images"
-                :key="index"
+                v-if="activityData.images.length > 0"
                 class="image-item"
               >
                 <image
-                  :src="image"
+                  :src="activityData.images[0]"
                   class="preview-image"
                   mode="aspectFill"
-                  @click="previewImage(index)"
+                  @click="previewImage(0)"
                 ></image>
-                <view class="delete-btn" @click="deleteImage(index)">X</view>
+                <view class="delete-btn" @click="deleteImage(0)">X</view>
               </view>
-              <view class="image-upload" @click="chooseImage">
+              <view v-if="activityData.images.length === 0" class="image-upload" @click="chooseImage">
                 <view class="upload-icon">+</view>
               </view>
             </view>
@@ -155,11 +154,12 @@
         class="save-btn"
         :class="{
           saved: isSaved,
-          'publish-style': activeTab === 'detail',
+          'publish-style': activeTab === 'detail' && isDetailComplete,
           published: isPublished,
+          'incomplete': !isFormComplete
         }"
         @click="handleButtonClick"
-        :disabled="(isSaved && activeTab === 'basic') || isPublished"
+        :disabled="(isSaved && activeTab === 'basic') || isPublished || !isFormComplete"
       >
         <view class="btn-content">
           <text class="btn-text">{{ getButtonText() }}</text>
@@ -285,6 +285,16 @@ export default {
         ],
       ],
     };
+  },
+  computed: {
+    // 检查当前表单是否完整
+    isFormComplete() {
+      if (this.activeTab === 'basic') {
+        return this.isBasicComplete();
+      } else {
+        return this.isDetailComplete();
+      }
+    }
   },
   onLoad() {
     // 从本地存储加载已保存的活动
@@ -500,6 +510,17 @@ export default {
         return this.isPublished ? "已发布" : "发布";
       }
     },
+    // 检查基本资料是否完整
+    isBasicComplete() {
+      return this.activityData.name.trim() !== '' && 
+             this.activityData.date !== '' && 
+             this.activityData.location !== '';
+    },
+    // 检查详细介绍是否完整
+    isDetailComplete() {
+      return this.activityData.description.trim() !== '' && 
+             this.activityData.images.length > 0;
+    },
     handleButtonClick() {
         this.saveActivity();
 
@@ -520,6 +541,16 @@ export default {
       }, 800);
     },
     chooseImage() {
+      // 检查是否已经有图片
+      if (this.activityData.images.length >= 1) {
+        uni.showToast({
+          title: "只能添加一张图片",
+          icon: "none",
+          duration: 2000,
+        });
+        return;
+      }
+      
       console.log("开始选择图片...");
       // 添加点击反馈
       uni.showToast({
@@ -528,17 +559,15 @@ export default {
         duration: 1000,
       });
       uni.chooseImage({
-        count: 9, // 最多可以选择的图片张数
+        count: 1, // 最多可以选择1张图片
         sizeType: ["original", "compressed"], // 可以指定是原图还是压缩图
         sourceType: ["album", "camera"], // 可以指定来源是相册还是相机
         success: (res) => {
           console.log("选择图片成功:", res);
-          // 将选择的图片添加到数组中
-          this.activityData.images = this.activityData.images.concat(
-            res.tempFilePaths
-          );
+          // 替换现有图片（如果有的话）
+          this.activityData.images = [res.tempFilePaths[0]];
           uni.showToast({
-            title: `成功添加${res.tempFilePaths.length}张图片`,
+            title: "图片添加成功",
             icon: "success",
           });
         },
@@ -810,6 +839,17 @@ export default {
   background: #ffffff;
   color: #7f7f7f;
   box-shadow: none;
+}
+
+.save-btn.incomplete {
+  background: #7f7f7f !important;
+  color: #ffffff !important;
+  box-shadow: none !important;
+}
+
+.save-btn.incomplete:active {
+  opacity: 1;
+  transform: none;
 }
 
 .btn-content {
