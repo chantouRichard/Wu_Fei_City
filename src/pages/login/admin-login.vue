@@ -159,10 +159,10 @@ export default {
           icon: 'success'
         })
         
-        // 登录成功后跳转到主页
+        // 登录成功后跳转到管理员审核页面
         setTimeout(() => {
           uni.reLaunch({
-            url: '/pages/index/index'
+            url: '/pages/activities/admin-review'
           })
         }, 1500)
       }, 2000)
@@ -480,4 +480,4 @@ export default {
   margin-right: 0.6vh; /* 右边距相对屏幕固定 */
   text-decoration: underline;
 }
-</style> 
+</style>
