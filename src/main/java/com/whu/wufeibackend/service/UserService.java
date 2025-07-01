@@ -14,6 +14,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -59,10 +60,20 @@ public class UserService {
         System.out.println("【登录调试】前端密码：" + request.getPassword());
         System.out.println("【登录调试】数据库哈希：" + user.getPassword());
         System.out.println("【登录调试】userType：" + user.getUserType());
+        
+        // 🚨 按照建议检查密码字节值，排查空格/换行符问题
+        System.out.println("【登录调试】前端密码字节值：" + java.util.Arrays.toString(request.getPassword().getBytes()));
+        System.out.println("【登录调试】前端密码长度：" + request.getPassword().length());
+        System.out.println("【登录调试】数据库哈希字节值：" + java.util.Arrays.toString(user.getPassword().getBytes()));
+        System.out.println("【登录调试】数据库哈希长度：" + user.getPassword().length());
 
         // 验证密码
         boolean passwordMatch = passwordEncoder.matches(request.getPassword(), user.getPassword());
         System.out.println("【登录调试】BCrypt密码比对结果：" + passwordMatch);
+        
+        // 🚨 测试已知正确的密码组合
+        boolean testMatch = passwordEncoder.matches("admin123", "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.");
+        System.out.println("【登录调试】测试admin123与标准哈希比对：" + testMatch);
 
         if (!passwordMatch) {
             return new LoginResponse(false, "密码错误");
