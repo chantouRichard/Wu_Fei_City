@@ -125,7 +125,7 @@ GROUP BY u.id, u.nickname, u.avatar;
 -- 插入默认管理员账号
 -- 密码是 admin123 经过BCrypt加密后的结果
 INSERT INTO `users` (`username`, `password`, `user_type`, `nickname`, `pending`, `approved`) VALUES
-('admin', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'admin', '系统管理员', 0, 1); 
+('admin', '$2a$10$WmgSYFhpxxbvbj8ngTFtl.YfRuzOFxX33v0qHhcI.Dmm/BDynu2je', 'admin', '系统管理员', 0, 1); 
 
 -- 插入一些测试普通用户
 INSERT INTO `users` (`username`, `password`, `user_type`, `nickname`, `pending`, `approved`) VALUES
