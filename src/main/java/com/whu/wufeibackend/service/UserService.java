@@ -1,10 +1,10 @@
 package com.whu.wufeibackend.service;
 
-import com.whu.wufeibackend.DTO.LoginResponse;
-import com.whu.wufeibackend.DTO.SimpleLoginRequest;
-import com.whu.wufeibackend.DTO.SimpleRegisterRequest;
-import com.whu.wufeibackend.DTO.SimpleRegisterResponse;
-import com.whu.wufeibackend.DTO.RankItem;
+import com.whu.wufeibackend.dto.LoginResponse;
+import com.whu.wufeibackend.dto.SimpleLoginRequest;
+import com.whu.wufeibackend.dto.SimpleRegisterRequest;
+import com.whu.wufeibackend.dto.SimpleRegisterResponse;
+import com.whu.wufeibackend.dto.RankItem;
 import com.whu.wufeibackend.entity.User;
 import com.whu.wufeibackend.mapper.UserMapper;
 import com.whu.wufeibackend.util.JwtUtil;
@@ -254,6 +254,34 @@ public class UserService {
      */
     public String getUserTypeFromToken(String token) {
         return jwtUtil.getUserTypeFromToken(token);
+    }
+    
+    /**
+     * 获取已通过审批的居委会用户列表
+     * 
+     * @return 已通过审批的居委会用户列表
+     */
+    public List<User> getApprovedCommitteeUsers() {
+        return userMapper.findApprovedCommitteeUsers();
+    }
+    
+    /**
+     * 获取已拒绝的居委会用户列表
+     * 
+     * @return 已拒绝的居委会用户列表
+     */
+    public List<User> getRejectedCommitteeUsers() {
+        return userMapper.findRejectedCommitteeUsers();
+    }
+    
+    /**
+     * 根据用户ID获取用户信息
+     * 
+     * @param userId 用户ID
+     * @return 用户信息
+     */
+    public User getUserById(Integer userId) {
+        return userMapper.findById(userId);
     }
 
     public boolean updateUserInfo(int userId, String nickName, String introduction, String avatar){
