@@ -36,8 +36,8 @@ public class UserService {
     @Autowired
     private JwtUtil jwtUtil;
     
-    // BCrypt密码编码器
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    // BCrypt密码编码器 - 使用显式配置解决Spring Boot 3.5.3兼容性问题
+    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder(10);
     
     /**
      * 统一用户登录方法
@@ -74,6 +74,16 @@ public class UserService {
         // 🚨 测试已知正确的密码组合
         boolean testMatch = passwordEncoder.matches("admin123", "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.");
         System.out.println("【登录调试】测试admin123与标准哈希比对：" + testMatch);
+        
+        // 🚨 实时生成哈希并测试 - 最直接的验证方式
+        String freshHash = passwordEncoder.encode("admin123");
+        boolean freshMatch = passwordEncoder.matches("admin123", freshHash);
+        System.out.println("【登录调试】新生成的admin123哈希：" + freshHash);
+        System.out.println("【登录调试】新哈希验证结果：" + freshMatch);
+        
+        // 🚨 测试简单密码
+        boolean simpleTest = passwordEncoder.matches("test", "$2a$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW");
+        System.out.println("【登录调试】测试简单密码'test'：" + simpleTest);
 
         if (!passwordMatch) {
             return new LoginResponse(false, "密码错误");
