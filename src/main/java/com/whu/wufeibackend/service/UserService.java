@@ -56,15 +56,13 @@ public class UserService {
         }
 
         // 日志：打印密码明文和数据库哈希
-//        System.out.println("【登录调试】前端密码：" + request.getPassword());
-//        System.out.println("【登录调试】数据库哈希：" + user.getPassword());
-//        System.out.println("【登录调试】userType：" + user.getUserType());
-//        System.out.println("【调试】前端密码原始字节：" + Arrays.toString(request.getPassword().getBytes()));
-//        System.out.println("【调试】数据库哈希原始字节：" + Arrays.toString(user.getPassword().getBytes()));
+        System.out.println("【登录调试】前端密码：" + request.getPassword());
+        System.out.println("【登录调试】数据库哈希：" + user.getPassword());
+        System.out.println("【登录调试】userType：" + user.getUserType());
 
         // 验证密码
         boolean passwordMatch = passwordEncoder.matches(request.getPassword(), user.getPassword());
-//        System.out.println("【登录调试】BCrypt密码比对结果：" + passwordMatch);
+        System.out.println("【登录调试】BCrypt密码比对结果：" + passwordMatch);
 
         if (!passwordMatch) {
             return new LoginResponse(false, "密码错误");
