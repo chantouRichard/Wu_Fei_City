@@ -2,7 +2,6 @@ package com.whu.wufeibackend.controller;
 
 import com.whu.wufeibackend.DTO.ApiResponse;
 import com.whu.wufeibackend.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;

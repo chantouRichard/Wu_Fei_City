@@ -80,8 +80,6 @@ public class ActivityController {
             return ApiResponse.success("获取开放报名活动列表成功", activities);
             
         } catch (Exception e) {
-            long endTime = System.currentTimeMillis();
-
             return ApiResponse.error("获取开放报名活动列表失败: " + e.getMessage());
         }
     }
