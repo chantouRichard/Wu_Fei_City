@@ -1,0 +1,455 @@
+{
+	"info": {
+		"_postman_id": "admin-approval-tests-2024",
+		"name": "管理员审批居委会接口测试",
+		"description": "测试管理员审批居委会用户的完整流程",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "1. 管理员登录",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"// 测试响应状态",
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"// 解析响应并保存token",
+							"const response = pm.response.json();",
+							"pm.test(\"登录成功\", function () {",
+							"    pm.expect(response.success).to.be.true;",
+							"    pm.expect(response.data.token).to.not.be.undefined;",
+							"});",
+							"",
+							"// 保存token到环境变量",
+							"if (response.success && response.data.token) {",
+							"    pm.environment.set(\"admin_token\", response.data.token);",
+							"    console.log(\"Token已保存:\", response.data.token);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"username\": \"admin\",\n  \"password\": \"admin123\",\n  \"userType\": \"admin\"\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/login",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "2. 获取待审批居委会列表",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"获取列表成功\", function () {",
+							"    pm.expect(response.success).to.be.true;",
+							"    pm.expect(response.data).to.be.an('array');",
+							"});",
+							"",
+							"// 保存待审批用户ID用于后续测试",
+							"if (response.data && response.data.length > 0) {",
+							"    const firstUserId = response.data[0].id;",
+							"    pm.environment.set(\"pending_user_id\", firstUserId);",
+							"    console.log(\"待审批用户ID:\", firstUserId);",
+							"    ",
+							"    // 保存多个用户ID用于批量测试",
+							"    const userIds = response.data.slice(0, 3).map(user => user.id);",
+							"    pm.environment.set(\"batch_user_ids\", JSON.stringify(userIds));",
+							"    console.log(\"批量测试用户IDs:\", userIds);",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/admin/pending-users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"pending-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "3. 单个审批 - 通过",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"审批通过成功\", function () {",
+							"    pm.expect(response.success).to.be.true;",
+							"    pm.expect(response.message).to.include(\"通过\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": {{pending_user_id}},\n  \"approved\": true\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/approve",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "4. 单个审批 - 拒绝",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"审批拒绝成功\", function () {",
+							"    pm.expect(response.success).to.be.true;",
+							"    pm.expect(response.message).to.include(\"拒绝\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userId\": 999,\n  \"approved\": false\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/approve",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "5. 批量审批 - 全部通过",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"批量审批成功\", function () {",
+							"    pm.expect(response.success).to.be.true;",
+							"    pm.expect(response.data.totalCount).to.be.greaterThan(0);",
+							"    pm.expect(response.data.approved).to.be.true;",
+							"});",
+							"",
+							"pm.test(\"批量审批结果验证\", function () {",
+							"    pm.expect(response.data).to.have.property('successCount');",
+							"    pm.expect(response.data).to.have.property('failCount');",
+							"    pm.expect(response.data).to.have.property('failedUserIds');",
+							"    console.log(\"批量审批结果:\", response.data);",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userIds\": [6, 7, 8, 9, 10],\n  \"approved\": true\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/batch-approve",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"batch-approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "6. 批量审批 - 全部拒绝",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"批量拒绝成功\", function () {",
+							"    pm.expect(response.success).to.be.true;",
+							"    pm.expect(response.data.approved).to.be.false;",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userIds\": [11, 12, 13],\n  \"approved\": false\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/batch-approve",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"batch-approve"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "7. 错误测试 - 无效Token",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"Token验证失败\", function () {",
+							"    pm.expect(response.success).to.be.false;",
+							"    pm.expect(response.code).to.equal(401);",
+							"    pm.expect(response.message).to.include(\"令牌\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer invalid_token_here"
+					}
+				],
+				"url": {
+					"raw": "{{base_url}}/api/admin/pending-users",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"pending-users"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "8. 错误测试 - 空用户ID列表",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.test(\"Status code is 200\", function () {",
+							"    pm.response.to.have.status(200);",
+							"});",
+							"",
+							"const response = pm.response.json();",
+							"pm.test(\"空列表验证失败\", function () {",
+							"    pm.expect(response.success).to.be.false;",
+							"    pm.expect(response.code).to.equal(400);",
+							"    pm.expect(response.message).to.include(\"不能为空\");",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer {{admin_token}}"
+					},
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"userIds\": [],\n  \"approved\": true\n}"
+				},
+				"url": {
+					"raw": "{{base_url}}/api/admin/batch-approve",
+					"host": [
+						"{{base_url}}"
+					],
+					"path": [
+						"api",
+						"admin",
+						"batch-approve"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "base_url",
+			"value": "http://localhost:8080",
+			"type": "string"
+		}
+	]
+} 

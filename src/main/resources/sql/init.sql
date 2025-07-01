@@ -178,6 +178,21 @@ INSERT INTO `activity_participants` (`activity_id`, `user_id`, `attended`) VALUE
 ((SELECT id FROM activities WHERE title = '环保手工制作活动'), (SELECT id FROM users WHERE username = 'testuser2'), 1),
 ((SELECT id FROM activities WHERE title = '环保手工制作活动'), (SELECT id FROM users WHERE username = 'testuser3'), 1);
 
+-- 插入多个待审批的居委会用户用于测试
+INSERT INTO users (username, password, user_type, nickname, committee_desc, contact, pending, approved) 
+VALUES 
+-- BCrypt加密的密码是 'password123'
+('committee_test1', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'committee', '测试居委会1', '负责小区绿化管理', '13800001111', 1, NULL),
+('committee_test2', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'committee', '测试居委会2', '负责垃圾分类宣传', '13800002222', 1, NULL),
+('committee_test3', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'committee', '测试居委会3', '负责节能减排活动', '13800003333', 1, NULL),
+('committee_test4', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'committee', '测试居委会4', '负责环保教育', '13800004444', 1, NULL),
+('committee_test5', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'committee', '测试居委会5', '负责社区环境维护', '13800005555', 1, NULL);
+
+-- 创建一个普通用户用于测试类型错误
+INSERT INTO users (username, password, user_type, nickname, pending, approved) 
+VALUES 
+('normal_user_test', '$2a$10$N.zmdr9k7uOCQb376NoUnuTJ8iAt6Z5EHsM8lE9lBOsl7iKTVEFDa', 'normal', '普通用户测试', 0, 1);
+
 -- ==========================================
 -- 初始化完成提示
 -- ==========================================
