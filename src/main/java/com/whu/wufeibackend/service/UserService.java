@@ -256,24 +256,8 @@ public class UserService {
         return jwtUtil.getUserTypeFromToken(token);
     }
     
-    /**
-     * 获取已通过审批的居委会用户列表
-     * 
-     * @return 已通过审批的居委会用户列表
-     */
-    public List<User> getApprovedCommitteeUsers() {
-        return userMapper.findApprovedCommitteeUsers();
-    }
-    
-    /**
-     * 获取已拒绝的居委会用户列表
-     * 
-     * @return 已拒绝的居委会用户列表
-     */
-    public List<User> getRejectedCommitteeUsers() {
-        return userMapper.findRejectedCommitteeUsers();
-    }
-    
+
+
     /**
      * 根据用户ID获取用户信息
      * 
