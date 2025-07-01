@@ -1,5 +1,6 @@
 package com.whu.wufeibackend.DTO;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -36,16 +37,19 @@ public class ActivityListResponse {
     /**
      * 活动创建时间/报名开始时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime createdAtAndSignupStartTime;
     
     /**
      * 报名结束时间/活动开始时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime signupEndTimeAndActivityStartTime;
     
     /**
      * 活动结束时间
      */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm")
     private LocalDateTime activityEndTime;
     
     /**

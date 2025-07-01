@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.whu.wufeibackend.mapper.UserActivityMapper">
+
+    <!-- 用户活动列表响应结果映射（时间格式化版本） -->
+    <resultMap id="UserActivityListResponseResultMap" type="com.whu.wufeibackend.DTO.ActivityListResponse">
+        <result property="activityId" column="activity_id"/>
+        <result property="title" column="title"/>
+        <result property="organizerName" column="organizer_name"/>
+        <!-- 时间格式化为 "2025-07-04 18:00" -->
+        <result property="signupEndTimeAndActivityStartTime" column="signup_end_time_and_activity_start_time"/>
+        <result property="activityEndTime" column="activity_end_time"/>
+        <result property="status" column="status"/>
+        <result property="imageUrl" column="image_url"/>
+        <result property="location" column="location"/>
+        <result property="participantCount" column="participant_count"/>
+        <result property="maxParticipants" column="max_participants"/>
+    </resultMap>
+
+    <!-- 获取用户已报名的活动列表 -->
+    <select id="getJoinedActivities" resultMap="UserActivityListResponseResultMap">
+        SELECT 
+            a.id as activity_id,
+            a.title,
+            u.nickname as organizer_name,
+            a.signup_end_time_and_activity_start_time,
+            a.activity_end_time,
+            'joined' as status,
+            COALESCE(a.image_url, 'https://example.com/default-activity.jpg') as image_url,
+            a.location,
+            COALESCE(COUNT(ap2.user_id), 0) as participant_count,
+            a.max_participants
+        FROM activities a
+        LEFT JOIN users u ON a.organizer_id = u.id
+        INNER JOIN activity_participants ap ON a.id = ap.activity_id
+        LEFT JOIN activity_participants ap2 ON a.id = ap2.activity_id
+        WHERE ap.user_id = #{userId}
+          AND ap.attended = 0
+          AND a.status != 'finished'
+          AND a.status = 'published'
+        GROUP BY a.id, a.title, u.nickname, a.signup_end_time_and_activity_start_time, 
+                 a.activity_end_time, a.image_url, a.location, a.max_participants
+        ORDER BY a.signup_end_time_and_activity_start_time ASC
+    </select>
+
+    <!-- 获取用户可报名的活动列表 -->
+    <select id="getAvailableActivities" resultMap="UserActivityListResponseResultMap">
+        SELECT 
+            a.id as activity_id,
+            a.title,
+            u.nickname as organizer_name,
+            a.signup_end_time_and_activity_start_time,
+            a.activity_end_time,
+            'available' as status,
+            COALESCE(a.image_url, 'https://example.com/default-activity.jpg') as image_url,
+            a.location,
+            COALESCE(COUNT(ap.user_id), 0) as participant_count,
+            a.max_participants
+        FROM activities a
+        LEFT JOIN users u ON a.organizer_id = u.id
+        LEFT JOIN activity_participants ap ON a.id = ap.activity_id
+        WHERE a.signup_end_time_and_activity_start_time &gt; NOW()
+          AND a.status = 'published'
+          -- 排除用户已经报名的活动
+          AND a.id NOT IN (
+              SELECT DISTINCT ap_user.activity_id 
+              FROM activity_participants ap_user 
+              WHERE ap_user.user_id = #{userId}
+          )
+        GROUP BY a.id, a.title, u.nickname, a.signup_end_time_and_activity_start_time, 
+                 a.activity_end_time, a.image_url, a.location, a.max_participants
+        -- 过滤掉已满员的活动（maxParticipants为NULL时永远不满员）
+        HAVING a.max_participants IS NULL 
+            OR COALESCE(COUNT(ap.user_id), 0) &lt; a.max_participants
+        ORDER BY a.signup_end_time_and_activity_start_time ASC
+    </select>
+
+    <!-- 获取用户历史参与过的活动列表 -->
+    <select id="getHistoryActivities" resultMap="UserActivityListResponseResultMap">
+        SELECT 
+            a.id as activity_id,
+            a.title,
+            u.nickname as organizer_name,
+            a.signup_end_time_and_activity_start_time,
+            a.activity_end_time,
+            'history' as status,
+            COALESCE(a.image_url, 'https://example.com/default-activity.jpg') as image_url,
+            a.location,
+            COALESCE(COUNT(ap2.user_id), 0) as participant_count,
+            a.max_participants
+        FROM activities a
+        LEFT JOIN users u ON a.organizer_id = u.id
+        INNER JOIN activity_participants ap ON a.id = ap.activity_id
+        LEFT JOIN activity_participants ap2 ON a.id = ap2.activity_id
+        WHERE ap.user_id = #{userId}
+          AND ap.attended = 1
+        GROUP BY a.id, a.title, u.nickname, a.signup_end_time_and_activity_start_time, 
+                 a.activity_end_time, a.image_url, a.location, a.max_participants
+        ORDER BY a.activity_end_time DESC
+    </select>
+
+    <!-- 获取最近报名的三位用户头像（复用ActivityMapper的逻辑） -->
+    <select id="getRecentParticipantAvatars" resultType="string">
+        SELECT COALESCE(u.avatar, 'https://example.com/default-avatar.jpg') as avatar
+        FROM activity_participants ap
+        LEFT JOIN users u ON ap.user_id = u.id
+        WHERE ap.activity_id = #{activityId}
+        ORDER BY ap.created_at DESC
+        LIMIT 3
+    </select>
+
+</mapper> 
