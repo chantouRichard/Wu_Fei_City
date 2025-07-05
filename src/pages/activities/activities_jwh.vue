@@ -31,7 +31,7 @@
 			<view v-if="currentTab === 0" class="activity-list">
 				<view class="card" v-for="item in availableActivities" :key="item.id">
 					<view class="card-content">
-						<image class="card-img" :src="item.img" mode="aspectFill" />
+						<image class="card-imageUrl" :src="item.imageUrl" mode="aspectFill" />
 						<view class="card-main">
 							<view class="card-title">{{ item.title }}</view>
 							<view class="card-info">
@@ -46,7 +46,7 @@
 							<view class="avatars">
 								<image v-for="(a, i) in item.avatars" :key="i" class="avatar" :src="a" />
 							</view>
-							<text class="join-num">{{ item.joined }}/{{ item.limit }}人</text>
+							<text class="join-num">{{ item.joined }}/{{ item.maxParticipants }}人</text>
 						</view>
 					</view>
 				</view>
@@ -59,7 +59,7 @@
 			<view v-if="currentTab === 1" class="activity-list">
 				<view class="card" v-for="item in registeredActivities" :key="item.id">
 					<view class="card-content">
-						<image class="card-img" :src="item.img" mode="aspectFill" />
+						<image class="card-imageUrl" :src="item.imageUrl" mode="aspectFill" />
 						<view class="card-main">
 							<view class="card-title">{{ item.title }}</view>
 							<view class="card-info">
@@ -74,7 +74,7 @@
 							<view class="avatars">
 								<image v-for="(a, i) in item.avatars" :key="i" class="avatar" :src="a" />
 							</view>
-							<text class="join-num">{{ item.joined }}/{{ item.limit }}人</text>
+							<text class="join-num">{{ item.joined }}/{{ item.maxParticipants }}人</text>
 						</view>
 						<view class="finish-button">
 							确认参与人员
@@ -90,13 +90,13 @@
 			<view v-if="currentTab === 2" class="activity-list">
 				<view class="card" v-for="item in historyActivities" :key="item.id">
 					<view class="card-content">
-						<image class="card-img" :src="item.img" mode="aspectFill" />
+						<image class="card-imageUrl" :src="item.imageUrl" mode="aspectFill" />
 						<view class="card-main">
 							<view class="card-title">{{ item.title }}</view>
 							<view class="card-info">
-								<view class="card-line card-org">{{ item.desc }}</view>
-								<view class="card-line card-meta">{{ item.time }}</view>
-								<view class="card-line card-meta">{{ item.place }}</view>
+								<view class="card-line card-org">{{ item.description }}</view>
+								<view class="card-line card-meta">{{ item.signup_end_time_and_activity_start_time }}</view>
+								<view class="card-line card-meta">{{ item.location }}</view>
 							</view>
 						</view>
 					</view>
@@ -122,18 +122,21 @@
 
 <script setup>
 import { ref, computed } from 'vue'
+import { useUserStore } from '../../stores/user'
+const userStore = useUserStore();
 
 
 
 const currentTab = ref(0)
 const switchTab = (idx) => {
-	currentTab.value = idx
+	currentTab.value = idx;
+	getList();
 }
 
 const availableActivities = ref([
 	{
 		id: 1,
-		img: '/static/activity/activi1.png',
+		imageUrl: '/static/activity/activi1.png',
 		title: '测绘社区打扫活动11',
 		desc: '武汉大学测绘社区居委会',
 		time: '7月3日 14:30~16:30',
@@ -147,7 +150,7 @@ const availableActivities = ref([
 	},
 	{
 		id: 2,
-		img: '/static/activity/activi2.png',
+		imageUrl: '/static/activity/activi2.png',
 		title: '环保知识竞赛',
 		desc: '洪山区南湖街社区居委会',
 		time: '7月6日 9:30~11:00',
@@ -164,7 +167,7 @@ const availableActivities = ref([
 const registeredActivities = ref([
 	{
 		id: 3,
-		img: '/static/activity/activi1.png',
+		imageUrl: '/static/activity/activi1.png',
 		title: '测绘社区打扫活动22',
 		desc: '武汉大学测绘社区居委会',
 		time: '7月3日 14:30~16:30',
@@ -178,7 +181,7 @@ const registeredActivities = ref([
 	},
 	{
 		id: 4,
-		img: '/static/activity/activi2.png',
+		imageUrl: '/static/activity/activi2.png',
 		title: '环保知识竞赛',
 		desc: '洪山区南湖街社区居委会',
 		time: '7月6日 9:30~11:00',
@@ -195,7 +198,7 @@ const registeredActivities = ref([
 const historyActivities = ref([
 	{
 		id: 5,
-		img: '/static/activity/activi1.png',
+		imageUrl: '/static/activity/activi1.png',
 		title: '测绘社区打扫活动33',
 		desc: '武汉大学测绘社区居委会',
 		time: '7月3日 14:30~16:30',
@@ -209,7 +212,7 @@ const historyActivities = ref([
 	},
 	{
 		id: 6,
-		img: '/static/activity/activi2.png',
+		imageUrl: '/static/activity/activi2.png',
 		title: '环保知识竞赛',
 		desc: '洪山区南湖街社区居委会',
 		time: '7月6日 9:30~11:00',
@@ -226,8 +229,10 @@ const historyActivities = ref([
 async function getList() {
 	uni.request({
         url: "http://localhost:8080/api/activities/open",
-        method: "GET",
-        data: {},
+        method: "POST",
+        data: {
+			userId:userStore.userInfo.userId
+		},
         success(res) {
           console.log("获取列表成功！", res.data);
           
@@ -239,8 +244,10 @@ async function getList() {
       });
 	uni.request({
         url: "http://localhost:8080/api/activities/inprogress",
-        method: "GET",
-        data: {},
+        method: "POST",
+        data: {
+			userId:userStore.userInfo.userId
+		},
         success(res) {
           console.log("获取列表成功！", res.data);
           
@@ -252,8 +259,10 @@ async function getList() {
       });
 	  uni.request({
         url: "http://localhost:8080/api/activities/finished",
-        method: "GET",
-        data: {},
+        method: "POST",
+        data: {
+			userId:userStore.userInfo.userId
+		},
         success(res) {
           console.log("获取列表成功！", res.data);
           
@@ -380,7 +389,7 @@ getList();
 	padding: 18px 16px 10px 16px;
 	box-sizing: border-box;
 }
-.card-img {
+.card-imageUrl {
 	width: 127px;
 	height: 109px;
 	border-radius: 12px;

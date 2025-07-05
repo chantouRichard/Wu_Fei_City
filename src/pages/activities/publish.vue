@@ -20,12 +20,11 @@
     <view class="form-content">
       <!-- 基本资料 -->
       <view v-if="activeTab === 'basic'" class="form-container">
-        <!-- 活动名称 -->
         <view class="form-item">
           <text class="label">活动名称</text>
           <view class="input-wrapper">
             <input
-              v-model="activityData.name"
+              v-model="activityData.title"
               class="input"
               placeholder="请输入"
               placeholder-class="placeholder"
@@ -34,48 +33,24 @@
           </view>
         </view>
 
-        <!-- 分隔线 -->
         <view class="divider" @click.stop></view>
 
-        <!-- 活动日期 -->
         <picker mode="date" :value="activityData.date" @change="onDateChange">
           <view class="form-item">
             <text class="label">活动日期</text>
             <view class="input-wrapper">
-              <text class="input" :class="{ placeholder: !activityData.date }">
-                {{ activityData.date || "请选择" }}
-              </text>
+              <text
+                class="input"
+                :class="{ placeholder: !activityData.activity_end_time }"
+                >{{ activityData.activity_end_time || "请选择" }}</text
+              >
               <text class="arrow">></text>
             </view>
           </view>
         </picker>
 
-        <!-- 分隔线 -->
-        <view class="divider" @click.stop></view>
-
-        <!-- 报名开始时间 -->
-        <view class="form-item">
-          <text class="label">报名开始时间</text>
-          <picker
-            mode="multiSelector"
-            :value="registrationStartTimeIndex"
-            :range="registrationTimeRange"
-            @change="onRegistrationStartTimeChange"
-            class="picker-wrapper"
-          >
-            <view class="picker-display">
-              <text class="picker-text">{{
-                activityData.registrationStartTime || "请选择时间"
-              }}</text>
-              <text class="arrow">></text>
-            </view>
-          </picker>
-        </view>
-
-        <!-- 分隔线 -->
         <view class="divider"></view>
 
-        <!-- 报名结束时间 -->
         <view class="form-item">
           <text class="label">报名结束时间</text>
           <picker
@@ -83,31 +58,43 @@
             :value="registrationEndTimeIndex"
             :range="registrationTimeRange"
             @change="onRegistrationEndTimeChange"
-            class="picker-wrapper"
           >
             <view class="picker-display">
               <text class="picker-text">{{
-                activityData.registrationEndTime || "请选择时间"
+                activityData.signup_end_time_and_activity_start_time || "请选择时间"
               }}</text>
               <text class="arrow">></text>
             </view>
           </picker>
         </view>
 
-        <!-- 分隔线 -->
         <view class="divider"></view>
 
-        <!-- 活动地点 -->
         <view class="form-item">
           <text class="label">活动地点</text>
           <view class="input-wrapper" @click="showLocationPicker">
             <text
               class="input"
               :class="{ placeholder: !activityData.location }"
+              >{{ activityData.location || "请选择" }}</text
             >
-              {{ activityData.location || "请选择" }}
-            </text>
             <text class="arrow">></text>
+          </view>
+        </view>
+
+        <view class="divider"></view>
+
+        <view class="form-item">
+          <text class="label">最大参与人数</text>
+          <view class="input-wrapper">
+            <input
+              type="number"
+              v-model.number="activityData.max_participants"
+              class="input"
+              placeholder="默认 50"
+              placeholder-class="placeholder"
+            />
+            <text class="arrow">人</text>
           </view>
         </view>
       </view>
@@ -122,24 +109,20 @@
             placeholder-class="textarea-placeholder"
             auto-height
             maxlength="500"
-          ></textarea>
+          />
 
-          <!-- 图片展示区域 -->
           <view class="image-container">
             <view class="image-list">
-              <view
-                v-if="activityData.images.length > 0"
-                class="image-item"
-              >
+              <view v-if="activityData.image_url.length > 0" class="image-item">
                 <image
-                  :src="activityData.images[0]"
+                  :src="activityData.image_url[0]"
                   class="preview-image"
                   mode="aspectFill"
                   @click="previewImage(0)"
-                ></image>
+                />
                 <view class="delete-btn" @click="deleteImage(0)">X</view>
               </view>
-              <view v-if="activityData.images.length === 0" class="image-upload" @click="chooseImage">
+              <view v-else class="image-upload" @click="chooseImage">
                 <view class="upload-icon">+</view>
               </view>
             </view>
@@ -153,467 +136,170 @@
       <button
         class="save-btn"
         :class="{
-          saved: isSaved,
+          saved: activeTab === 'basic' && isSaved,
           'publish-style': activeTab === 'detail' && isDetailComplete,
-          published: isPublished,
-          'incomplete': !isFormComplete
+          published: activeTab === 'detail' && isPublished,
+          incomplete: activeTab === 'detail' && !isDetailComplete,
         }"
         @click="handleButtonClick"
-        :disabled="(isSaved && activeTab === 'basic') || isPublished || !isFormComplete"
       >
         <view class="btn-content">
-          <text class="btn-text">{{ getButtonText() }}</text>
+          <text class="btn-text">{{ buttonText }}</text>
         </view>
       </button>
     </view>
   </view>
 </template>
 
-<script>
-export default {
-  data() {
-    return {
-      activeTab: "basic", // 当前激活的标签
-      activityData: {
-        name: "",
-        date: "",
-        location: "",
-        description: "", // 添加详细介绍字段
-        images: [], // 添加图片数组
-        registrationStartTime: "", // 报名开始时间
-        registrationEndTime: "", // 报名结束时间
-      },
-      isSaved: false, // 保存状态
-      isPublished: false, // 发布状态
-      savedActivities: [], // 本地存储的活动数据
-      // 时间选择器相关数据
-      registrationStartTimeIndex: [0, 0, 0, 0, 0],
-      registrationEndTimeIndex: [0, 0, 0, 0, 0],
-      registrationTimeRange: [
-        // 年份 (2024-2030)
-        ["2024", "2025", "2026", "2027", "2028", "2029", "2030"],
-        // 月份 (01-12)
-        [
-          "01",
-          "02",
-          "03",
-          "04",
-          "05",
-          "06",
-          "07",
-          "08",
-          "09",
-          "10",
-          "11",
-          "12",
-        ],
-        // 日期 (01-31)
-        [
-          "01",
-          "02",
-          "03",
-          "04",
-          "05",
-          "06",
-          "07",
-          "08",
-          "09",
-          "10",
-          "11",
-          "12",
-          "13",
-          "14",
-          "15",
-          "16",
-          "17",
-          "18",
-          "19",
-          "20",
-          "21",
-          "22",
-          "23",
-          "24",
-          "25",
-          "26",
-          "27",
-          "28",
-          "29",
-          "30",
-          "31",
-        ],
-        // 小时 (00-23)
-        [
-          "00",
-          "01",
-          "02",
-          "03",
-          "04",
-          "05",
-          "06",
-          "07",
-          "08",
-          "09",
-          "10",
-          "11",
-          "12",
-          "13",
-          "14",
-          "15",
-          "16",
-          "17",
-          "18",
-          "19",
-          "20",
-          "21",
-          "22",
-          "23",
-        ],
-        // 分钟 (00-59)
-        [
-          "00",
-          "05",
-          "10",
-          "15",
-          "20",
-          "25",
-          "30",
-          "35",
-          "40",
-          "45",
-          "50",
-          "55",
-        ],
-      ],
-    };
-  },
-  computed: {
-    // 检查当前表单是否完整
-    isFormComplete() {
-      if (this.activeTab === 'basic') {
-        return this.isBasicComplete();
-      } else {
-        return this.isDetailComplete();
-      }
-    }
-  },
-  onLoad() {
-    // 从本地存储加载已保存的活动
-    this.loadSavedActivities();
-  },
-  methods: {
-    goBack() {
-      uni.navigateBack();
-    },
-    switchTab(tab) {
-      this.activeTab = tab;
-    },
-    onDateChange(e) {
-      this.activityData.date = e.detail.value;
-    },
-    showLocationPicker() {
-      // 这里可以实现地点选择功能
-      uni.showActionSheet({
-        itemList: ["社区广场", "活动中心", "公园", "其他"],
-        success: (res) => {
-          const locations = ["社区广场", "活动中心", "公园", "其他"];
-          this.activityData.location = locations[res.tapIndex];
-        },
-      });
-    },
-    // 报名开始时间选择器变化
-    onRegistrationStartTimeChange(e) {
-      const val = e.detail.value;
-      this.registrationStartTimeIndex = val;
-      const year = this.registrationTimeRange[0][val[0]];
-      const month = this.registrationTimeRange[1][val[1]];
-      const day = this.registrationTimeRange[2][val[2]];
-      const hour = this.registrationTimeRange[3][val[3]];
-      const minute = this.registrationTimeRange[4][val[4]];
-      this.activityData.registrationStartTime = `${year}-${month}-${day} ${hour}:${minute}`;
-    },
-    // 报名结束时间选择器变化
-    onRegistrationEndTimeChange(e) {
-      const val = e.detail.value;
-      this.registrationEndTimeIndex = val;
-      const year = this.registrationTimeRange[0][val[0]];
-      const month = this.registrationTimeRange[1][val[1]];
-      const day = this.registrationTimeRange[2][val[2]];
-      const hour = this.registrationTimeRange[3][val[3]];
-      const minute = this.registrationTimeRange[4][val[4]];
-      this.activityData.registrationEndTime = `${year}-${month}-${day} ${hour}:${minute}`;
-    },
-    validateTimeFormat(type) {
-      const timeRegex = /^\d{4}-\d{2}-\d{2} \d{2}:\d{2}$/;
-      let timeValue = "";
-      let fieldName = "";
+<script setup>
+import { reactive, computed, ref } from "vue";
+import { useUserStore } from "@/stores/user";
 
-      if (type === "start") {
-        timeValue = this.activityData.registrationStartTime;
-        fieldName = "报名开始时间";
-      } else {
-        timeValue = this.activityData.registrationEndTime;
-        fieldName = "报名结束时间";
-      }
+const userStore = useUserStore();
 
-      if (timeValue && !timeRegex.test(timeValue)) {
-        uni.showToast({
-          title: `${fieldName}格式错误，请使用 YYYY-MM-DD HH:mm 格式`,
-          icon: "none",
-          duration: 3000,
-        });
-        return false;
-      }
+const activeTab = ref("basic");
+const isSaved = ref(false);
+const isPublished = ref(false);
+const savedActivities = ref([]);
 
-      // 验证时间是否有效
-      if (timeValue && timeRegex.test(timeValue)) {
-        const date = new Date(timeValue.replace(" ", "T"));
-        if (isNaN(date.getTime())) {
-          uni.showToast({
-            title: `${fieldName}无效，请输入正确的日期时间`,
-            icon: "none",
-            duration: 3000,
-          });
-          return false;
-        }
-      }
+const activityData = reactive({
+  organizerId: userStore.userInfo.userId,
+  title: "测试",
+  description: "123123123123123123123123123123",
+  signup_end_time_and_activity_start_time: "2025-06-22T12:00:00",
+  activity_end_time: "2025-06-22T14:00:00",
+  location: "武汉大学图书馆",
+  max_participants: 10,
+  image_url: [],
+});
 
-      // 验证开始时间不能晚于结束时间
-      if (
-        this.activityData.registrationStartTime &&
-        this.activityData.registrationEndTime
-      ) {
-        const startTime = new Date(
-          this.activityData.registrationStartTime.replace(" ", "T")
-        );
-        const endTime = new Date(
-          this.activityData.registrationEndTime.replace(" ", "T")
-        );
+const registrationStartTimeIndex = ref([0, 0, 0, 0, 0]);
+const registrationEndTimeIndex = ref([0, 0, 0, 0, 0]);
+const registrationTimeRange = [
+  ["2024", "2025", "2026", "2027"],
+  ["01", "02", "03", "04", "05", "06", "07", "08", "09", "10", "11", "12"],
+  [...Array(31).keys()].map((i) => String(i + 1).padStart(2, "0")),
+  [...Array(24).keys()].map((i) => String(i).padStart(2, "0")),
+  ["00", "15", "30", "45"],
+];
 
-        if (startTime >= endTime) {
-          uni.showToast({
-            title: "报名开始时间不能晚于或等于结束时间",
-            icon: "none",
-            duration: 3000,
-          });
-          return false;
-        }
-      }
+const buttonText = computed(() => {
+  if (activeTab.value === "basic") return isSaved.value ? "已保存" : "保存数据";
+  return isPublished.value ? "已发布" : "发布";
+});
 
-      return true;
-    },
+const isDetailComplete = computed(
+  () => activityData.description.trim() && activityData.image_url.length > 0
+);
 
-    saveActivity() {
-      // 验证表单
-      if (!this.activityData.name.trim()) {
-        uni.showToast({
-          title: "请输入活动名称",
-          icon: "none",
-        });
-        return;
-      }
-      if (!this.activityData.date) {
-        uni.showToast({
-          title: "请选择活动日期",
-          icon: "none",
-        });
-        return;
-      }
-      if (!this.activityData.location) {
-        uni.showToast({
-          title: "请选择活动地点",
-          icon: "none",
-        });
-        return;
-      }
-
-      // 验证报名时间格式
-      if (
-        this.activityData.registrationStartTime &&
-        !this.validateTimeFormat("start")
-      ) {
-        return;
-      }
-      if (
-        this.activityData.registrationEndTime &&
-        !this.validateTimeFormat("end")
-      ) {
-        return;
-      }
-
-      // 创建活动对象
-      const newActivity = {
-  id: Date.now(),
-  title: this.activityData.name,
-  date: this.activityData.date,
-  location: this.activityData.location,
-  signup_end_time_and_activity_start_time: new Date(this.activityData.registrationStartTime)
-    .toISOString()
-    .replace(/\.\d{3}Z$/, ""),  // 去掉毫秒和时区
-  activity_end_time: new Date(this.activityData.registrationEndTime)
-    .toISOString()
-    .replace(/\.\d{3}Z$/, ""),  // 去掉毫秒和时区
-  description: this.activityData.description,
-  image_url:
-    this.activityData.images[0] ||
-    "https://cdn.example.com/activities/cleaning.jpg",
-  createTime: new Date().toISOString(),
-  max_participants: 50, // 默认限制50人
+const handleButtonClick = () => {
+  if (activeTab.value === "basic") {
+    isSaved.value = true;
+    uni.showToast({ title: "保存成功", icon: "success" });
+    return;
+  }
+  if (!isDetailComplete.value) {
+    uni.showToast({ title: "请填写完整信息", icon: "none" });
+    return;
+  }
+  publishActivity();
 };
 
+function switchTab(tab) {
+  activeTab.value = tab;
+}
+function onDateChange(e) {
+  activityData.date = e.detail.value;
+}
+function showLocationPicker() {
+  uni.showActionSheet({
+    itemList: ["社区广场", "活动中心", "公园", "其他"],
+    success: (res) =>
+      (activityData.location = ["社区广场", "活动中心", "公园", "其他"][
+        res.tapIndex
+      ]),
+  });
+}
 
-      // 保存到本地存储
-      this.savedActivities.push(newActivity);
-      uni.setStorageSync("publishedActivities", this.savedActivities);
-	  console.log("发布活动:", newActivity);
+function formatDateTime(val) {
+  const [y, m, d, h, min] = val.map((v, i) => registrationTimeRange[i][v]);
+  return `${y}-${m}-${d}T${h}:${min}:00`;
+}
 
-      // 更新保存状态
-      this.isSaved = true;
+function onRegistrationStartTimeChange(e) {
+  registrationStartTimeIndex.value = e.detail.value;
+  activityData.registrationStartTime = formatDateTime(e.detail.value);
+}
+function onRegistrationEndTimeChange(e) {
+  registrationEndTimeIndex.value = e.detail.value;
+  activityData.registrationEndTime = formatDateTime(e.detail.value);
+}
 
-      uni.request({
-        url: "http://localhost:8080/api/activities/create", // 替换为你的API端点
-        method: "POST",
-        data: newActivity,
-        success: (res) => {
-          console.log("发布活动成功", res);
-          if (res.statusCode === 200) {
-            // 处理成功情况，例如更新界面状态或显示消息等
-            // 显示成功提示
-            uni.showToast({
-              title: "发布成功",
-              icon: "success",
-            });
+function publishActivity() {
+  const payload = {
+    organizerId: userStore.userInfo.userId,
+    title: activityData.title,
+    description: activityData.description,
+    activity_end_time: activityData.activity_end_time,
+    location: activityData.location,
+    signup_end_time_and_activity_start_time: activityData.signup_end_time_and_activity_start_time,
+    image_url: activityData.image_url[0] || "",
+    max_participants: activityData.max_participants || 50,
+  };
 
-            // 延迟切换到详细介绍标签
-            setTimeout(() => {
-              this.activeTab = "detail";
-            }, 1500);
-            uni.navigateBack();
-          } else {
-            uni.showToast({
-              title: "发布失败",
-              icon: "none",
-            });
-          }
-        },
-      });
-    },
-    loadSavedActivities() {
-      const saved = uni.getStorageSync("publishedActivities");
-      if (saved) {
-        this.savedActivities = saved;
-      }
-    },
-    getButtonText() {
-      if (this.activeTab === "basic") {
-        return this.isSaved ? "已保存" : "保存数据";
+  console.log("image:",activityData.image_url);
+  uni.request({
+    url: "http://localhost:8080/api/activities/create",
+    method: "POST",
+    data: payload,
+    success: (res) => {
+      if (res.statusCode === 200) {
+        isPublished.value = true;
+        uni.showToast({ title: "发布成功", icon: "success" });
+        setTimeout(() => uni.navigateBack(), 1000);
       } else {
-        return this.isPublished ? "已发布" : "发布";
+        uni.showToast({ title: "发布失败", icon: "none" });
       }
     },
-    // 检查基本资料是否完整
-    isBasicComplete() {
-      return this.activityData.name.trim() !== '' && 
-             this.activityData.date !== '' && 
-             this.activityData.location !== '';
-    },
-    // 检查详细介绍是否完整
-    isDetailComplete() {
-      return this.activityData.description.trim() !== '' && 
-             this.activityData.images.length > 0;
-    },
-    handleButtonClick() {
-        this.saveActivity();
+  });
+}
 
-    },
-    publishActivity() {
-      // 设置发布状态
-      this.isPublished = true;
+function chooseImage() {
+  if (activityData.image_url.length >= 1) return;
 
-      // 显示发布成功提示
-      uni.showToast({
-        title: "发布成功",
-        icon: "success",
-      });
-
-      // 按钮状态变化后立即跳转到活动中心
-      setTimeout(() => {
-        uni.navigateBack();
-      }, 800);
-    },
-    chooseImage() {
-      // 检查是否已经有图片
-      if (this.activityData.images.length >= 1) {
-        uni.showToast({
-          title: "只能添加一张图片",
-          icon: "none",
-          duration: 2000,
-        });
-        return;
-      }
-      
-      console.log("开始选择图片...");
-      // 添加点击反馈
-      uni.showToast({
-        title: "正在打开相册...",
-        icon: "loading",
-        duration: 1000,
-      });
-      uni.chooseImage({
-        count: 1, // 最多可以选择1张图片
-        sizeType: ["original", "compressed"], // 可以指定是原图还是压缩图
-        sourceType: ["album", "camera"], // 可以指定来源是相册还是相机
-        success: (res) => {
-          console.log("选择图片成功:", res);
-          // 替换现有图片（如果有的话）
-          this.activityData.images = [res.tempFilePaths[0]];
-          uni.showToast({
-            title: "图片添加成功",
-            icon: "success",
-          });
+  uni.chooseImage({
+    count: 1,
+    success: (res) => {
+      const filePath = res.tempFilePaths[0];
+      uni.getFileSystemManager().readFile({
+        filePath,
+        encoding: 'base64',
+        success: (fileRes) => {
+          // 添加图片 MIME 前缀（如 PNG）
+          const base64 = 'data:image/png;base64,' + fileRes.data;
+          activityData.image_url[0] = base64;  // 如果你希望直接存储字符串
         },
         fail: (err) => {
-          console.error("选择图片失败:", err);
-          let errorMsg = "选择图片失败";
-          if (err.errMsg) {
-            if (err.errMsg.includes("cancel")) {
-              errorMsg = "用户取消选择";
-            } else if (err.errMsg.includes("auth")) {
-              errorMsg = "请授权访问相册";
-            } else {
-              errorMsg = `选择失败: ${err.errMsg}`;
-            }
-          }
-          uni.showToast({
-            title: errorMsg,
-            icon: "none",
-            duration: 3000,
-          });
+          console.error('读取图片为Base64失败', err);
         },
       });
     },
-    previewImage(index) {
-      uni.previewImage({
-        current: index,
-        urls: this.activityData.images,
-      });
+    fail: (err) => {
+      console.error('选择图片失败', err);
     },
-    deleteImage(index) {
-      uni.showModal({
-        title: "确认删除",
-        content: "确定要删除这张图片吗？",
-        success: (res) => {
-          if (res.confirm) {
-            this.activityData.images.splice(index, 1);
-            uni.showToast({
-              title: "删除成功",
-              icon: "success",
-            });
-          }
-        },
-      });
-    },
-  },
-};
+  });
+}
+
+function previewImage(index) {
+  uni.previewImage({ current: index, urls: activityData.image_url });
+}
+function deleteImage(index) {
+  uni.showModal({
+    title: "确认删除",
+    content: "确定要删除这张图片吗？",
+    success: (res) => res.confirm && activityData.image_url.splice(index, 1),
+  });
+}
 </script>
 
 <style scoped>
@@ -896,6 +582,8 @@ export default {
   padding: 10px;
   position: relative;
   min-height: 100%;
+
+  max-height: 200px;
 }
 
 .detail-textarea {

@@ -2,69 +2,77 @@
   <view class="login-container">
     <!-- 上方背景区域 -->
     <view class="background-area" :class="backgroundStyle">
-      <image 
-        class="background-image" 
-        src="/static/login/background.png" 
+      <image
+        class="background-image"
+        src="/static/login/background.png"
         mode="aspectFill"
       />
       <view class="gradient-overlay" :class="maskStyle"></view>
     </view>
-    
+
     <!-- 返回按钮 -->
     <view class="return-button" @click="goBack">
       <image src="/static/login/returnbutton.png" class="return-icon" />
     </view>
-    
+
     <!-- 登录表单区域 -->
     <view class="form-container">
       <!-- 账号输入框 -->
       <view class="input-group">
         <image src="/static/login/usericon.png" class="input-icon" />
-        <input 
+        <input
           v-model="account"
-          type="text" 
-          placeholder="请输入账号" 
+          type="text"
+          placeholder="请输入账号"
           class="input-field"
           placeholder-style="color: #666666; font-size: 2.5vh; font-weight: 500;"
         />
       </view>
-      
+
       <!-- 密码输入框 -->
       <view class="input-group">
         <image src="/static/login/passwordicon.png" class="input-icon" />
-        <input 
+        <input
           v-model="password"
-          :type="showPassword ? 'text' : 'password'" 
-          placeholder="请输入密码" 
+          :type="showPassword ? 'text' : 'password'"
+          placeholder="请输入密码"
           class="input-field"
           placeholder-style="color: #666666; font-size: 2.5vh; font-weight: 500;"
         />
         <view class="password-toggle" @click="togglePassword">
-          <image 
-            :src="showPassword ? '/static/login/showicon.png' : '/static/login/hideicon.png'" 
-            class="toggle-icon" 
+          <image
+            :src="
+              showPassword
+                ? '/static/login/showicon.png'
+                : '/static/login/hideicon.png'
+            "
+            class="toggle-icon"
           />
         </view>
       </view>
-      
+
       <!-- 登录按钮 -->
       <view class="login-button" @click="handleLogin">
         <image src="/static/login/loginbutton.png" class="login-btn-bg" />
       </view>
-      
+
       <!-- 占位空间 -->
       <view class="register-placeholder"></view>
-      
+
       <!-- 用户协议 -->
       <view class="agreement-section">
         <view class="checkbox-container" @click="toggleAgreement">
-          <view class="checkbox" :class="{ 'checked': isAgreed }">
+          <view class="checkbox" :class="{ checked: isAgreed }">
             <view v-if="isAgreed" class="checkbox-inner"></view>
           </view>
           <text class="agreement-text">我已阅读并同意</text>
-          <text class="agreement-link" @click.stop="showUserAgreement">《用户协议》</text>
+          <text class="agreement-link" @click.stop="showUserAgreement"
+            >《用户协议》</text
+          >
           <text class="agreement-text">和</text>
-          <text class="agreement-link" @click.stop="showPrivacyPolicy">《隐私政策》</text>
+          <text class="agreement-link" @click.stop="showPrivacyPolicy"
+            >《隐私政策》</text
+          >
         </view>
       </view>
     </view>
@@ -72,144 +80,147 @@
 </template>
 
 <script>
-import { useUserStore } from '@/stores/user.js'
+import { useUserStore } from "@/stores/user.js";
 
 export default {
-  name: 'AdminLogin',
+  name: "AdminLogin",
   setup() {
-    const useUserStoreInstance = useUserStore()
+    const useUserStoreInstance = useUserStore();
     return {
-      useUserStore: () => useUserStoreInstance
-    }
+      useUserStore: () => useUserStoreInstance,
+    };
   },
   data() {
     return {
-      account: '', // 账号
-      password: '', // 密码
+      account: "", // 账号
+      password: "", // 密码
       showPassword: false, // 是否显示密码
       isAgreed: false, // 是否同意用户协议
-      backgroundStyle: 'default', // 背景样式：default, blur, dark, gradient
-      maskStyle: 'center-medium' // 遮罩样式：center-small, center-medium, center-large, ellipse
-    }
+      backgroundStyle: "default", // 背景样式：default, blur, dark, gradient
+      maskStyle: "center-medium", // 遮罩样式：center-small, center-medium, center-large, ellipse
+    };
   },
   methods: {
     // 返回上一页
     goBack() {
       uni.navigateBack({
-        delta: 1
-      })
-    },
-    
-    // 切换密码显示状态
-    togglePassword() {
-      this.showPassword = !this.showPassword
+        delta: 1,
+      });
     },
 
-    
+    // 切换密码显示状态
+    togglePassword() {
+      this.showPassword = !this.showPassword;
+    },
+
     // 处理登录
     handleLogin() {
       // 验证输入
       if (!this.account.trim()) {
         uni.showToast({
-          title: '请输入账号',
-          icon: 'none'
-        })
-        return
+          title: "请输入账号",
+          icon: "none",
+        });
+        return;
       }
-      
+
       if (!this.password.trim()) {
         uni.showToast({
-          title: '请输入密码',
-          icon: 'none'
-        })
-        return
+          title: "请输入密码",
+          icon: "none",
+        });
+        return;
       }
-      
+
       if (!this.isAgreed) {
         uni.showToast({
-          title: '请先同意用户协议',
-          icon: 'none'
-        })
-        return
+          title: "请先同意用户协议",
+          icon: "none",
+        });
+        return;
       }
-      
+
       // 这里添加登录逻辑
       uni.showLoading({
-        title: '登录中...'
-      })
-      
+        title: "登录中...",
+      });
+
       // 模拟登录请求
       setTimeout(() => {
-        uni.hideLoading()
-        
+        uni.hideLoading();
+
         // 使用用户状态管理 - 设置为管理员
-        const userStore = this.useUserStore()
+        const userStore = this.useUserStore();
         const userData = {
           userId: this.account,
           nickname: this.account,
           introduction: "系统管理员",
           // 其他用户信息可以从后端获取
-        }
-        
+        };
+
         // 登录并设置用户类型为 admin
-        userStore.loginUser(userData, 'admin')
-        
-        uni.showToast({
-          title: '管理员登录成功',
-          icon: 'success'
-        })
-        
+        userStore.loginUser(userData, "admin");
+
         // 登录成功后跳转到管理员审核页面
         setTimeout(() => {
-          uni.reLaunch({
-            url: '/pages/activities/admin-review'
-          })
-        }, 1500)
-      }, 2000)
+          uni.hideLoading();
+
+          // 使用用户状态管理 - 设置为普通用户
+          const userStore = this.useUserStore();
+          const userData = {
+            username: this.account,
+            password: this.password,
+            // 其他用户信息可以从后端获取
+          };
+
+          // 登录并设置用户类型为 normal
+          userStore.loginUser(userData, "admin");
+        }, 2000);
+        
+      }, 2000);
     },
-    
+
     // 跳转到注册页面
     goToRegister() {
       uni.navigateTo({
-        url: '/pages/register/register'
-      })
+        url: "/pages/register/register",
+      });
     },
-    
+
     // 切换协议同意状态
     toggleAgreement() {
-      this.isAgreed = !this.isAgreed
+      this.isAgreed = !this.isAgreed;
     },
-    
+
     // 显示用户协议
     showUserAgreement() {
       uni.showModal({
-        title: '用户协议',
-        content: '这里是用户协议的详细内容...',
-        showCancel: false
-      })
+        title: "用户协议",
+        content: "这里是用户协议的详细内容...",
+        showCancel: false,
+      });
     },
-    
+
     // 显示隐私政策
     showPrivacyPolicy() {
       uni.showModal({
-        title: '隐私政策',
-        content: '这里是隐私政策的详细内容...',
-        showCancel: false
-      })
-    }
-  }
-}
+        title: "隐私政策",
+        content: "这里是隐私政策的详细内容...",
+        showCancel: false,
+      });
+    },
+  },
+};
 </script>
 
 <style lang="scss" scoped>
 /* 重置页面默认样式 */
 
-
 .login-container {
   position: relative;
   width: 100%;
   min-height: 100vh;
-  background-color: #FFFFFF; /* 纯白色背景在最底层 */
+  background-color: #ffffff; /* 纯白色背景在最底层 */
   overflow-x: hidden; /* 只隐藏水平滚动 */
   box-sizing: border-box; /* 确保padding和border计算在内 */
 }
@@ -243,8 +254,9 @@ export default {
   right: 0;
   width: 100%;
   height: 33.33vh; /* 调整渐变高度为背景区域的三分之二 */
-  background: -webkit-linear-gradient(bottom, 
-    #ffffff 0%, 
+  background: -webkit-linear-gradient(
+    bottom,
+    #ffffff 0%,
     rgba(255, 255, 255, 0.98) 15%,
     rgba(255, 255, 255, 0.92) 30%,
     rgba(255, 255, 255, 0.8) 45%,
@@ -253,8 +265,9 @@ export default {
     rgba(255, 255, 255, 0.1) 90%,
     transparent 100%
   );
-  background: linear-gradient(to top, 
-    #ffffff 0%, 
+  background: linear-gradient(
+    to top,
+    #ffffff 0%,
     rgba(255, 255, 255, 0.98) 15%,
     rgba(255, 255, 255, 0.92) 30%,
     rgba(255, 255, 255, 0.8) 45%,
@@ -272,8 +285,9 @@ export default {
 }
 
 .background-area.dark .gradient-overlay {
-  background: linear-gradient(to top, 
-    rgba(0, 0, 0, 0.8) 0%, 
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 0.8) 0%,
     rgba(0, 0, 0, 0.6) 20%,
     rgba(0, 0, 0, 0.4) 40%,
     rgba(0, 0, 0, 0.2) 70%,
@@ -282,8 +296,9 @@ export default {
 }
 
 .background-area.gradient .gradient-overlay {
-  background: linear-gradient(to top, 
-    rgba(76, 175, 80, 0.9) 0%, 
+  background: linear-gradient(
+    to top,
+    rgba(76, 175, 80, 0.9) 0%,
     rgba(76, 175, 80, 0.7) 20%,
     rgba(76, 175, 80, 0.5) 40%,
     rgba(76, 175, 80, 0.3) 70%,
@@ -293,8 +308,9 @@ export default {
 
 .background-area.soft .gradient-overlay {
   height: 400rpx;
-  background: linear-gradient(to top, 
-    rgba(248, 250, 252, 1) 0%, 
+  background: linear-gradient(
+    to top,
+    rgba(248, 250, 252, 1) 0%,
     rgba(248, 250, 252, 0.95) 15%,
     rgba(248, 250, 252, 0.8) 30%,
     rgba(248, 250, 252, 0.6) 50%,
@@ -341,9 +357,9 @@ export default {
   padding-bottom: 0.8vh; /* 减少底部内边距，让边框离文本更近 */
   border-bottom: 0.3vh solid #999999; /* 边框高度相对屏幕固定 */
   transition: border-color 0.3s ease; /* 添加过渡效果 */
-  
+
   &:focus-within {
-    border-bottom-color: #007AFF; /* 聚焦时变为蓝色 */
+    border-bottom-color: #007aff; /* 聚焦时变为蓝色 */
   }
 }
 
@@ -363,20 +379,20 @@ export default {
   border: none;
   outline: none;
   font-weight: 500; /* 增加字体重量 */
-  
+
   /* 自定义placeholder样式（备用方案） */
   &::placeholder {
     color: #666666;
     font-weight: 500;
     opacity: 1; /* 确保placeholder完全不透明 */
   }
-  
+
   &::-webkit-input-placeholder {
     color: #666666;
     font-weight: 500;
     opacity: 1;
   }
-  
+
   &::-moz-placeholder {
     color: #666666;
     font-weight: 500;
@@ -447,24 +463,24 @@ export default {
   position: relative;
   width: 2.5vh; /* 复选框宽度相对屏幕固定 */
   height: 2.5vh; /* 复选框高度相对屏幕固定 */
-  border: 0.15vh solid #CCCCCC; /* 边框宽度相对屏幕固定 */
+  border: 0.15vh solid #cccccc; /* 边框宽度相对屏幕固定 */
   border-radius: 50%;
   margin-right: 1.2vh; /* 右边距相对屏幕固定 */
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  
+
   &.checked {
-    border-color: #4CAF50;
-    background-color: #4CAF50;
+    border-color: #4caf50;
+    background-color: #4caf50;
   }
 }
 
 .checkbox-inner {
   width: 1.2vh; /* 内部圆点宽度相对屏幕固定 */
   height: 1.2vh; /* 内部圆点高度相对屏幕固定 */
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   border-radius: 50%;
 }
 
@@ -476,7 +492,7 @@ export default {
 
 .agreement-link {
   font-size: 1.8vh; /* 字体大小相对屏幕固定 */
-  color: #1E90FF; /* 深蓝色 */
+  color: #1e90ff; /* 深蓝色 */
   margin-right: 0.6vh; /* 右边距相对屏幕固定 */
   text-decoration: underline;
 }

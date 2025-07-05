@@ -90,20 +90,6 @@
 			"style": {
 				"navigationBarTitleText": "发起活动"
 			}
-		},
-		{
-			"path": "pages/activities/detail",
-			"style": {
-				"navigationBarTitleText": "活动详情",
-				"navigationStyle": "custom"
-			}
-		},
-		{
-			"path": "pages/activities/admin-review",
-			"style": {
-				"navigationBarTitleText": "管理员审核",
-				"navigationStyle": "custom"
-			}
 		}
 	],
 	"globalStyle": {
