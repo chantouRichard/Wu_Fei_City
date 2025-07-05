@@ -49,6 +49,12 @@
 			}
 		},
 		{
+			"path": "pages/activities/admin-review",
+			"style": {
+				"navigationBarTitleText": "管理员主页"
+			}
+		},
+		{
 			"path": "pages/chat/chat",
 			"style": {
 				"navigationBarTitleText": "对话"
