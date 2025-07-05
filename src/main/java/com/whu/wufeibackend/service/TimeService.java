@@ -44,16 +44,16 @@ public class TimeService {
         if (testModeEnabled && mockCurrentTimeStr != null && !mockCurrentTimeStr.trim().isEmpty()) {
             try {
                 LocalDateTime mockTime = LocalDateTime.parse(mockCurrentTimeStr.trim(), FORMATTER);
-                logger.debug("使用模拟时间: {}", mockTime);
+                // // logger.debug("使用模拟时间: {}", mockTime);
                 return mockTime;
             } catch (Exception e) {
-                logger.warn("解析模拟时间失败: {}, 使用真实时间", mockCurrentTimeStr, e);
+                // logger.warn("解析模拟时间失败: {}, 使用真实时间", mockCurrentTimeStr, e);
                 return LocalDateTime.now();
             }
         } else {
             LocalDateTime realTime = LocalDateTime.now();
             if (testModeEnabled) {
-                logger.debug("测试模式已启用但未配置模拟时间，使用真实时间: {}", realTime);
+                // // logger.debug("测试模式已启用但未配置模拟时间，使用真实时间: {}", realTime);
             }
             return realTime;
         }
@@ -86,9 +86,9 @@ public class TimeService {
     public void setMockTime(LocalDateTime mockTime) {
         if (testModeEnabled) {
             this.mockCurrentTimeStr = mockTime.format(FORMATTER);
-            logger.info("动态设置模拟时间: {}", mockTime);
+            // logger.info("动态设置模拟时间: {}", mockTime);
         } else {
-            logger.warn("非测试模式下无法设置模拟时间");
+            // logger.warn("非测试模式下无法设置模拟时间");
         }
     }
 
@@ -103,13 +103,13 @@ public class TimeService {
             try {
                 LocalDateTime.parse(mockTimeStr, FORMATTER); // 验证格式
                 this.mockCurrentTimeStr = mockTimeStr;
-                logger.info("动态设置模拟时间: {}", mockTimeStr);
+                // logger.info("动态设置模拟时间: {}", mockTimeStr);
             } catch (Exception e) {
-                logger.error("设置模拟时间失败，格式错误: {}", mockTimeStr, e);
+                // logger.error("设置模拟时间失败，格式错误: {}", mockTimeStr, e);
                 throw new IllegalArgumentException("模拟时间格式错误，应为: yyyy-MM-dd'T'HH:mm:ss");
             }
         } else {
-            logger.warn("非测试模式下无法设置模拟时间");
+            // logger.warn("非测试模式下无法设置模拟时间");
         }
     }
 
@@ -119,7 +119,7 @@ public class TimeService {
     public void resetToRealTime() {
         if (testModeEnabled) {
             this.mockCurrentTimeStr = "";
-            logger.info("已重置为真实时间模式");
+            // logger.info("已重置为真实时间模式");
         }
     }
 

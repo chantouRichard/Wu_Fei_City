@@ -160,10 +160,10 @@ public class JwtUtil {
      */
     public boolean validateToken(String token) {
         try {
-            System.out.println("【JWT调试】JwtUtil收到token: " + token);
+            // System.out.println("【JWT调试】JwtUtil收到token: " + token);
             return !isTokenExpired(token);
         } catch (Exception e) {
-            System.out.println("【JWT调试】token解析异常: " + e.getMessage());
+            // System.out.println("【JWT调试】token解析异常: " + e.getMessage());
             return false;
         }
     }

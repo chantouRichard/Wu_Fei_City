@@ -54,7 +54,7 @@ public class GreenScoreService {
                 return result > 0;
             }
         }catch (Exception e){
-            System.out.println(e);
+            // System.out.println(e);
             return false;
         }
     }

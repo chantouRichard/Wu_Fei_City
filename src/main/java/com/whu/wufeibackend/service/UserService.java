@@ -52,38 +52,26 @@ public class UserService {
         
         // 检查用户是否存在
         if (user == null) {
-            System.out.println("【登录调试】未找到用户：" + request.getUsername() + "，类型：" + request.getUserType());
+            // System.out.println("【登录调试】未找到用户：" + request.getUsername() + "，类型：" + request.getUserType());
             return new LoginResponse(false, "账号不存在");
         }
-
-        // 日志：打印密码明文和数据库哈希
-        System.out.println("【登录调试】前端密码：" + request.getPassword());
-        System.out.println("【登录调试】数据库哈希：" + user.getPassword());
-        System.out.println("【登录调试】userType：" + user.getUserType());
-        
-        // 🚨 按照建议检查密码字节值，排查空格/换行符问题
-        System.out.println("【登录调试】前端密码字节值：" + java.util.Arrays.toString(request.getPassword().getBytes()));
-        System.out.println("【登录调试】前端密码长度：" + request.getPassword().length());
-        System.out.println("【登录调试】数据库哈希字节值：" + java.util.Arrays.toString(user.getPassword().getBytes()));
-        System.out.println("【登录调试】数据库哈希长度：" + user.getPassword().length());
-
         // 验证密码
         boolean passwordMatch = passwordEncoder.matches(request.getPassword(), user.getPassword());
-        System.out.println("【登录调试】BCrypt密码比对结果：" + passwordMatch);
+//        // System.out.println("【登录调试】BCrypt密码比对结果：" + passwordMatch);
         
         // 🚨 测试已知正确的密码组合
         boolean testMatch = passwordEncoder.matches("admin123", "$2a$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2uheWG/igi.");
-        System.out.println("【登录调试】测试admin123与标准哈希比对：" + testMatch);
+//        // System.out.println("【登录调试】测试admin123与标准哈希比对：" + testMatch);
         
         // 🚨 实时生成哈希并测试 - 最直接的验证方式
         String freshHash = passwordEncoder.encode("admin123");
         boolean freshMatch = passwordEncoder.matches("admin123", freshHash);
-        System.out.println("【登录调试】新生成的admin123哈希：" + freshHash);
-        System.out.println("【登录调试】新哈希验证结果：" + freshMatch);
+//        // System.out.println("【登录调试】新生成的admin123哈希：" + freshHash);
+//        // System.out.println("【登录调试】新哈希验证结果：" + freshMatch);
         
         // 🚨 测试简单密码
         boolean simpleTest = passwordEncoder.matches("test", "$2a$10$EixZaYVK1fsbw1ZfbX3OXePaWxn96p36WQoeG6Lruj3vjPGga31lW");
-        System.out.println("【登录调试】测试简单密码'test'：" + simpleTest);
+//        // System.out.println("【登录调试】测试简单密码'test'：" + simpleTest);
 
         if (!passwordMatch) {
             return new LoginResponse(false, "密码错误");
@@ -248,9 +236,9 @@ public class UserService {
      * @return 是否有效
      */
     public boolean validateToken(String token) {
-        System.out.println("【JWT调试】开始校验token: " + token);
+        // System.out.println("【JWT调试】开始校验token: " + token);
         boolean valid = jwtUtil.validateToken(token);
-        System.out.println("【JWT调试】token校验结果: " + valid);
+        // System.out.println("【JWT调试】token校验结果: " + valid);
         return valid;
     }
     
