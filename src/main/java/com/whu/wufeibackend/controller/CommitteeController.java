@@ -118,12 +118,4 @@ public class CommitteeController {
             return ApiResponse.error("居委会登录失败：" + e.getMessage());
         }
     }
-    
-    
-    // - 发布社区公告
-    // - 管理社区活动
-    // - 查看居民信息
-    // - 处理居民反馈
-    // - 修改居委会信息
-    // - 等等...
 } 

@@ -181,4 +181,27 @@
         DELETE FROM activities WHERE id = #{id}
     </delete>
 
+    <resultMap id="MakeSureUserResultMap" type="com.whu.wufeibackend.DTO.MakeSureUser">
+        <id property="id" column="id"/>
+        <result property="nickname" column="nickname"/>
+    </resultMap>
+
+    <select id="makeSureActivity" resultMap="MakeSureUserResultMap">
+        select u.id, u.nickname
+        from activity_participants as ap
+                 join users as u on ap.user_id = u.id
+        where ap.activity_id = #{activityId}
+    </select>
+
+    <update id="confirmAttendance">
+        UPDATE activity_participants
+        SET attended = TRUE
+        WHERE user_id IN
+        <foreach item="userId" collection="userIds" open="(" separator="," close=")">
+            #{userId}
+        </foreach>
+        AND activity_id = #{activityId}
+        AND attended = FALSE <!-- 确保只更新未确认的记录 -->
+    </update>
+
 </mapper> 

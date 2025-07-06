@@ -3,6 +3,7 @@ package com.whu.wufeibackend.service;
 import com.whu.wufeibackend.DTO.ActivityListResponse;
 import com.whu.wufeibackend.DTO.CreateActivityRequest;
 import com.whu.wufeibackend.DTO.CreateActivityResponse;
+import com.whu.wufeibackend.DTO.MakeSureUser;
 import com.whu.wufeibackend.entity.Activity;
 import com.whu.wufeibackend.mapper.ActivityMapper;
 import org.slf4j.Logger;
@@ -180,7 +181,7 @@ public class ActivityService {
     private List<ActivityListResponse> getMockOpenActivities() {
         logger.info("使用模拟数据生成开放报名活动列表");
         List<ActivityListResponse> activities = new ArrayList<>();
-        
+
         ActivityListResponse activity1 = new ActivityListResponse();
         activity1.setActivityId(1);
         activity1.setTitle("社区清洁日");
@@ -198,7 +199,7 @@ public class ActivityService {
         ));
         activity1.setParticipantCount(26);
         activity1.setMaxParticipants(50);
-        
+
         activities.add(activity1);
         logger.debug("生成模拟开放报名活动数量: {}", activities.size());
         return activities;
@@ -207,7 +208,7 @@ public class ActivityService {
     private List<ActivityListResponse> getMockInProgressActivities() {
         logger.info("使用模拟数据生成进行中活动列表");
         List<ActivityListResponse> activities = new ArrayList<>();
-        
+
         ActivityListResponse activity1 = new ActivityListResponse();
         activity1.setActivityId(2);
         activity1.setTitle("绿色出行倡议");
@@ -224,7 +225,7 @@ public class ActivityService {
         ));
         activity1.setParticipantCount(18);
         activity1.setMaxParticipants(30);
-        
+
         activities.add(activity1);
         logger.debug("生成模拟进行中活动数量: {}", activities.size());
         return activities;
@@ -233,7 +234,7 @@ public class ActivityService {
     private List<ActivityListResponse> getMockFinishedActivities() {
         logger.info("使用模拟数据生成已结束活动列表");
         List<ActivityListResponse> activities = new ArrayList<>();
-        
+
         ActivityListResponse activity1 = new ActivityListResponse();
         activity1.setActivityId(3);
         activity1.setTitle("垃圾分类知识竞赛");
@@ -251,7 +252,7 @@ public class ActivityService {
         ));
         activity1.setParticipantCount(45);
         activity1.setMaxParticipants(50);
-        
+
         activities.add(activity1);
         logger.debug("生成模拟已结束活动数量: {}", activities.size());
         return activities;
@@ -521,5 +522,14 @@ public class ActivityService {
             logger.error("删除活动ID: {} 时发生异常: {}", id, e.getMessage(), e);
             return false;
         }
+    }
+
+    public List<MakeSureUser> makeSureActivity(Integer activityId){
+        return activityMapper.makeSureActivity(activityId);
+    }
+
+    public int confirmAttendance(Integer activityId, List<Integer> userIds) {
+        // 批量更新参与状态
+        return activityMapper.confirmAttendance(activityId, userIds);
     }
 } 

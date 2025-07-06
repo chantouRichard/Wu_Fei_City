@@ -49,4 +49,14 @@ public interface UserActivityMapper {
      * @return 用户头像URL列表（最多3个）
      */
     List<String> getRecentParticipantAvatars(@Param("activityId") Integer activityId);
+
+    /**
+     * 参与活动
+     */
+    int joinActivity(@Param("activityId") Integer activityId, @Param("userId") Integer userId);
+
+    /**
+     * 退出活动
+     */
+    int cancelActivity(@Param("activityId") Integer activityId, @Param("userId") Integer userId);
 } 

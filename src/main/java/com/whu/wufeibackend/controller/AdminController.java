@@ -76,42 +76,80 @@ public class AdminController {
      */
     @GetMapping("/pending-users")
     public ApiResponse<List<User>> getPendingUsers(@RequestHeader("Authorization") String token) {
-        logger.info("【获取待审批列表】收到请求");
-        logger.debug("【获取待审批列表】收到前端token: {}", token);
-        
         // 自动去掉Bearer前缀
         if (token != null && token.startsWith("Bearer ")) {
             token = token.substring(7);
-            logger.debug("【获取待审批列表】去前缀后token: {}", token);
         }
         
         try {
             // 验证JWT令牌
-            logger.info("【获取待审批列表】开始验证JWT令牌");
             if (!userService.validateToken(token)) {
-                logger.warn("【获取待审批列表】JWT令牌验证失败");
                 return ApiResponse.error(401, "无效的令牌");
             }
             
             // 验证是否为管理员
-            logger.info("【获取待审批列表】开始验证管理员权限");
             String userType = userService.getUserTypeFromToken(token);
-            logger.debug("【获取待审批列表】从token中获取的用户类型: {}", userType);
-            
+
             if (!"admin".equals(userType)) {
-                logger.warn("【获取待审批列表】非管理员尝试访问 - 用户类型: {}", userType);
                 return ApiResponse.error(403, "权限不足");
             }
             
-            logger.info("【获取待审批列表】开始查询待审批用户");
             List<User> pendingUsers = userService.getPendingCommitteeUsers();
-            logger.info("【获取待审批列表】查询成功 - 待审批用户数量: {}", pendingUsers.size());
-            logger.debug("【获取待审批列表】待审批用户详情: {}", pendingUsers.toString());
             
             return ApiResponse.success("获取待审批用户列表成功", pendingUsers);
         } catch (Exception e) {
             logger.error("【获取待审批列表】操作异常 - 错误: {}", e.getMessage(), e);
             return ApiResponse.error("获取待审批用户列表失败：" + e.getMessage());
+        }
+    }
+
+    @GetMapping("/approved-users")
+    public ApiResponse<List<User>> getApprovedUsers(@RequestHeader("Authorization") String token) {
+        if(token != null && token.startsWith("Bearer ")){
+            token = token.substring(7);
+
+            try {
+                if(!userService.validateToken(token)){
+                    return ApiResponse.error(401, "无效的令牌");
+                }
+
+                String userType = userService.getUserTypeFromToken(token);
+                if("admin".equals(userType)){
+                    List<User> approvedUsers = userService.getApprovedCommitteeUsers();
+                    return ApiResponse.success("获取已审批用户列表成功", approvedUsers);
+                }
+                return ApiResponse.error(403, "权限不足");
+            } catch (Exception e){
+                logger.error("【获取已审批列表】操作异常 - 错误: {}", e.getMessage(), e);
+                return ApiResponse.error("获取已审批用户列表失败：" + e.getMessage());
+            }
+        } else {
+            return ApiResponse.error(400, "请提供有效的令牌");
+        }
+    }
+
+    @GetMapping("/refused-users")
+    public ApiResponse<List<User>> getRefusedUsers(@RequestHeader("Authorization") String token) {
+        if(token != null && token.startsWith("Bearer ")){
+            token = token.substring(7);
+
+            try {
+                if(!userService.validateToken(token)){
+                    return ApiResponse.error(401, "无效的令牌");
+                }
+
+                String userType = userService.getUserTypeFromToken(token);
+                if("admin".equals(userType)){
+                    List<User> approvedUsers = userService.getRefusedCommitteeUsers();
+                    return ApiResponse.success("获取已审批用户列表成功", approvedUsers);
+                }
+                return ApiResponse.error(403, "权限不足");
+            } catch (Exception e){
+                logger.error("【获取已审批列表】操作异常 - 错误: {}", e.getMessage(), e);
+                return ApiResponse.error("获取已审批用户列表失败：" + e.getMessage());
+            }
+        } else {
+            return ApiResponse.error(400, "请提供有效的令牌");
         }
     }
     
@@ -122,7 +160,7 @@ public class AdminController {
      * @param payload 审批请求
      * @return 审批结果
      */
-    @PostMapping("/approve")
+    @PutMapping("/approve")
     public ApiResponse<?> approveUser(@RequestHeader("Authorization") String token, @RequestBody Map<String, Object> payload) {
         logger.info("【用户审批】收到审批请求");
         logger.debug("【用户审批】收到前端token: {}", token);

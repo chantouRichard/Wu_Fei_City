@@ -1,5 +1,6 @@
 package com.whu.wufeibackend.mapper;
 
+import com.whu.wufeibackend.DTO.MakeSureUser;
 import com.whu.wufeibackend.entity.Activity;
 import com.whu.wufeibackend.DTO.ActivityListResponse;
 import org.apache.ibatis.annotations.Mapper;
@@ -94,4 +95,9 @@ public interface ActivityMapper {
      * @return 影响行数
      */
     int deleteById(@Param("id") Integer id);
+
+    List<MakeSureUser> makeSureActivity(@Param("activityId") Integer activityId);
+
+    int confirmAttendance(@Param("activityId") Integer activityId,
+                          @Param("userIds") List<Integer> userIds);
 } 

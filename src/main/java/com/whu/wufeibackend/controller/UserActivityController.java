@@ -166,4 +166,15 @@ public class UserActivityController {
             return ApiResponse.error("获取历史参与活动列表失败: " + e.getMessage());
         }
     }
+
+    @PostMapping("/{userId}/activities")
+    @Operation(summary = "用户报名参加活动", description = "用户报名")
+    public ApiResponse<?> joinActivity(@PathVariable Integer userId, @RequestBody Integer activityId){
+        return ApiResponse.success("参加成功" ,userActivityService.joinActivity(activityId, userId));
+    }
+
+    @DeleteMapping("/{userId}/activities")
+    public ApiResponse<?> cancelActivity(@PathVariable Integer userId, @RequestBody Integer activityId){
+        return ApiResponse.success("取消成功" ,userActivityService.cancelActivity(activityId, userId));
+    }
 } 

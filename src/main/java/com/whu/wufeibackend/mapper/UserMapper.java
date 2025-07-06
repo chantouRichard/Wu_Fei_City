@@ -52,6 +52,10 @@ public interface UserMapper {
      * @return 待审批用户列表
      */
     List<User> findPendingCommitteeUsers();
+
+    List<User> getApprovedCommitteeUsers();
+
+    List<User> getRefusedCommitteeUsers();
     
     /**
      * 根据用户ID查询用户

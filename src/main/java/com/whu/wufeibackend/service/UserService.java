@@ -221,6 +221,14 @@ public class UserService {
     public List<User> getPendingCommitteeUsers() {
         return userMapper.findPendingCommitteeUsers();
     }
+
+    public List<User> getApprovedCommitteeUsers() {
+        return userMapper.getApprovedCommitteeUsers();
+    }
+
+    public List<User> getRefusedCommitteeUsers() {
+        return userMapper.getRefusedCommitteeUsers();
+    }
     
     /**
      * 审批居委会用户

@@ -79,6 +79,15 @@
         ORDER BY created_at DESC
     </select>
 
+    <select id="getApprovedCommitteeUsers" resultMap="UserResultMap">
+        select <include refid="Base_Column_List"/> from users where user_type = 'committee' and approved = 1 order by created_at desc
+    </select>
+
+    <select id="getRefusedCommitteeUsers" resultMap="UserResultMap">
+        select <include refid="Base_Column_List"/> from users where user_type = 'committee' and approved = 0 and pending = 0 order by created_at desc
+    </select>
+
+
     <!-- 根据用户ID查询用户 -->
     <select id="findById" parameterType="integer" resultMap="UserResultMap">
         SELECT 
@@ -86,6 +95,7 @@
         FROM users 
         WHERE id = #{id}
     </select>
+
 
     <!-- 检查用户名是否存在 -->
     <select id="countByUsername" parameterType="string" resultType="int">

@@ -174,6 +174,14 @@ public class UserActivityService {
         }
     }
 
+    public int joinActivity(Integer activityId, Integer userId) {
+       return userActivityMapper.joinActivity(activityId, userId);
+    }
+
+    public int cancelActivity(Integer activityId, Integer userId){
+        return userActivityMapper.cancelActivity(activityId, userId);
+    }
+
     // 模拟数据方法
     private List<ActivityListResponse> getMockJoinedActivities(Integer userId) {
         logger.info("使用模拟数据生成用户ID: {} 的已报名活动列表", userId);

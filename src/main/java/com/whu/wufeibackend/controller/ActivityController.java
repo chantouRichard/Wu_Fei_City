@@ -1,13 +1,11 @@
 package com.whu.wufeibackend.controller;
 
-import com.whu.wufeibackend.DTO.ActivityListResponse;
-import com.whu.wufeibackend.DTO.ApiResponse;
-import com.whu.wufeibackend.DTO.CreateActivityRequest;
-import com.whu.wufeibackend.DTO.CreateActivityResponse;
+import com.whu.wufeibackend.DTO.*;
 import com.whu.wufeibackend.service.ActivityService;
 import com.whu.wufeibackend.service.TimeService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import io.swagger.v3.oas.models.security.SecurityScheme;
 import jakarta.validation.Valid;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -320,4 +318,25 @@ public class ActivityController {
                 .body(ApiResponse.error(500, "服务器内部错误: " + e.getMessage()));
         }
     }
-} 
+
+    @GetMapping("/{activityId}/participants")
+    public ResponseEntity<?> getActivityParticipants(
+            @PathVariable Integer activityId) {
+
+        try {
+            List<MakeSureUser> participants = activityService.makeSureActivity(activityId);
+            if (participants == null || participants.isEmpty()) {
+                return ResponseEntity.noContent().build();
+            }
+            return ResponseEntity.ok(participants);
+        } catch (Exception e) {
+            return ResponseEntity.internalServerError().build();
+        }
+    }
+
+    @PutMapping("/{activityId}/confirmAttendance")
+    @Operation(summary = "确认活动", description = "居委会确认活动")
+    public ResponseEntity<ApiResponse<Integer>> confirmUserAttendance(@PathVariable Integer activityId, @RequestBody List<Integer> userIds){
+        return ResponseEntity.ok(ApiResponse.success(activityService.confirmAttendance(activityId, userIds)));
+    }
+}

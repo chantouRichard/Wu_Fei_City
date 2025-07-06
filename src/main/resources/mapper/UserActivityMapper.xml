@@ -109,4 +109,11 @@
         LIMIT 3
     </select>
 
+    <insert id="joinActivity">
+        INSERT INTO activity_participants (activity_id, user_id) VALUES (#{activityId}, #{userId})
+    </insert>
+
+    <delete id="cancelActivity">
+        DELETE FROM activity_participants WHERE activity_id = #{activityId} AND user_id = #{userId}
+    </delete>
 </mapper> 
