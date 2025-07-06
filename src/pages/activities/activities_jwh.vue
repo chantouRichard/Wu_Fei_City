@@ -76,7 +76,7 @@
 							</view>
 							<text class="join-num">{{ item.joined }}/{{ item.maxParticipants }}人</text>
 						</view>
-						<view class="finish-button">
+						<view @click="confirm(item.activityId)" class="finish-button">
 							确认参与人员
 						</view>
 					</view>
@@ -118,14 +118,26 @@
 			<image class="fab-icon" src="/static/activity/btn.png" mode="aspectFit" />
 		</view>
 	</view>
+	<view v-if="ShowConfirmPanel" style="width: 100%;height: 100%;position: relative;">
+		<confirmPanel :activityId="ConfirmId" @close="ShowConfirmPanel = false"/>
+	</view>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue'
 import { useUserStore } from '../../stores/user'
+import confirmPanel from '../../components/confirmPanelTest.vue';
 const userStore = useUserStore();
 
+// 确认活动参与人员
+const ShowConfirmPanel = ref(false)
+const ConfirmId = ref(0)
+const confirm = async(id) => {
+	console.log("确认活动参与人员，id: ",ShowConfirmPanel.value);
 
+	ConfirmId.value = id
+	ShowConfirmPanel.value = true
+}
 
 const currentTab = ref(0)
 const switchTab = (idx) => {
@@ -543,7 +555,7 @@ getList();
 	position: fixed;
 	right: 24px;
 	bottom: 48px;
-	z-index: 9999;
+	z-index: 1000;
 	display: flex;
 	flex-direction: column;
 	align-items: flex-end;

@@ -42,6 +42,10 @@
 						</view>
 					</view>
 				</view>
+				<view v-if="availableActivities.length == 0" style="display: flex;flex-direction: column;justify-content: center;">
+					<img src="../../static/activity/none.png" style="margin: auto;"/>
+					<view style="margin: auto;">暂无活动</view>
+				</view>
 			</view>
 			<!-- 已报名活动 -->
 			<view v-if="currentTab === 1" class="activity-list">
@@ -69,6 +73,10 @@
 						</view>
 					</view>
 				</view>
+				<view v-if="registeredActivities.length == 0" style="display: flex;flex-direction: column;justify-content: center;">
+					<img src="../../static/activity/none.png" style="margin: auto;"/>
+					<view style="margin: auto;">暂无活动</view>
+				</view>
 			</view>
 			<!-- 已完成活动 -->
 			<view v-if="currentTab === 2" class="activity-list">
@@ -93,6 +101,10 @@
 						</view>
 					</view> -->
 				</view>
+				<view v-if="historyActivities.length == 0" style="display: flex;flex-direction: column;justify-content: center;">
+					<img src="../../static/activity/none.png" style="margin: auto;"/>
+					<view style="margin: auto;">暂无活动</view>
+				</view>
 			</view>
 		</view>
 	</view>
@@ -103,7 +115,8 @@ import { ref } from 'vue'
 
 const currentTab = ref(0)
 const switchTab = (idx) => {
-	currentTab.value = idx
+	currentTab.value = idx;
+	getList();
 }
 
 const availableActivities = ref([
@@ -199,6 +212,47 @@ const historyActivities = ref([
 	}
 ])
 
+import { useUserStore } from '../../stores/user';
+const userStore = useUserStore();
+async function getList() {
+	uni.request({
+        url: `http://localhost:8080/api/user/${userStore.userInfo.userId}/activities/available`,
+        method: "GET",
+        success(res) {
+          console.log("获取列表成功！", res.data);
+          
+		  availableActivities.value = res.data.data;
+        },
+        fail(err) {
+          console.error("失败！", err);
+        },
+      });
+	uni.request({
+        url: `http://localhost:8080/api/user/${userStore.userInfo.userId}/activities/joined`,
+        method: "GET",
+        success(res) {
+          console.log("获取列表成功！", res.data);
+          
+		  registeredActivities.value = res.data.data;
+        },
+        fail(err) {
+          console.error("失败！", err);
+        },
+      });
+	  uni.request({
+        url: `http://localhost:8080/api/user/${userStore.userInfo.userId}/activities/history`,
+        method: "GET",
+        success(res) {
+          console.log("获取列表成功！", res.data);
+          
+		  historyActivities.value = res.data.data;
+        },
+        fail(err) {
+          console.error("失败！", err);
+        },
+      });
+}
+
 function getBtnText(item, type) {
 	if (type === 'available') {
 		return item.joined >= item.limit ? '人数已满' : '去报名';
@@ -217,6 +271,8 @@ function getBtnClass(item, type) {
 		return 'btn-disabled';
 	}
 }
+
+getList();
 </script>
 
 <style scoped>

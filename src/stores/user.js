@@ -20,6 +20,7 @@ export const useUserStore = defineStore("user", () => {
     activity_participantion_num: 3,
     // 用户类型：normal(普通用户), committee(居委会), admin(管理员)
     user_type: "normal",
+    token:"",
   });
 
   const rank = ref([]);
@@ -103,6 +104,7 @@ export const useUserStore = defineStore("user", () => {
           userInfo.history = res.data.data.history;
           userInfo.user_type = res.data.data.userType;
           rank.value = res.data.data.rank;
+          userInfo.token = res.data.data.token || "";
 
           console.log("用户信息：", userInfo);
 
