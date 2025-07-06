@@ -36,8 +36,8 @@ public class LoginController {
      */
     @PostMapping("/api/login")
     public ApiResponse<LoginResponse> login(@Valid @RequestBody SimpleLoginRequest request) {
-        logger.info("【登录请求】收到登录请求 - 用户名: {}", request.getUsername());
-        logger.debug("【登录请求】请求详情: {}", request.toString());
+        // logger.info("【登录请求】收到登录请求 - 用户名: {}", request.getUsername());
+        // // logger.debug("【登录请求】请求详情: {}", request.toString());
         
         try {
             // 执行登录逻辑
@@ -52,12 +52,12 @@ public class LoginController {
             }
             
         } catch (Exception e) {
-            logger.error("【登录异常】用户登录过程中发生异常 - 用户名: {}, 错误: {}", 
-                        request.getUsername(), e.getMessage(), e);
+            // logger.error("【登录异常】用户登录过程中发生异常 - 用户名: {}, 错误: {}", 
+//                        request.getUsername(), e.getMessage(), e);
             
             // 返回系统错误响应
             ApiResponse<LoginResponse> errorResponse = ApiResponse.error("系统异常：" + e.getMessage());
-            logger.warn("【登录响应】返回异常响应 - 消息: {}", errorResponse.getMessage());
+            // logger.warn("【登录响应】返回异常响应 - 消息: {}", errorResponse.getMessage());
             
             return errorResponse;
         }

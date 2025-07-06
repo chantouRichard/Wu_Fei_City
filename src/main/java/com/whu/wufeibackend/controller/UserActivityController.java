@@ -51,31 +51,31 @@ public class UserActivityController {
     @GetMapping("/{userId}/activities/joined")
     @Operation(summary = "获取用户已报名的活动", description = "获取用户已报名但尚未参与的活动列表")
     public ApiResponse<List<ActivityListResponse>> getJoinedActivities(@PathVariable Integer userId) {
-        logger.info("=== 开始处理获取用户{}已报名活动列表请求 ===", userId);
+        // logger.info("=== 开始处理获取用户{}已报名活动列表请求 ===", userId);
         long startTime = System.currentTimeMillis();
         
         try {
-            logger.debug("调用UserActivityService.getJoinedActivities()方法，用户ID: {}", userId);
+            // // logger.debug("调用UserActivityService.getJoinedActivities()方法，用户ID: {}", userId);
             List<ActivityListResponse> activities = userActivityService.getJoinedActivities(userId);
             
             long endTime = System.currentTimeMillis();
-            logger.info("成功获取用户{}已报名活动列表，数量: {}, 耗时: {}ms", 
-                       userId, 
-                       activities != null ? activities.size() : 0, 
-                       endTime - startTime);
+            // logger.info("成功获取用户{}已报名活动列表，数量: {}, 耗时: {}ms", 
+//                       userId,
+//                       activities != null ? activities.size() : 0,
+//                       endTime - startTime);
             
             if (activities != null && !activities.isEmpty()) {
-                logger.debug("用户{}已报名活动详情: {}", userId, activities);
+                // // logger.debug("用户{}已报名活动详情: {}", userId, activities);
             } else {
-                logger.warn("用户{}当前没有已报名的活动", userId);
+                // logger.warn("用户{}当前没有已报名的活动", userId);
             }
             
             return ApiResponse.success("获取已报名活动列表成功", activities);
             
         } catch (Exception e) {
             long endTime = System.currentTimeMillis();
-            logger.error("获取用户{}已报名活动列表失败，耗时: {}ms，错误信息: {}", 
-                        userId, endTime - startTime, e.getMessage(), e);
+            // logger.error("获取用户{}已报名活动列表失败，耗时: {}ms，错误信息: {}", 
+//                        userId, endTime - startTime, e.getMessage(), e);
             return ApiResponse.error("获取已报名活动列表失败: " + e.getMessage());
         }
     }
@@ -96,31 +96,31 @@ public class UserActivityController {
     @GetMapping("/{userId}/activities/available")
     @Operation(summary = "获取用户可报名的活动", description = "获取用户当前可以报名参与的活动列表")
     public ApiResponse<List<ActivityListResponse>> getAvailableActivities(@PathVariable Integer userId) {
-        logger.info("=== 开始处理获取用户{}可报名活动列表请求 ===", userId);
+        // logger.info("=== 开始处理获取用户{}可报名活动列表请求 ===", userId);
         long startTime = System.currentTimeMillis();
         
         try {
-            logger.debug("调用UserActivityService.getAvailableActivities()方法，用户ID: {}", userId);
+            // // logger.debug("调用UserActivityService.getAvailableActivities()方法，用户ID: {}", userId);
             List<ActivityListResponse> activities = userActivityService.getAvailableActivities(userId);
             
             long endTime = System.currentTimeMillis();
-            logger.info("成功获取用户{}可报名活动列表，数量: {}, 耗时: {}ms", 
-                       userId, 
-                       activities != null ? activities.size() : 0, 
-                       endTime - startTime);
+            // logger.info("成功获取用户{}可报名活动列表，数量: {}, 耗时: {}ms", 
+//                       userId,
+//                       activities != null ? activities.size() : 0,
+//                       endTime - startTime);
             
             if (activities != null && !activities.isEmpty()) {
-                logger.debug("用户{}可报名活动详情: {}", userId, activities);
+                // // logger.debug("用户{}可报名活动详情: {}", userId, activities);
             } else {
-                logger.warn("用户{}当前没有可报名的活动", userId);
+                // logger.warn("用户{}当前没有可报名的活动", userId);
             }
             
             return ApiResponse.success("获取可报名活动列表成功", activities);
             
         } catch (Exception e) {
             long endTime = System.currentTimeMillis();
-            logger.error("获取用户{}可报名活动列表失败，耗时: {}ms，错误信息: {}", 
-                        userId, endTime - startTime, e.getMessage(), e);
+            // logger.error("获取用户{}可报名活动列表失败，耗时: {}ms，错误信息: {}", 
+//                        userId, endTime - startTime, e.getMessage(), e);
             return ApiResponse.error("获取可报名活动列表失败: " + e.getMessage());
         }
     }
@@ -138,31 +138,31 @@ public class UserActivityController {
     @GetMapping("/{userId}/activities/history")
     @Operation(summary = "获取用户历史参与的活动", description = "获取用户已实际参与完成的活动列表")
     public ApiResponse<List<ActivityListResponse>> getHistoryActivities(@PathVariable Integer userId) {
-        logger.info("=== 开始处理获取用户{}历史参与活动列表请求 ===", userId);
+        // logger.info("=== 开始处理获取用户{}历史参与活动列表请求 ===", userId);
         long startTime = System.currentTimeMillis();
         
         try {
-            logger.debug("调用UserActivityService.getHistoryActivities()方法，用户ID: {}", userId);
+            // // logger.debug("调用UserActivityService.getHistoryActivities()方法，用户ID: {}", userId);
             List<ActivityListResponse> activities = userActivityService.getHistoryActivities(userId);
             
             long endTime = System.currentTimeMillis();
-            logger.info("成功获取用户{}历史参与活动列表，数量: {}, 耗时: {}ms", 
-                       userId, 
-                       activities != null ? activities.size() : 0, 
-                       endTime - startTime);
+            // logger.info("成功获取用户{}历史参与活动列表，数量: {}, 耗时: {}ms", 
+//                       userId,
+//                       activities != null ? activities.size() : 0,
+//                       endTime - startTime);
             
             if (activities != null && !activities.isEmpty()) {
-                logger.debug("用户{}历史参与活动详情: {}", userId, activities);
+                // // logger.debug("用户{}历史参与活动详情: {}", userId, activities);
             } else {
-                logger.warn("用户{}当前没有历史参与的活动", userId);
+                // logger.warn("用户{}当前没有历史参与的活动", userId);
             }
             
             return ApiResponse.success("获取历史参与活动列表成功", activities);
             
         } catch (Exception e) {
             long endTime = System.currentTimeMillis();
-            logger.error("获取用户{}历史参与活动列表失败，耗时: {}ms，错误信息: {}", 
-                        userId, endTime - startTime, e.getMessage(), e);
+            // logger.error("获取用户{}历史参与活动列表失败，耗时: {}ms，错误信息: {}", 
+//                        userId, endTime - startTime, e.getMessage(), e);
             return ApiResponse.error("获取历史参与活动列表失败: " + e.getMessage());
         }
     }

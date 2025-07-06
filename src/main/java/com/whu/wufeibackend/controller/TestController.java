@@ -36,10 +36,10 @@ public class TestController {
     @GetMapping("/time")
     @Operation(summary = "获取时间信息", description = "获取当前的时间服务状态和时间信息")
     public ApiResponse<String> getTimeInfo() {
-        logger.info("获取时间信息请求");
+        // logger.info("获取时间信息请求");
         
         String timeInfo = timeService.getTimeInfo();
-        logger.info("时间信息: {}", timeInfo);
+        // logger.info("时间信息: {}", timeInfo);
         
         return ApiResponse.success("获取时间信息成功", timeInfo);
     }
@@ -54,21 +54,21 @@ public class TestController {
     @PostMapping("/time/mock")
     @Operation(summary = "设置模拟时间", description = "在测试模式下设置模拟的当前时间")
     public ApiResponse<String> setMockTime(@RequestParam String mockTime) {
-        logger.info("设置模拟时间请求: {}", mockTime);
+        // logger.info("设置模拟时间请求: {}", mockTime);
         
         if (!timeService.isTestMode()) {
-            logger.warn("非测试模式，无法设置模拟时间");
+            // logger.warn("非测试模式，无法设置模拟时间");
             return ApiResponse.error("非测试模式，无法设置模拟时间");
         }
         
         try {
             timeService.setMockTime(mockTime);
             String newTimeInfo = timeService.getTimeInfo();
-            logger.info("模拟时间设置成功: {}", newTimeInfo);
+            // logger.info("模拟时间设置成功: {}", newTimeInfo);
             
             return ApiResponse.success("模拟时间设置成功", newTimeInfo);
         } catch (Exception e) {
-            logger.error("设置模拟时间失败: {}", e.getMessage());
+            // logger.error("设置模拟时间失败: {}", e.getMessage());
             return ApiResponse.error("设置模拟时间失败: " + e.getMessage());
         }
     }
@@ -82,16 +82,16 @@ public class TestController {
     @DeleteMapping("/time/mock")
     @Operation(summary = "重置为真实时间", description = "重置时间服务，使用真实的系统时间")
     public ApiResponse<String> resetToRealTime() {
-        logger.info("重置为真实时间请求");
+        // logger.info("重置为真实时间请求");
         
         if (!timeService.isTestMode()) {
-            logger.warn("非测试模式，无需重置");
+            // logger.warn("非测试模式，无需重置");
             return ApiResponse.error("非测试模式，无需重置");
         }
         
         timeService.resetToRealTime();
         String timeInfo = timeService.getTimeInfo();
-        logger.info("已重置为真实时间: {}", timeInfo);
+        // logger.info("已重置为真实时间: {}", timeInfo);
         
         return ApiResponse.success("已重置为真实时间", timeInfo);
     }
@@ -106,7 +106,7 @@ public class TestController {
     @PostMapping("/time/preset")
     @Operation(summary = "快速设置预设时间", description = "使用预定义的时间点进行测试")
     public ApiResponse<String> setPresetTime(@RequestParam String preset) {
-        logger.info("设置预设时间请求: {}", preset);
+        // logger.info("设置预设时间请求: {}", preset);
         
         if (!timeService.isTestMode()) {
             return ApiResponse.error("非测试模式，无法设置模拟时间");
@@ -130,11 +130,11 @@ public class TestController {
         try {
             timeService.setMockTime(mockTime);
             String timeInfo = timeService.getTimeInfo();
-            logger.info("预设时间设置成功: {} -> {}", preset, timeInfo);
+            // logger.info("预设时间设置成功: {} -> {}", preset, timeInfo);
             
             return ApiResponse.success("预设时间设置成功", timeInfo);
         } catch (Exception e) {
-            logger.error("设置预设时间失败: {}", e.getMessage());
+            // logger.error("设置预设时间失败: {}", e.getMessage());
             return ApiResponse.error("设置预设时间失败: " + e.getMessage());
         }
     }

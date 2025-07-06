@@ -44,40 +44,40 @@ public class UserActivityService {
      * @return 用户已报名的活动列表
      */
     public List<ActivityListResponse> getJoinedActivities(Integer userId) {
-        logger.info("开始获取用户ID: {} 的已报名活动列表", userId);
+        // logger.info("开始获取用户ID: {} 的已报名活动列表", userId);
         
         try {
             if (userActivityMapper != null) {
-                logger.debug("数据库连接正常，开始执行数据库查询");
+                // // logger.debug("数据库连接正常，开始执行数据库查询");
                 List<ActivityListResponse> activities = userActivityMapper.getJoinedActivities(userId);
-                logger.info("从数据库获取到用户ID: {} 的已报名活动数量: {}", userId, activities != null ? activities.size() : 0);
+                // logger.info("从数据库获取到用户ID: {} 的已报名活动数量: {}", userId, activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
                 if (activities != null) {
                     for (ActivityListResponse activity : activities) {
-                        logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
+                        // // logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
                         try {
                             List<String> avatars = userActivityMapper.getRecentParticipantAvatars(activity.getActivityId());
                             activity.setAvatars(avatars);
                             activity.setStatus("joined"); // 设置状态为joined
-                            logger.debug("活动ID: {} 获取到头像数量: {}", 
-                                       activity.getActivityId(), 
-                                       avatars != null ? avatars.size() : 0);
+                            // // logger.debug("活动ID: {} 获取到头像数量: {}", 
+//                                       activity.getActivityId(),
+//                                       avatars != null ? avatars.size() : 0);
                         } catch (Exception e) {
-                            logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
+                            // logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
                             activity.setAvatars(new ArrayList<>());
                         }
                     }
                 }
                 
-                logger.info("成功完成用户ID: {} 的已报名活动列表查询和处理", userId);
+                // logger.info("成功完成用户ID: {} 的已报名活动列表查询和处理", userId);
                 return activities;
             } else {
-                logger.warn("数据库连接为空，切换到模拟数据模式");
+                // logger.warn("数据库连接为空，切换到模拟数据模式");
                 return getMockJoinedActivities(userId);
             }
         } catch (Exception e) {
-            logger.error("获取用户ID: {} 的已报名活动列表时发生异常: {}, 切换到模拟数据模式", userId, e.getMessage(), e);
+            // logger.error("获取用户ID: {} 的已报名活动列表时发生异常: {}, 切换到模拟数据模式", userId, e.getMessage(), e);
             return getMockJoinedActivities(userId);
         }
     }
@@ -90,40 +90,40 @@ public class UserActivityService {
      * @return 用户可报名的活动列表
      */
     public List<ActivityListResponse> getAvailableActivities(Integer userId) {
-        logger.info("开始获取用户ID: {} 的可报名活动列表", userId);
+        // logger.info("开始获取用户ID: {} 的可报名活动列表", userId);
         
         try {
             if (userActivityMapper != null) {
-                logger.debug("数据库连接正常，开始执行数据库查询");
+                // // logger.debug("数据库连接正常，开始执行数据库查询");
                 List<ActivityListResponse> activities = userActivityMapper.getAvailableActivities(userId);
-                logger.info("从数据库获取到用户ID: {} 的可报名活动数量: {}", userId, activities != null ? activities.size() : 0);
+                // logger.info("从数据库获取到用户ID: {} 的可报名活动数量: {}", userId, activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
                 if (activities != null) {
                     for (ActivityListResponse activity : activities) {
-                        logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
+                        // // logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
                         try {
                             List<String> avatars = userActivityMapper.getRecentParticipantAvatars(activity.getActivityId());
                             activity.setAvatars(avatars);
                             activity.setStatus("available"); // 设置状态为available
-                            logger.debug("活动ID: {} 获取到头像数量: {}", 
-                                       activity.getActivityId(), 
-                                       avatars != null ? avatars.size() : 0);
+                            // // logger.debug("活动ID: {} 获取到头像数量: {}", 
+//                                       activity.getActivityId(),
+//                                       avatars != null ? avatars.size() : 0);
                         } catch (Exception e) {
-                            logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
+                            // logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
                             activity.setAvatars(new ArrayList<>());
                         }
                     }
                 }
                 
-                logger.info("成功完成用户ID: {} 的可报名活动列表查询和处理", userId);
+                // logger.info("成功完成用户ID: {} 的可报名活动列表查询和处理", userId);
                 return activities;
             } else {
-                logger.warn("数据库连接为空，切换到模拟数据模式");
+                // logger.warn("数据库连接为空，切换到模拟数据模式");
                 return getMockAvailableActivities(userId);
             }
         } catch (Exception e) {
-            logger.error("获取用户ID: {} 的可报名活动列表时发生异常: {}, 切换到模拟数据模式", userId, e.getMessage(), e);
+            // logger.error("获取用户ID: {} 的可报名活动列表时发生异常: {}, 切换到模拟数据模式", userId, e.getMessage(), e);
             return getMockAvailableActivities(userId);
         }
     }
@@ -136,40 +136,40 @@ public class UserActivityService {
      * @return 用户历史参与过的活动列表
      */
     public List<ActivityListResponse> getHistoryActivities(Integer userId) {
-        logger.info("开始获取用户ID: {} 的历史参与活动列表", userId);
+        // logger.info("开始获取用户ID: {} 的历史参与活动列表", userId);
         
         try {
             if (userActivityMapper != null) {
-                logger.debug("数据库连接正常，开始执行数据库查询");
+                // // logger.debug("数据库连接正常，开始执行数据库查询");
                 List<ActivityListResponse> activities = userActivityMapper.getHistoryActivities(userId);
-                logger.info("从数据库获取到用户ID: {} 的历史参与活动数量: {}", userId, activities != null ? activities.size() : 0);
+                // logger.info("从数据库获取到用户ID: {} 的历史参与活动数量: {}", userId, activities != null ? activities.size() : 0);
                 
                 // 为每个活动添加最近参与者头像
                 if (activities != null) {
                     for (ActivityListResponse activity : activities) {
-                        logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
+                        // // logger.debug("为活动ID: {} 获取参与者头像", activity.getActivityId());
                         try {
                             List<String> avatars = userActivityMapper.getRecentParticipantAvatars(activity.getActivityId());
                             activity.setAvatars(avatars);
                             activity.setStatus("history"); // 设置状态为history
-                            logger.debug("活动ID: {} 获取到头像数量: {}", 
-                                       activity.getActivityId(), 
-                                       avatars != null ? avatars.size() : 0);
+                            // // logger.debug("活动ID: {} 获取到头像数量: {}", 
+//                                       activity.getActivityId(),
+//                                       avatars != null ? avatars.size() : 0);
                         } catch (Exception e) {
-                            logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
+                            // logger.warn("获取活动ID: {} 的参与者头像失败: {}", activity.getActivityId(), e.getMessage());
                             activity.setAvatars(new ArrayList<>());
                         }
                     }
                 }
                 
-                logger.info("成功完成用户ID: {} 的历史参与活动列表查询和处理", userId);
+                // logger.info("成功完成用户ID: {} 的历史参与活动列表查询和处理", userId);
                 return activities;
             } else {
-                logger.warn("数据库连接为空，切换到模拟数据模式");
+                // logger.warn("数据库连接为空，切换到模拟数据模式");
                 return getMockHistoryActivities(userId);
             }
         } catch (Exception e) {
-            logger.error("获取用户ID: {} 的历史参与活动列表时发生异常: {}, 切换到模拟数据模式", userId, e.getMessage(), e);
+            // logger.error("获取用户ID: {} 的历史参与活动列表时发生异常: {}, 切换到模拟数据模式", userId, e.getMessage(), e);
             return getMockHistoryActivities(userId);
         }
     }
@@ -184,7 +184,7 @@ public class UserActivityService {
 
     // 模拟数据方法
     private List<ActivityListResponse> getMockJoinedActivities(Integer userId) {
-        logger.info("使用模拟数据生成用户ID: {} 的已报名活动列表", userId);
+        // logger.info("使用模拟数据生成用户ID: {} 的已报名活动列表", userId);
         List<ActivityListResponse> activities = new ArrayList<>();
         
         ActivityListResponse activity1 = new ActivityListResponse();
@@ -205,12 +205,12 @@ public class UserActivityService {
         activity1.setMaxParticipants(30);
         
         activities.add(activity1);
-        logger.debug("生成模拟已报名活动数量: {}", activities.size());
+        // // logger.debug("生成模拟已报名活动数量: {}", activities.size());
         return activities;
     }
 
     private List<ActivityListResponse> getMockAvailableActivities(Integer userId) {
-        logger.info("使用模拟数据生成用户ID: {} 的可报名活动列表", userId);
+        // logger.info("使用模拟数据生成用户ID: {} 的可报名活动列表", userId);
         List<ActivityListResponse> activities = new ArrayList<>();
         
         ActivityListResponse activity1 = new ActivityListResponse();
@@ -230,12 +230,12 @@ public class UserActivityService {
         activity1.setMaxParticipants(20);
         
         activities.add(activity1);
-        logger.debug("生成模拟可报名活动数量: {}", activities.size());
+        // // logger.debug("生成模拟可报名活动数量: {}", activities.size());
         return activities;
     }
 
     private List<ActivityListResponse> getMockHistoryActivities(Integer userId) {
-        logger.info("使用模拟数据生成用户ID: {} 的历史参与活动列表", userId);
+        // logger.info("使用模拟数据生成用户ID: {} 的历史参与活动列表", userId);
         List<ActivityListResponse> activities = new ArrayList<>();
         
         ActivityListResponse activity1 = new ActivityListResponse();
@@ -256,7 +256,7 @@ public class UserActivityService {
         activity1.setMaxParticipants(30);
         
         activities.add(activity1);
-        logger.debug("生成模拟历史参与活动数量: {}", activities.size());
+        // // logger.debug("生成模拟历史参与活动数量: {}", activities.size());
         return activities;
     }
 } 
